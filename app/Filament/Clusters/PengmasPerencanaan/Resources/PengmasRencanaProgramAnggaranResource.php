@@ -48,13 +48,14 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->preload(),
                 TextInput::make('nama_program')
                     ->required()
-                    ->maxLength(255),
-                Select::make('jenis_program')
-                    ->options([
-                        'ppo' => 'PPO Cash Recovery',
-                        'cd' => 'CD Non Cosh REcovery',
-                    ])
-                    ->required(),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                // Select::make('jenis_program')
+                //     ->options([
+                //         'ppo' => 'PPO Cash Recovery',
+                //         'cd' => 'CD Non Cosh REcovery',
+                //     ])
+                //     ->required(),
                 TextInput::make('pengajuan_anggaran')
                     ->required()
                     ->numeric()
@@ -107,9 +108,9 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 TextColumn::make('nama_program')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('jenis_program')
-                    ->sortable()
-                    ->searchable(),
+                // TextColumn::make('jenis_program')
+                //     ->sortable()
+                //     ->searchable(),
                 TextColumn::make('output')
                     ->formatStateUsing(fn($record) => "{$record->output} {$record->output_unit}")
                     ->sortable(),

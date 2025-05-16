@@ -109,4 +109,9 @@ class MonevKompumedResource extends Resource
             // 'edit' => Pages\EditMonevKompumed::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 }

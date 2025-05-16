@@ -106,4 +106,9 @@ class MonevPengmasResource extends Resource
             // 'edit' => Pages\EditMonevPengmas::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 }

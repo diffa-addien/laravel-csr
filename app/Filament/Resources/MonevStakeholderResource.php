@@ -104,4 +104,9 @@ class MonevStakeholderResource extends Resource
             // 'edit' => Pages\EditMonevStakeholder::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 }
