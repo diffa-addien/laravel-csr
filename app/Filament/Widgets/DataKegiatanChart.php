@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 class DataKegiatanChart extends ChartWidget
 {
-    protected static ?string $heading = 'Program Komikasi dan Publikasi per Bulan';
+    protected static ?string $heading = 'Program Komunikasi dan Publikasi per Bulan';
 
     protected static ?string $pollingInterval = null;
 

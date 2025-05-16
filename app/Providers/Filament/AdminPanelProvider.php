@@ -61,7 +61,7 @@ class AdminPanelProvider extends PanelProvider
                 // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
                 
-                InfoSistem::class,
+                // InfoSistem::class,
                 StatsOverview::class,
                 
                 DataTesChart::class,

@@ -38,8 +38,9 @@ class OrgProfilResource extends Resource
             ->schema([
                 FileUpload::make('logo')
                     ->image()
-                    ->directory('logos')
-                    ->maxSize(1024) // Maks 1MB
+                    ->directory('Organisasi')
+                    ->disk('uploads')
+                    ->maxSize(2048)
                     ->nullable(),
                 TextInput::make('nama')
                     ->required()
@@ -48,21 +49,28 @@ class OrgProfilResource extends Resource
                     ->required()
                     ->maxLength(255),
                 TextInput::make('lv1')
+                ->label('Tingkat Manajer')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv2')
+                ->label('Tingkat Supervisor')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv3')
+                ->label('Tingkat Operator')
                     ->maxLength(255)
                     ->nullable(),
             ]);
+            
+            $form->disableCreateButton();
+            $form->disableSuccessFormActions();
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('logo')->disk('uploads'),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Organisasi'),
                 Tables\Columns\TextColumn::make('pimpinan')

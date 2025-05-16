@@ -10,13 +10,13 @@ class InfoSistem extends StatsOverviewWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Versi Aplikasi', 'v1.0.1')
-                ->description('Update terbaru Mei 2025')
-                ->icon('heroicon-o-code-bracket'),
+            // Stat::make('Versi Aplikasi', 'v1.0.1')
+            //     ->description('Update terbaru Mei 2025')
+            //     ->icon('heroicon-o-code-bracket'),
 
-            Stat::make('Developer', 'PT Tomo Teknologi')
-                ->description('Kontak: support@tomoteknologi.id')
-                ->icon('heroicon-o-user-group'),
+            // Stat::make('Developer', 'PT Tomo Teknologi')
+            //     ->description('Kontak: support@tomoteknologi.id')
+            //     ->icon('heroicon-o-user-group'),
         ];
     }
 
