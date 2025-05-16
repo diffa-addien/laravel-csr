@@ -42,7 +42,7 @@ class StkholderProfilInternalResource extends Resource
                 Forms\Components\TextInput::make('jabatan')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextArea::make('keterangan')
+                Forms\Components\Textarea::make('keterangan')
                     ->required()
                     ->columnSpanFull(),
             ]);
