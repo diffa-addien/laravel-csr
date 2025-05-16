@@ -18,7 +18,7 @@ class SdgTargetResource extends Resource
 {
     protected static ?string $model = SdgTarget::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cursor-arrow-rays';
     protected static ?string $navigationLabel = 'Target SDGs';
     protected static ?string $pluralModelLabel = 'Data Target SDGs';
     protected static ?string $modelLabel = 'Data';
