@@ -17,7 +17,7 @@ class DataKegiatanChart extends ChartWidget
         $endDate = $this->filterFormData['end_date'] ?? Carbon::now()->endOfMonth()->toDateString();
 
         $activities = \App\Models\KompumedKegiatan::query()
-            ->whereBetween('tanggal_mulai', [$startDate . ' 00:00:00', $endDate . ' 23:59:59'])
+            // ->whereBetween('tanggal_mulai', [$startDate . ' 00:00:00', $endDate . ' 23:59:59'])
             ->orderBy('tanggal_mulai')
             ->get()
             ->groupBy(function ($date) {

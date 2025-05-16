@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Filament\Clusters\Sdg\Resources;
+
+use App\Filament\Clusters\Sdg;
+use App\Filament\Clusters\Sdg\Resources\SdgTargetResource\Pages;
+use App\Filament\Clusters\Sdg\Resources\SdgTargetResource\RelationManagers;
+use App\Models\SdgTarget;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class SdgTargetResource extends Resource
+{
+    protected static ?string $model = SdgTarget::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Target SDGs';
+    protected static ?string $pluralModelLabel = 'Data Target SDGs';
+    protected static ?string $modelLabel = 'Data';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $cluster = Sdg::class;
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Select::make('tujuan_id')
+                    ->label('Tujuan')
+                    ->options(
+                        \App\Models\SdgTujuan::pluck('tujuan', 'id')->toArray()
+                    )
+                    ->required()
+                    ->searchable(),
+                Forms\Components\TextInput::make('target')
+                    ->required()
+                    ->maxLength(255),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('dariTujuan.tujuan')
+                    ->label('Tujuan')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('target')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime('d M Y')
+                    ->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListSdgTargets::route('/'),
+            // 'create' => Pages\CreateSdgTarget::route('/create'),
+            // 'edit' => Pages\EditSdgTarget::route('/{record}/edit'),
+        ];
+    }
+}
