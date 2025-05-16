@@ -6,7 +6,7 @@ use Filament\Clusters\Cluster;
 
 class Sdg extends Cluster
 {
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
 
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationLabel = 'SDGs';
