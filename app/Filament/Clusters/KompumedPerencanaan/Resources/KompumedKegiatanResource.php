@@ -29,6 +29,7 @@ class KompumedKegiatanResource extends Resource
     protected static ?string $navigationLabel = 'Data Kegiatan';
     protected static ?string $pluralModelLabel = 'Data Kegiatan';
     protected static ?string $modelLabel = 'Kegiatan';
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $cluster = KompumedPerencanaan::class;
 

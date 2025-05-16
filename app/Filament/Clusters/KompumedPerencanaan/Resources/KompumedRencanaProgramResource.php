@@ -22,6 +22,7 @@ class KompumedRencanaProgramResource extends Resource
     protected static ?string $navigationLabel = 'Data Program';
     protected static ?string $pluralModelLabel = 'Data Program';
     protected static ?string $modelLabel = 'Program';
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $cluster = KompumedPerencanaan::class;
 
