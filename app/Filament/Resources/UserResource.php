@@ -39,9 +39,10 @@ class UserResource extends Resource
             TextInput::make('email')->email()->required(),
             TextInput::make('password')
                 ->password()
-                ->dehydrateStateUsing(fn($state) => bcrypt($state))
-                ->required(fn($context) => $context === 'create')
-                ->label('Password'),
+                ->label('Password')
+                ->dehydrated(fn($state) => filled($state)) // hanya kirim ke DB jika tidak kosong
+                ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                ->required(fn($context) => $context === 'create'),
             Select::make('roles')
                 ->relationship('roles', 'name')
                 ->label('Roles')
