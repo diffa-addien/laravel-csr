@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\PengmasPelaksanaanKegiatanResource\Pages;
+use App\Filament\Resources\PengmasPelaksanaanKegiatanResource\RelationManagers;
+use App\Models\PengmasPelaksanaanKegiatan;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\TextColumn;
+
+class PengmasPelaksanaanKegiatanResource extends Resource
+{
+    protected static ?string $model = PengmasPelaksanaanKegiatan::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-check-circle';
+    protected static ?string $navigationGroup = 'Pengembangan Masyarakat';
+    protected static ?string $navigationLabel = 'Pelaksanaan';
+    protected static ?string $pluralModelLabel = 'Data Pelaksanaan Program';
+    protected static ?string $modelLabel = 'Data';
+    protected static ?int $navigationSort = 2;
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Select::make('program_id')
+                    ->label('Program')
+                    ->relationship('dariProgram', 'nama_program', fn ($query) => $query->with(['bidang'])->selectRaw('pengmas_rencana_program_anggarans.id, CONCAT(bidangs.nama_bidang, " - ", pengmas_rencana_program_anggarans.nama_program) as nama_program')->join('bidangs', 'pengmas_rencana_program_anggarans.bidang_id', '=', 'bidangs.id'))
+                    ->required()
+                    ->searchable()
+                    ->preload(),
+                TextInput::make('jumlah_penerima')
+                    ->required()
+                    ->numeric()
+                    ->minValue(1),
+                TextInput::make('anggaran_pelaksanaan')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Rp')
+                    ->dehydrateStateUsing(fn ($state) => str_replace(['Rp', '.', ' '], '', $state)),
+                DatePicker::make('tanggal_pelaksanaan')
+                    ->required(),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('dariProgram.nama_program')
+                    ->label('Program')
+                    ->formatStateUsing(fn ($record) => "{$record->dariProgram->bidang->nama_bidang} - {$record->dariProgram->nama_program}")
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('jumlah_penerima')
+                    ->label('Jumlah Penerima Manfaat')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('anggaran_pelaksanaan')
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->sortable(),
+                TextColumn::make('tanggal_pelaksanaan')
+                    ->date()
+                    ->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListPengmasPelaksanaanKegiatans::route('/'),
+            'create' => Pages\CreatePengmasPelaksanaanKegiatan::route('/create'),
+            'edit' => Pages\EditPengmasPelaksanaanKegiatan::route('/{record}/edit'),
+        ];
+    }
+}
