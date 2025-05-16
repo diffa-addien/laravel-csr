@@ -13,6 +13,7 @@ class PrintTable extends Page
     
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $navigationLabel = 'Laporan Kegiatan Stakeholder';
+    protected static ?string $pluralModelLabel = 'Laporan';
     protected static string $view = 'filament.pages.print-table';
 
     public array $records = [];

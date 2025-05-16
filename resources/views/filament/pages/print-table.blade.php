@@ -6,8 +6,8 @@
                 <th>Regional</th>
                 <th>Program</th>
                 <th>Kegiatan</th>
-                <th>Anggaran Pengajuan</th>
-                <th>Anggaran Kesepakatan</th>
+                <th>Pengajuan Anggaran</th>
+                <th>Kesepakatan Anggaran</th>
                 <th>Keterangan</th>
                 {{-- <th>Dibuat Pada</th> --}}
             </tr>
@@ -18,8 +18,8 @@
                     <td>{{ $record['regional']['nama_regional'] ?? '-' }}</td>
                     <td>{{ $record['program']['nama'] ?? '-' }}</td>
                     <td>{{ $record['kegiatan'] }}</td>
-                    <td>{{ format_uang($record['anggaran_pengajuan']) }}</td> {{-- Pastikan fungsi ini tersedia --}}
-                    <td>{{ format_uang($record['anggaran_kesepakatan']) }}</td> {{-- Pastikan fungsi ini tersedia --}}
+                    <td>{{ 'Rp. ' .number_format($record['anggaran_pengajuan'], 0, ',', '.') }}</td> {{-- Pastikan fungsi ini tersedia --}}
+                    <td>{{ 'Rp. ' .number_format($record['anggaran_kesepakatan'], 0, ',', '.') }}</td> {{-- Pastikan fungsi ini tersedia --}}
                     <td>{{ $record['keterangan'] }}</td>
                     {{-- <td>{{ \Carbon\Carbon::parse($record['created_at'])->format('Y-m-d H:i:s') }}</td> --}}
                 </tr>
