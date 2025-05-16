@@ -19,7 +19,7 @@ class StatsOverview extends BaseWidget
             Stat::make('Jumlah Akun Pengguna', $this->getUsers($startDate, $endDate))
                 ->description('Akun untuk mengakses sistem')
                 ->icon('heroicon-o-clipboard-document-list'),
-            Stat::make('Jumlah Stakeholder', $this->getTotalStakeholders($startDate, $endDate))
+            Stat::make('Jumlah Program Pemangku Kepentingan', $this->getTotalStakeholders($startDate, $endDate))
                 ->description('Periode ' . Carbon::parse($startDate)->format('d M Y') . ' - ' . Carbon::parse($endDate)->format('d M Y'))
                 ->icon('heroicon-o-user-group'),
             Stat::make('Jumlah Kegiatan Kompumed', $this->getTotalKegiatanKompumed($startDate, $endDate))

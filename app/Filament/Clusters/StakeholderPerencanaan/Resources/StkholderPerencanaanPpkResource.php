@@ -20,8 +20,8 @@ class StkholderPerencanaanPpkResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bars-arrow-up';
 
-    protected static ?string $navigationLabel = 'Perencanaan PPK';
-    protected static ?string $pluralModelLabel = 'Perencanaan PPK';
+    protected static ?string $navigationLabel = 'Perencanaan Program PPK';
+    protected static ?string $pluralModelLabel = 'Perencanaan Program PPK';
     protected static ?string $modelLabel = 'Data';
 
     protected static ?string $cluster = StakeholderPerencanaan::class;
