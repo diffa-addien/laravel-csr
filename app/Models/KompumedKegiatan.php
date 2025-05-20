@@ -34,7 +34,7 @@ class KompumedKegiatan extends Model
 
     public function monevKompumed(): HasOne
     {
-        return $this->hasOne(monevKompumed::class, 'anggaran_id');
+        return $this->hasOne(MonevKompumed::class, 'anggaran_id');
     }
 
     public function rincianAnggarans(): HasMany
