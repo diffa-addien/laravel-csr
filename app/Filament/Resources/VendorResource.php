@@ -83,8 +83,8 @@ class VendorResource extends Resource
     {
         return [
             'index' => Pages\ListVendors::route('/'),
-            'create' => Pages\CreateVendor::route('/create'),
-            'edit' => Pages\EditVendor::route('/{record}/edit'),
+            // 'create' => Pages\CreateVendor::route('/create'),
+            // 'edit' => Pages\EditVendor::route('/{record}/edit'),
         ];
     }
 }

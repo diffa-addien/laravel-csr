@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Clusters\Organisasi\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Clusters\Organisasi;
-use App\Filament\Clusters\Organisasi\Resources\OrgPenugasanResource\Pages;
-use App\Filament\Clusters\Organisasi\Resources\OrgPenugasanResource\RelationManagers;
+use App\Filament\Resources\OrgPenugasanResource\Pages;
+use App\Filament\Resources\OrgPenugasanResource\RelationManagers;
 use App\Models\OrgPenugasan;
 use App\Models\OrgProfil;
 use App\Models\Regional;
@@ -25,10 +25,9 @@ class OrgPenugasanResource extends Resource
     protected static ?string $model = OrgPenugasan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
-
+    protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Penugasan Regional';
 
-    protected static ?string $cluster = Organisasi::class;
     protected static ?int $navigationSort = 2;
 
     public static function getPluralModelLabel(): string

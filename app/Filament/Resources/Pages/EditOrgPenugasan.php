@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\Organisasi\Resources\OrgPenugasanResource\Pages;
+namespace App\Filament\Resources\OrgPenugasanResource\Pages;
 
-use App\Filament\Clusters\Organisasi\Resources\OrgPenugasanResource;
+use App\Filament\Resources\OrgPenugasanResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

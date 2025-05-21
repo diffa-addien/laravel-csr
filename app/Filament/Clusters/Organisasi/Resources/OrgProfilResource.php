@@ -15,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
 
 class OrgProfilResource extends Resource
 {
@@ -30,6 +32,13 @@ class OrgProfilResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return 'Profil Organisasi';
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+        ];
     }
 
     public static function form(Form $form): Form
@@ -49,21 +58,22 @@ class OrgProfilResource extends Resource
                     ->required()
                     ->maxLength(255),
                 TextInput::make('lv1')
-                ->label('Tingkat Manajer')
+                    ->label('Tingkat Manajer')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv2')
-                ->label('Tingkat Supervisor')
+                    ->label('Tingkat Supervisor')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv3')
-                ->label('Tingkat Operator')
+                    ->label('Tingkat Operator')
                     ->maxLength(255)
                     ->nullable(),
             ]);
-            
-            $form->disableCreateButton();
-            $form->disableSuccessFormActions();
+
+        $form->disableCreateButton();
+        $form->disableSuccessFormActions();
+        
     }
 
     public static function table(Table $table): Table

@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SdgTarget extends Model
+class SdgIndikator extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'tujuan_id',
-        'no_target',
-        'target',
+        'target_id',
+        'no_indikator',
+        'nama_indikator',
+        'keterangan'
     ];
 
-    public function dariTujuan(): BelongsTo
+    public function dariTarget(): BelongsTo
     {
-        return $this->belongsTo(SdgTujuan::class, 'tujuan_id');
+        return $this->belongsTo(SdgTarget::class, 'target_id');
     }
 }

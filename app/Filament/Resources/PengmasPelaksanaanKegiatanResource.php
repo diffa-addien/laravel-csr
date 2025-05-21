@@ -95,8 +95,8 @@ class PengmasPelaksanaanKegiatanResource extends Resource
     {
         return [
             'index' => Pages\ListPengmasPelaksanaanKegiatans::route('/'),
-            'create' => Pages\CreatePengmasPelaksanaanKegiatan::route('/create'),
-            'edit' => Pages\EditPengmasPelaksanaanKegiatan::route('/{record}/edit'),
+            // 'create' => Pages\CreatePengmasPelaksanaanKegiatan::route('/create'),
+            // 'edit' => Pages\EditPengmasPelaksanaanKegiatan::route('/{record}/edit'),
         ];
     }
 }

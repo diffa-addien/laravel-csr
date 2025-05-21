@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sdg_targets', function (Blueprint $table) {
+        Schema::create('sdg_indikators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tujuan_id')->constrained('sdg_tujuans')->onDelete('cascade');
-            $table->string('no_target')->unique();
-            $table->text('target');
+            $table->foreignId('target_id')->constrained('sdg_targets')->onDelete('cascade');
+            $table->string('no_indikator')->unique();
+            $table->string('nama_indikator');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sdg_targets');
+        Schema::dropIfExists('sdg_indikators');
     }
 };

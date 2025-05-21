@@ -101,8 +101,8 @@ class MonevPengmasResource extends Resource
     {
         return [
             'index' => Pages\ListMonevPengmas::route('/'),
-            'create' => Pages\CreateMonevPengmas::route('/create'),
-            'view' => Pages\ViewMonevPengmas::route('/{record}'),
+            // 'create' => Pages\CreateMonevPengmas::route('/create'),
+            // 'view' => Pages\ViewMonevPengmas::route('/{record}'),
             // 'edit' => Pages\EditMonevPengmas::route('/{record}/edit'),
         ];
     }

@@ -104,8 +104,8 @@ class MonevKompumedResource extends Resource
     {
         return [
             'index' => Pages\ListMonevKompumeds::route('/'),
-            'create' => Pages\CreateMonevKompumed::route('/create'),
-            'view' => Pages\ViewMonevKompumed::route('/{record}'),
+            // 'create' => Pages\CreateMonevKompumed::route('/create'),
+            // 'view' => Pages\ViewMonevKompumed::route('/{record}'),
             // 'edit' => Pages\EditMonevKompumed::route('/{record}/edit'),
         ];
     }

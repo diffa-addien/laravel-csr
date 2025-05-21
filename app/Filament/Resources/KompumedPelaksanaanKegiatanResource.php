@@ -146,8 +146,8 @@ class KompumedPelaksanaanKegiatanResource extends Resource
     {
         return [
             'index' => Pages\ListKompumedPelaksanaanKegiatans::route('/'),
-            'create' => Pages\CreateKompumedPelaksanaanKegiatan::route('/create'),
-            'edit' => Pages\EditKompumedPelaksanaanKegiatan::route('/{record}/edit'),
+            // 'create' => Pages\CreateKompumedPelaksanaanKegiatan::route('/create'),
+            // 'edit' => Pages\EditKompumedPelaksanaanKegiatan::route('/{record}/edit'),
         ];
     }
 }

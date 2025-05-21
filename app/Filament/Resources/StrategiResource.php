@@ -82,8 +82,8 @@ class StrategiResource extends Resource
     {
         return [
             'index' => Pages\ListStrategis::route('/'),
-            'create' => Pages\CreateStrategi::route('/create'),
-            'edit' => Pages\EditStrategi::route('/{record}/edit'),
+            // 'create' => Pages\CreateStrategi::route('/create'),
+            // 'edit' => Pages\EditStrategi::route('/{record}/edit'),
         ];
     }
 }

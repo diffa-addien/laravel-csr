@@ -10,6 +10,7 @@ class DataKegiatanChart extends ChartWidget
     protected static ?string $heading = 'Program Komunikasi dan Publikasi per Bulan';
 
     protected static ?string $pollingInterval = null;
+    protected static ?int $sort = 2;
 
     protected function getData(): array
     {
@@ -35,7 +36,7 @@ class DataKegiatanChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Jumlah Kegiatan',
+                    'label' => 'Jumlah Kegiatan Program',
                     'data' => $datasets,
                     'backgroundColor' => '#4F46E5',
                     'borderColor' => '#4F46E5',

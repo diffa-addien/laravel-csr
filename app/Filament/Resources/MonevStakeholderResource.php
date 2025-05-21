@@ -99,8 +99,8 @@ class MonevStakeholderResource extends Resource
     {
         return [
             'index' => Pages\ListMonevStakeholders::route('/'),
-            'create' => Pages\CreateMonevStakeholder::route('/create'),
-            'view' => Pages\ViewMonevStakeholder::route('/{record}'),
+            // 'create' => Pages\CreateMonevStakeholder::route('/create'),
+            // 'view' => Pages\ViewMonevStakeholder::route('/{record}'),
             // 'edit' => Pages\EditMonevStakeholder::route('/{record}/edit'),
         ];
     }

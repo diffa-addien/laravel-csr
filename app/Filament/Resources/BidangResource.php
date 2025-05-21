@@ -82,8 +82,8 @@ class BidangResource extends Resource
     {
         return [
             'index' => Pages\ListBidangs::route('/'),
-            'create' => Pages\CreateBidang::route('/create'),
-            'edit' => Pages\EditBidang::route('/{record}/edit'),
+            // 'create' => Pages\CreateBidang::route('/create'),
+            // 'edit' => Pages\EditBidang::route('/{record}/edit'),
         ];
     }
 }

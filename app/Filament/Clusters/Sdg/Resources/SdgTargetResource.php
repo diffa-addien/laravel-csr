@@ -37,9 +37,14 @@ class SdgTargetResource extends Resource
                     )
                     ->required()
                     ->searchable(),
-                Forms\Components\TextInput::make('target')
+                Forms\Components\TextInput::make('no_target')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->unique(table: \App\Models\SdgTarget::class, column: 'no_target'),
+                Forms\Components\TextArea::make('target')
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -51,12 +56,13 @@ class SdgTargetResource extends Resource
                     ->label('Tujuan')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('target')
+                Tables\Columns\TextColumn::make('no_target')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('target')
+                    ->limit(50)
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //

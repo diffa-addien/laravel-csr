@@ -10,6 +10,7 @@ class DataTesChart extends ChartWidget
     protected static ?string $heading = 'Program Pengembangan Masyarakat per Bulan';
 
     protected static ?string $pollingInterval = null;
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {
