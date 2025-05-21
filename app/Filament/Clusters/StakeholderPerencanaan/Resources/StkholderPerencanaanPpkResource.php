@@ -74,8 +74,8 @@ class StkholderPerencanaanPpkResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderPerencanaanPpks::route('/'),
-            'create' => Pages\CreateStkholderPerencanaanPpk::route('/create'),
-            'edit' => Pages\EditStkholderPerencanaanPpk::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderPerencanaanPpk::route('/create'),
+            // 'edit' => Pages\EditStkholderPerencanaanPpk::route('/{record}/edit'),
         ];
     }
 }

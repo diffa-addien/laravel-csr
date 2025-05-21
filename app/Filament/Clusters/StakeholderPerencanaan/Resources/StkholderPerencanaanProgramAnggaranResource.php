@@ -119,8 +119,8 @@ class StkholderPerencanaanProgramAnggaranResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderPerencanaanProgramAnggarans::route('/'),
-            'create' => Pages\CreateStkholderPerencanaanProgramAnggaran::route('/create'),
-            'edit' => Pages\EditStkholderPerencanaanProgramAnggaran::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderPerencanaanProgramAnggaran::route('/create'),
+            // 'edit' => Pages\EditStkholderPerencanaanProgramAnggaran::route('/{record}/edit'),
         ];
     }
 }

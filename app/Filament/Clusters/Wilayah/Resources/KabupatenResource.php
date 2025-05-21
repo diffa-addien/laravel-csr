@@ -94,8 +94,8 @@ class KabupatenResource extends Resource
     {
         return [
             'index' => Pages\ListKabupatens::route('/'),
-            'create' => Pages\CreateKabupaten::route('/create'),
-            'edit' => Pages\EditKabupaten::route('/{record}/edit'),
+            // 'create' => Pages\CreateKabupaten::route('/create'),
+            // 'edit' => Pages\EditKabupaten::route('/{record}/edit'),
         ];
     }
 }

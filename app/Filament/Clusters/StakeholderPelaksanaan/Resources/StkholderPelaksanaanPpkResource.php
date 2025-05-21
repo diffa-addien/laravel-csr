@@ -199,8 +199,8 @@ class StkholderPelaksanaanPpkResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderPelaksanaanPpks::route('/'),
-            'create' => Pages\CreateStkholderPelaksanaanPpk::route('/create'),
-            'edit' => Pages\EditStkholderPelaksanaanPpk::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderPelaksanaanPpk::route('/create'),
+            // 'edit' => Pages\EditStkholderPelaksanaanPpk::route('/{record}/edit'),
         ];
     }
 }

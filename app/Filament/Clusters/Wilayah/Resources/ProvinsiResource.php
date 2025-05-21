@@ -85,8 +85,8 @@ class ProvinsiResource extends Resource
     {
         return [
             'index' => Pages\ListProvinsis::route('/'),
-            'create' => Pages\CreateProvinsi::route('/create'),
-            'edit' => Pages\EditProvinsi::route('/{record}/edit'),
+            // 'create' => Pages\CreateProvinsi::route('/create'),
+            // 'edit' => Pages\EditProvinsi::route('/{record}/edit'),
         ];
     }
 }

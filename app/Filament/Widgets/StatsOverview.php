@@ -20,30 +20,28 @@ class StatsOverview extends BaseWidget
             Stat::make('Jumlah Akun Pengguna', $this->getUsers($startDate, $endDate))
                 ->description('Akun untuk mengakses sistem')
                 ->icon('heroicon-o-clipboard-document-list'),
-            Stat::make('Jumlah Program Pemangku Kepentingan', $this->getTotalStakeholders($startDate, $endDate))
-                ->description('Periode ' . Carbon::parse($startDate)->format('d M Y') . ' - ' . Carbon::parse($endDate)->format('d M Y'))
+            Stat::make('Jumlah Pemangku Kepentingan (Internal)', $this->getTotalHolderInternal($startDate, $endDate))
+                ->description('Orang ')
                 ->icon('heroicon-o-user-group'),
-            Stat::make('Jumlah Kegiatan Kompumed', $this->getTotalKegiatanKompumed($startDate, $endDate))
-                ->description('Periode ' . Carbon::parse($startDate)->format('d M Y') . ' - ' . Carbon::parse($endDate)->format('d M Y'))
+            Stat::make('Jumlah Pemangku Kepentingan (External)', $this->getTotalHolderExternal($startDate, $endDate))
+                ->description('Orang ')
                 ->icon('heroicon-o-calendar'),
         ];
     }
 
-    protected function getTotalStakeholders(string $startDate, string $endDate): int
+    protected function getTotalHolderInternal(string $startDate, string $endDate): int
     {
-        return \App\Models\StkholderPerencanaanPpk::whereBetween('created_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59'])->count();
+        return \App\Models\StkholderProfilInternal::count();
     }
 
     protected function getUsers(string $startDate, string $endDate): int
     {
-        return \App\Models\User::whereBetween('created_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59'])->count();
+        return \App\Models\User::count();
     }
 
-    protected function getTotalKegiatanKompumed(string $startDate, string $endDate): int
+    protected function getTotalHolderExternal(string $startDate, string $endDate): int
     {
-        return \App\Models\KompumedKegiatan::whereBetween('tanggal_mulai', [$startDate, $endDate])
-            ->whereBetween('tanggal_selesai', [$startDate, $endDate])
-            ->count();
+        return \App\Models\StkholderProfilExternal::count();
     }
 
     protected function getFormSchema(): array

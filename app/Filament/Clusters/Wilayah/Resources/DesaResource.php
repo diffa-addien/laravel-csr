@@ -123,8 +123,8 @@ class DesaResource extends Resource
     {
         return [
             'index' => Pages\ListDesas::route('/'),
-            'create' => Pages\CreateDesa::route('/create'),
-            'edit' => Pages\EditDesa::route('/{record}/edit'),
+            // 'create' => Pages\CreateDesa::route('/create'),
+            // 'edit' => Pages\EditDesa::route('/{record}/edit'),
         ];
     }
 }

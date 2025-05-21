@@ -141,8 +141,8 @@ class StkholderRincianAnggaranResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderRincianAnggarans::route('/'),
-            'create' => Pages\CreateStkholderRincianAnggaran::route('/create'),
-            'edit' => Pages\EditStkholderRincianAnggaran::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderRincianAnggaran::route('/create'),
+            // 'edit' => Pages\EditStkholderRincianAnggaran::route('/{record}/edit'),
         ];
     }
 }

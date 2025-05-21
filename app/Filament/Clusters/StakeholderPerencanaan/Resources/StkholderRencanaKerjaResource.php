@@ -101,8 +101,8 @@ class StkholderRencanaKerjaResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderRencanaKerjas::route('/'),
-            'create' => Pages\CreateStkholderRencanaKerja::route('/create'),
-            'edit' => Pages\EditStkholderRencanaKerja::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderRencanaKerja::route('/create'),
+            // 'edit' => Pages\EditStkholderRencanaKerja::route('/{record}/edit'),
         ];
     }
 }

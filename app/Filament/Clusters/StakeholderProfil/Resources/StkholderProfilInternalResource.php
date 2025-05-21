@@ -85,8 +85,8 @@ class StkholderProfilInternalResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderProfilInternals::route('/'),
-            'create' => Pages\CreateStkholderProfilInternal::route('/create'),
-            'edit' => Pages\EditStkholderProfilInternal::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderProfilInternal::route('/create'),
+            // 'edit' => Pages\EditStkholderProfilInternal::route('/{record}/edit'),
         ];
     }
 }

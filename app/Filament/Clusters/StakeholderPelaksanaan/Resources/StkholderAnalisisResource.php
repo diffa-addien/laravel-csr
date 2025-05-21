@@ -123,8 +123,8 @@ class StkholderAnalisisResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderAnalisis::route('/'),
-            'create' => Pages\CreateStkholderAnalisis::route('/create'),
-            'edit' => Pages\EditStkholderAnalisis::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderAnalisis::route('/create'),
+            // 'edit' => Pages\EditStkholderAnalisis::route('/{record}/edit'),
         ];
     }
 }

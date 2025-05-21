@@ -79,8 +79,8 @@ class KompumedRencanaProgramResource extends Resource
     {
         return [
             'index' => Pages\ListKompumedRencanaPrograms::route('/'),
-            'create' => Pages\CreateKompumedRencanaProgram::route('/create'),
-            'edit' => Pages\EditKompumedRencanaProgram::route('/{record}/edit'),
+            // 'create' => Pages\CreateKompumedRencanaProgram::route('/create'),
+            // 'edit' => Pages\EditKompumedRencanaProgram::route('/{record}/edit'),
         ];
     }
 }

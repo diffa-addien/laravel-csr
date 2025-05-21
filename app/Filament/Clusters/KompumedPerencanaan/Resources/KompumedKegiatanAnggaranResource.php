@@ -142,8 +142,8 @@ class KompumedKegiatanAnggaranResource extends Resource
     {
         return [
             'index' => Pages\ListKompumedKegiatanAnggarans::route('/'),
-            'create' => Pages\CreateKompumedKegiatanAnggaran::route('/create'),
-            'edit' => Pages\EditKompumedKegiatanAnggaran::route('/{record}/edit'),
+            // 'create' => Pages\CreateKompumedKegiatanAnggaran::route('/create'),
+            // 'edit' => Pages\EditKompumedKegiatanAnggaran::route('/{record}/edit'),
         ];
     }
 }

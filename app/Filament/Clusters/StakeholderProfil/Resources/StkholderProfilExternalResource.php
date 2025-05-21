@@ -88,8 +88,8 @@ class StkholderProfilExternalResource extends Resource
     {
         return [
             'index' => Pages\ListStkholderProfilExternals::route('/'),
-            'create' => Pages\CreateStkholderProfilExternal::route('/create'),
-            'edit' => Pages\EditStkholderProfilExternal::route('/{record}/edit'),
+            // 'create' => Pages\CreateStkholderProfilExternal::route('/create'),
+            // 'edit' => Pages\EditStkholderProfilExternal::route('/{record}/edit'),
         ];
     }
 }

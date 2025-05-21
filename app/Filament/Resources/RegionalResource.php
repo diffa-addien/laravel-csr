@@ -87,7 +87,7 @@ class RegionalResource extends Resource
     public static function getPages(): array
     {
         return [
-            // 'index' => Pages\ListRegionals::route('/'),
+            'index' => Pages\ListRegionals::route('/'),
             // 'create' => Pages\CreateRegional::route('/create'),
             // 'edit' => Pages\EditRegional::route('/{record}/edit'),
         ];

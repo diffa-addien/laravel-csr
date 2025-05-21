@@ -130,8 +130,8 @@ class KompumedKegiatanResource extends Resource
     {
         return [
             'index' => Pages\ListKompumedKegiatans::route('/'),
-            'create' => Pages\CreateKompumedKegiatan::route('/create'),
-            'edit' => Pages\EditKompumedKegiatan::route('/{record}/edit'),
+            // 'create' => Pages\CreateKompumedKegiatan::route('/create'),
+            // 'edit' => Pages\EditKompumedKegiatan::route('/{record}/edit'),
         ];
     }
 }

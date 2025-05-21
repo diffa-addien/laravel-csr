@@ -25,6 +25,7 @@ class OrgPenugasanResource extends Resource
     protected static ?string $model = OrgPenugasan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Penugasan Regional';
 
@@ -115,8 +116,8 @@ class OrgPenugasanResource extends Resource
     {
         return [
             'index' => Pages\ListOrgPenugasans::route('/'),
-            'create' => Pages\CreateOrgPenugasan::route('/create'),
-            'edit' => Pages\EditOrgPenugasan::route('/{record}/edit'),
+            // 'create' => Pages\CreateOrgPenugasan::route('/create'),
+            // 'edit' => Pages\EditOrgPenugasan::route('/{record}/edit'),
         ];
     }
 }

@@ -108,8 +108,8 @@ class KecamatanResource extends Resource
     {
         return [
             'index' => Pages\ListKecamatans::route('/'),
-            'create' => Pages\CreateKecamatan::route('/create'),
-            'edit' => Pages\EditKecamatan::route('/{record}/edit'),
+            // 'create' => Pages\CreateKecamatan::route('/create'),
+            // 'edit' => Pages\EditKecamatan::route('/{record}/edit'),
         ];
     }
 }
