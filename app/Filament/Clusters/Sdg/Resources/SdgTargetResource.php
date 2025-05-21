@@ -41,7 +41,7 @@ class SdgTargetResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->unique(table: \App\Models\SdgTarget::class, column: 'no_target'),
-                Forms\Components\TextArea::make('target')
+                Forms\Components\Textarea::make('target')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
