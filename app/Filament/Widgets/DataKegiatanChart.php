@@ -38,8 +38,8 @@ class DataKegiatanChart extends ChartWidget
                 [
                     'label' => 'Jumlah Kegiatan Program',
                     'data' => $datasets,
-                    'backgroundColor' => '#4F46E5',
-                    'borderColor' => '#4F46E5',
+                    'backgroundColor' => '#bd0202',
+                    'borderColor' => '#bd0202',
                     'tension' => 0.3,
                 ],
             ],

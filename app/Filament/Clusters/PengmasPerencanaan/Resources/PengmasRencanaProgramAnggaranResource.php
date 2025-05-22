@@ -50,12 +50,14 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-                // Select::make('jenis_program')
-                //     ->options([
-                //         'ppo' => 'PPO Cash Recovery',
-                //         'cd' => 'CD Non Cosh REcovery',
-                //     ])
-                //     ->required(),
+                Select::make('jenis_program')
+                    ->options([
+                        'ppo' => 'PPO Cash Recovery',
+                        'cd' => 'CD Non Cosh REcovery',
+                    ])
+                    ->default('ppo')
+                    ->hidden()
+                    ->required(),
                 TextInput::make('pengajuan_anggaran')
                     ->required()
                     ->numeric()

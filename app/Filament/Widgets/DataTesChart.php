@@ -38,8 +38,8 @@ class DataTesChart extends ChartWidget
                 [
                     'label' => 'Jumlah Kegiatan',
                     'data' => $datasets,
-                    'backgroundColor' => '#4F46E5',
-                    'borderColor' => '#4F46E5',
+                    'backgroundColor' => '#17ad00',
+                    'borderColor' => '#17ad00',
                     'tension' => 0.3,
                 ],
             ],

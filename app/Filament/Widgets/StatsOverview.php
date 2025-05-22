@@ -19,13 +19,25 @@ class StatsOverview extends BaseWidget
         return [
             Stat::make('Jumlah Akun Pengguna', $this->getUsers($startDate, $endDate))
                 ->description('Akun untuk mengakses sistem')
-                ->icon('heroicon-o-clipboard-document-list'),
+                ->icon('heroicon-o-clipboard-document-list')
+                ->color('info') // Warna hijau
+                ->extraAttributes([
+                    'class' => 'border rounded-2xl shadow-lg'
+                ]),
             Stat::make('Jumlah Pemangku Kepentingan (Internal)', $this->getTotalHolderInternal($startDate, $endDate))
                 ->description('Orang ')
-                ->icon('heroicon-o-user-group'),
+                ->icon('heroicon-o-user-group')
+                ->color('info') // Warna kuning
+                ->extraAttributes([
+                    'class' => 'border rounded-2xl shadow-lg'
+                ]),
             Stat::make('Jumlah Pemangku Kepentingan (External)', $this->getTotalHolderExternal($startDate, $endDate))
                 ->description('Orang ')
-                ->icon('heroicon-o-calendar'),
+                ->icon('heroicon-o-globe-alt')
+                ->color('info') // Warna merah
+                ->extraAttributes([
+                    'class' => 'border rounded-2xl shadow-lg'
+                ]),
         ];
     }
 
