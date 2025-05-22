@@ -29,28 +29,26 @@ class BiayaTerencanaChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Anggaran',
-                    'data' => [
-                        $stkholderBiaya,
-                        $kompumedBiaya,
-                        $pengmasBiaya,
-                    ],
-                    'backgroundColor' => [
-                        '#17ad00', // Warna hijau
-                        '#ff7f50', // Warna oranye
-                        '#4682b4', // Warna biru tua
-                    ],
-                    'borderColor' => [
-                        '#17ad00',
-                        '#ff7f50',
-                        '#4682b4',
-                    ],
+                    'label' => 'Pemangku Kepentingan',
+                    'data' => [$stkholderBiaya],
+                    'backgroundColor' => ['#17ad00'], // Warna hijau
+                    'borderColor' => ['#17ad00'],
+                ],
+                [
+                    'label' => 'Komunikasi, Publikasi, dan Media',
+                    'data' => [$kompumedBiaya],
+                    'backgroundColor' => ['#ff7f50'], // Warna oranye
+                    'borderColor' => ['#ff7f50'],
+                ],
+                [
+                    'label' => 'Pengembangan Masyarakat',
+                    'data' => [$pengmasBiaya],
+                    'backgroundColor' => ['#4682b4'], // Warna biru tua
+                    'borderColor' => ['#4682b4'],
                 ],
             ],
             'labels' => [
-                'Pemangku Kepentingan',
-                'Komunikasi, Publikasi, dan Media',
-                'Pengembangan Masyarakat',
+                'Anggaran',
             ],
         ];
     }
