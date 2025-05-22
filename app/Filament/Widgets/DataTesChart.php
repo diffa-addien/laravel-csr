@@ -36,7 +36,7 @@ class DataTesChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Jumlah Kegiatan',
+                    'label' => 'Jumlah Kegiatan Program',
                     'data' => $datasets,
                     'backgroundColor' => '#17ad00',
                     'borderColor' => '#17ad00',

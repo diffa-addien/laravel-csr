@@ -29,7 +29,7 @@ class BiayaTerencanaChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Jumlah Biaya',
+                    'label' => 'Anggaran',
                     'data' => [
                         $stkholderBiaya,
                         $kompumedBiaya,
