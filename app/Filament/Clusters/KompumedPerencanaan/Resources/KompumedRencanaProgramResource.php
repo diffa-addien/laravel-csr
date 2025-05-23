@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Placeholder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -21,7 +22,7 @@ class KompumedRencanaProgramResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?string $navigationLabel = 'Data Program';
     protected static ?string $pluralModelLabel = 'Data Program';
-    protected static ?string $modelLabel = 'Program';
+    protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 1;
 
     protected static ?string $cluster = KompumedPerencanaan::class;
@@ -32,7 +33,8 @@ class KompumedRencanaProgramResource extends Resource
            ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->placeholder('Nama Program Baru'),
                 Forms\Components\TextInput::make('keterangan')
                     ->required()
                     ->maxLength(255),

@@ -38,7 +38,7 @@ class StkholderRencanaKerjaResource extends Resource
         return $form
             ->schema([
                 Select::make('kegiatan_id')
-                    ->label('Kegiatan')
+                    ->label('Untuk Kegiatan Program')
                     ->relationship('kegiatan', 'kegiatan', fn($query) => $query->with(['regional', 'program'])->selectRaw('stkholder_perencanaan_program_anggarans.id, CONCAT(stkholder_perencanaan_program_anggarans.kegiatan, " (", regionals.nama_regional, " - ", stkholder_perencanaan_ppks.nama, ")") as kegiatan')->join('regionals', 'stkholder_perencanaan_program_anggarans.regional_id', '=', 'regionals.id')->join('stkholder_perencanaan_ppks', 'stkholder_perencanaan_program_anggarans.program_id', '=', 'stkholder_perencanaan_ppks.id'))
                     ->required()
                     ->searchable()

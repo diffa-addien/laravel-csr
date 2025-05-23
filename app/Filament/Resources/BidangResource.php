@@ -23,7 +23,7 @@ class BidangResource extends Resource
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationLabel = 'Bidang';
     protected static ?string $pluralModelLabel = 'Bidang';
-    protected static ?string $modelLabel = 'Data';    
+    protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form

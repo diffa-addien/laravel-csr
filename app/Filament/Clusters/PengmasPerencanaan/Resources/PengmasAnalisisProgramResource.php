@@ -39,7 +39,7 @@ class PengmasAnalisisProgramResource extends Resource
                     ->searchable()
                     ->preload(),
                 Select::make('id_program')
-                    ->label('Program')
+                    ->label('Dari Program')
                     ->relationship('dariProgram', 'nama_program', fn ($query) => $query->with(['bidang'])->selectRaw('pengmas_rencana_program_anggarans.id, CONCAT(bidangs.nama_bidang, " - ", pengmas_rencana_program_anggarans.nama_program) as nama_program')->join('bidangs', 'pengmas_rencana_program_anggarans.bidang_id', '=', 'bidangs.id'))
                     ->required()
                     ->searchable()
@@ -109,8 +109,8 @@ class PengmasAnalisisProgramResource extends Resource
     {
         return [
             'index' => Pages\ListPengmasAnalisisPrograms::route('/'),
-            'create' => Pages\CreatePengmasAnalisisProgram::route('/create'),
-            'edit' => Pages\EditPengmasAnalisisProgram::route('/{record}/edit'),
+        //     'create' => Pages\CreatePengmasAnalisisProgram::route('/create'),
+        //     'edit' => Pages\EditPengmasAnalisisProgram::route('/{record}/edit'),
         ];
     }
 }

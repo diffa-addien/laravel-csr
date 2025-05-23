@@ -31,7 +31,9 @@ class StkholderPerencanaanPpkResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
+                    ->label('Nama PPK')
                     ->required()
+                    ->placeholder('Nama PPK Baru')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('keterangan')
                     ->required()

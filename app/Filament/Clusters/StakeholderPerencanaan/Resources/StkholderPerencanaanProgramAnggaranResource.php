@@ -42,12 +42,14 @@ class StkholderPerencanaanProgramAnggaranResource extends Resource
                     ->searchable()
                     ->preload(),
                 Select::make('program_id')
-                    ->label('Program')
+                    ->label('Dari Program PPK')
                     ->relationship('program', 'nama')
                     ->required()
                     ->searchable()
                     ->preload(),
                 TextInput::make('kegiatan')
+                    ->label('Nama Kegiatan')
+                    ->placeholder('Nama Kegiatan Program Baru')
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),

@@ -37,7 +37,7 @@ class KompumedKegiatanAnggaranResource extends Resource
         return $form
             ->schema([
                 Select::make('kegiatan_id')
-                    ->label('Kegiatan')
+                    ->label('Dari Kegiatan')
                     ->options(function () {
                         return KompumedKegiatan::query()
                             ->with(['regional', 'program'])

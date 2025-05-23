@@ -49,7 +49,8 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 TextInput::make('nama_program')
                     ->required()
                     ->maxLength(255)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->placeholder('Nama Program Baru'),
                 Select::make('jenis_program')
                     ->options([
                         'ppo' => 'PPO Cash Recovery',
@@ -78,6 +79,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->numeric()
                     ->minValue(1),
                 TextInput::make('output_unit')
+                    ->label('Bentuk Output')
                     ->required()
                     ->maxLength(255),
                 Textarea::make('tujuan_utama')
@@ -146,8 +148,8 @@ class PengmasRencanaProgramAnggaranResource extends Resource
     {
         return [
             'index' => Pages\ListPengmasRencanaProgramAnggarans::route('/'),
-            'create' => Pages\CreatePengmasRencanaProgramAnggaran::route('/create'),
-            'edit' => Pages\EditPengmasRencanaProgramAnggaran::route('/{record}/edit'),
+            // 'create' => Pages\CreatePengmasRencanaProgramAnggaran::route('/create'),
+            // 'edit' => Pages\EditPengmasRencanaProgramAnggaran::route('/{record}/edit'),
         ];
     }
 }

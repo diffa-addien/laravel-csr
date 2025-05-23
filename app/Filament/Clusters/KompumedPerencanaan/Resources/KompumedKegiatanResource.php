@@ -51,6 +51,7 @@ class KompumedKegiatanResource extends Resource
                             ->columnSpanFull(),
                         TextInput::make('nama')
                             ->label('Nama Kegiatan')
+                            ->placeholder('Nama Kegiatan Program Baru')
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),

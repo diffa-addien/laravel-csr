@@ -49,7 +49,7 @@ class PengmasWilayahKegiatanResource extends Resource
                 Section::make('Wilayah Kegiatan Details')
                     ->schema([
                         Select::make('program_id')
-                            ->label('Program')
+                            ->label('Dari Program')
                             ->required()
                             ->relationship('dariProgram', 'nama_program', fn($query) => $query->selectRaw('id, nama_program')->whereNotNull('nama_program'))
                             ->columnSpanFull(),
@@ -114,7 +114,7 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('dariProgram.nama_program')
-                    ->label('Program')
+                    ->label('Dari Program')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('desa.kecamatan.nama_kec')
@@ -186,8 +186,8 @@ class PengmasWilayahKegiatanResource extends Resource
     {
         return [
             'index' => Pages\ListPengmasWilayahKegiatans::route('/'),
-            'create' => Pages\CreatePengmasWilayahKegiatan::route('/create'),
-            'edit' => Pages\EditPengmasWilayahKegiatan::route('/{record}/edit'),
+            // 'create' => Pages\CreatePengmasWilayahKegiatan::route('/create'),
+            // 'edit' => Pages\EditPengmasWilayahKegiatan::route('/{record}/edit'),
         ];
     }
 
