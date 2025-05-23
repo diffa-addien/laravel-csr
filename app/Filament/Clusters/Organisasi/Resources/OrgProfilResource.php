@@ -25,6 +25,8 @@ class OrgProfilResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
     protected static ?string $navigationLabel = 'Profil Organisasi';
+    protected static ?string $modelLabel = 'Data';
+    protected static ?string $pluralModelLabel = 'Profil';
 
     protected static ?string $cluster = Organisasi::class;
     protected static ?int $navigationSort = 1;

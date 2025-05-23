@@ -20,6 +20,8 @@ class StrategiResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static ?string $navigationGroup = 'Data Induk';
+    protected static ?string $modelLabel = 'Data';
+    protected static ?string $pluralModelLabel = 'Data Strategi';
     public static int $navigationGroupSort = 8;
 
     protected static ?string $navigationLabel = 'Strategi Program';

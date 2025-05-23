@@ -22,6 +22,7 @@ class KecamatanResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal-circle';
 
     protected static ?string $navigationLabel = 'Kecamatan';
+    protected static ?string $modelLabel = 'Data';
 
     protected static ?int $navigationSort = 10;
 

@@ -1,0 +1,14 @@
+:root {
+    --breadcrumb-bg-color: #7dbd2a; /* Warna latar breadcrumb dalam mode terang */
+    --breadcrumb-color: #000; /* Warna teks breadcrumb dalam mode terang */
+}
+
+[data-theme="dark"] {
+    --breadcrumb-bg-color: #343a40; /* Warna latar breadcrumb dalam mode gelap */
+    --breadcrumb-color: #fff; /* Warna teks breadcrumb dalam mode gelap */
+}
+
+nav {
+    background-color: var(--breadcrumb-bg-color);
+    color: var(--breadcrumb-color);
+}

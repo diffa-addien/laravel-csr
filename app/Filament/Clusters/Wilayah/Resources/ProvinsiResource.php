@@ -27,6 +27,7 @@ class ProvinsiResource extends Resource
     protected static ?string $navigationLabel = "Provinsi";
 
     protected static ?int $navigationSort = 8;
+    protected static ?string $modelLabel = 'Data';
 
     protected static ?string $cluster = Wilayah::class;
 
@@ -38,15 +39,14 @@ class ProvinsiResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            Forms\Components\TextInput::make('nama_provinsi')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\TextInput::make('gubernur')
-                ->required()
-                ->maxLength(255),
-        ]);
-
+            ->schema([
+                Forms\Components\TextInput::make('nama_provinsi')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('gubernur')
+                    ->required()
+                    ->maxLength(255),
+            ]);
     }
 
     public static function table(Table $table): Table

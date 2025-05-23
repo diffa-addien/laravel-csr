@@ -19,6 +19,8 @@ class RegionalResource extends Resource
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Regional';
+    protected static ?string $pluralModelLabel = 'Data Regional';
+    protected static ?string $modelLabel = 'Data';
 
     public static function form(Form $form): Form
     {

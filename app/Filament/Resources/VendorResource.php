@@ -23,8 +23,10 @@ class VendorResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     protected static ?string $navigationGroup = 'Data Induk';
+    protected static ?string $navigationLabel = 'Vendor';
+    protected static ?string $pluralModelLabel = 'Data Vendor';
+    protected static ?string $modelLabel = 'Data';
     public static int $navigationGroupSort = 8;
-
     protected static ?int $navigationSort = 10;
 
     public static function form(Form $form): Form

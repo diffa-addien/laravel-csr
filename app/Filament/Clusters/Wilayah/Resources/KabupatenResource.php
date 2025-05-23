@@ -22,6 +22,7 @@ class KabupatenResource extends Resource
 
     protected static ?string $navigationLabel = "Kabupaten";
 
+    protected static ?string $modelLabel = 'Data';
     protected static ?string $navigationParentItem = "Provinsi";
 
     protected static ?int $navigationSort = 9;

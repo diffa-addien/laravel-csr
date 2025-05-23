@@ -28,7 +28,7 @@ class KompumedKegiatanResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
     protected static ?string $navigationLabel = 'Data Kegiatan';
     protected static ?string $pluralModelLabel = 'Data Kegiatan';
-    protected static ?string $modelLabel = 'Kegiatan';
+    protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 2;
 
     protected static ?string $cluster = KompumedPerencanaan::class;

@@ -27,7 +27,7 @@ class KompumedKegiatanAnggaranResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationLabel = 'Data Anggaran';
     protected static ?string $pluralModelLabel = 'Data Anggaran';
-    protected static ?string $modelLabel = 'Anggaran';
+    protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 3;
 
     protected static ?string $cluster = KompumedPerencanaan::class;

@@ -23,6 +23,7 @@ use App\Filament\Widgets\DataKegiatanChart;
 use App\Filament\Widgets\InfoSistem;
 
 use App\Filament\Pages\PrintTable; // Pastikan ini ada
+use Filament\Support\Assets\Css;
 
 
 use App\Filament\Widgets\DataTesChart;
@@ -39,7 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Emerald,
             ])
-            
+
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -61,13 +62,13 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-                
+
                 // InfoSistem::class,
                 StatsOverview::class,
-                
+
                 DataTesChart::class,
                 DataKegiatanChart::class,
-                
+
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -84,5 +85,12 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->sidebarCollapsibleOnDesktop();
+    }
+
+    public function setUp(Panel $panel): void
+    {
+        $panel->assets([
+            \Filament\Support\Assets\Css::make('custom-styles', asset('css/filament/filament/custom.css')),
+        ]);
     }
 }

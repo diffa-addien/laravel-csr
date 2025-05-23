@@ -23,6 +23,7 @@ class DesaResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal-circle';
     protected static ?string $cluster = Wilayah::class;
     protected static ?int $navigationSort = 12;
+    protected static ?string $modelLabel = 'Data';
     protected static ?string $navigationLabel = 'Desa / Kelurahan';
 
     public static function getPluralModelLabel(): string

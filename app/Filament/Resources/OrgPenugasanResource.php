@@ -28,6 +28,8 @@ class OrgPenugasanResource extends Resource
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Penugasan Regional';
+    protected static ?string $modelLabel = 'Data';
+    protected static ?string $pluralModelLabel = 'Data Penugasan';
 
     protected static ?int $navigationSort = 2;
 

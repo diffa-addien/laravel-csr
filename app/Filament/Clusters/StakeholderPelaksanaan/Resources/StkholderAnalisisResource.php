@@ -31,8 +31,7 @@ class StkholderAnalisisResource extends Resource
 
     protected static ?string $navigationLabel = 'Analisis Program Kerja';
     protected static ?string $pluralModelLabel = 'Analisis Program Kerja';
-    protected static ?string $modelLabel = 'Analisis';
-
+    protected static ?string $modelLabel = 'Data';
     protected static ?string $cluster = StakeholderPelaksanaan::class;
 
     public static function form(Form $form): Form
