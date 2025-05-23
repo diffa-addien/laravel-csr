@@ -35,8 +35,14 @@ class VendorResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->required()
+                    ->label('Nama Vendor Baru')
+                    ->placeholder('PT. Contoh')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('pimpinan')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('ruang_lingkup')
+                    ->label('Lingkup Pekerjaan')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('alamat')
@@ -50,8 +56,12 @@ class VendorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Vendor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pimpinan')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ruang_lingkup')
+                    ->label('Lingkup Pekerjaan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('alamat')
                     ->searchable()

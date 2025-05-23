@@ -12,6 +12,7 @@ class Vendor extends Model
     protected $fillable = [
         'nama',
         'pimpinan',
+        'ruang_lingkup',
         'alamat',
     ];
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('pimpinan');
+            $table->string('ruang_lingkup');
             $table->text('alamat');
             $table->timestamps();
         });
