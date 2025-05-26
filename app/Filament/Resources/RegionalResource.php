@@ -17,7 +17,7 @@ class RegionalResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     protected static ?string $navigationGroup = 'Data Induk';
-    protected static ?string $navigationParentItem = 'Wilayah';
+    // protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Regional';
     protected static ?string $pluralModelLabel = 'Data Regional';
     protected static ?string $modelLabel = 'Data';
@@ -26,14 +26,6 @@ class RegionalResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_provinsi')
-                    ->label('Provinsi')
-                    ->relationship('provinsi', 'nama_provinsi')
-                    ->required()
-                    ->searchable()
-                    ->preload(),
-                    Forms\Components\Textarea::make('alamat')
-                        ->required(),
                 Forms\Components\TextInput::make('nama_regional')
                     ->label('Nama Regional')
                     ->required()
@@ -63,13 +55,9 @@ class RegionalResource extends Resource
                 Tables\Columns\TextColumn::make('pimpinan')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('alamat')
+                Tables\Columns\TextColumn::make('tujuan')
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('provinsi.nama_provinsi')
-                    ->label('Provinsi')
-                    ->searchable()
-                    ->sortable(),
             ])
             ->filters([
                 //

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_provinsi');
             $table->string('gubernur');
+            $table->foreignId('regional_id')
+                  ->constrained('regionals')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }

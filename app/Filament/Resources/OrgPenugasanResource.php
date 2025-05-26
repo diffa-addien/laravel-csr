@@ -26,7 +26,7 @@ class OrgPenugasanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Data Induk';
-    protected static ?string $navigationParentItem = 'Wilayah';
+    protected static ?string $navigationParentItem = 'Regional';
     protected static ?string $navigationLabel = 'Penugasan Regional';
     protected static ?string $modelLabel = 'Data';
     protected static ?string $pluralModelLabel = 'Data Penugasan';

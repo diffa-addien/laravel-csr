@@ -14,15 +14,11 @@ class Regional extends Model
         'nama_regional',
         'id_provinsi',
         'pimpinan',
-        'alamat',
         'visi',
         'misi',
         'tujuan',
     ];
 
-    /**
-     * Relasi ke model Kabupaten
-     */
     public function provinsi(): BelongsTo
     {
         return $this->belongsTo(Provinsi::class, 'id_provinsi');

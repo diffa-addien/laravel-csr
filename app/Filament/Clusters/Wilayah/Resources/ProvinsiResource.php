@@ -40,6 +40,12 @@ class ProvinsiResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('regional_id')
+                    ->label('Regional')
+                    ->relationship('dariRegional', 'nama_regional')
+                    ->required()
+                    ->searchable()
+                    ->preload(),
                 Forms\Components\TextInput::make('nama_provinsi')
                     ->required()
                     ->maxLength(255),
@@ -53,6 +59,9 @@ class ProvinsiResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('dariRegional.nama_regional')
+                    ->label('Regional')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('nama_provinsi')
                     ->label('Provinsi')
                     ->searchable(),

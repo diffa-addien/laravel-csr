@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama_regional');
             $table->string('pimpinan');
-            $table->text('alamat');
+            // $table->text('alamat');
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
             $table->text('tujuan')->nullable();
-            $table->foreignId('id_provinsi')
-                  ->constrained('provinsis')
-                  ->onDelete('cascade');
+            // $table->foreignId('id_provinsi')
+            //       ->constrained('provinsis')
+            //       ->onDelete('cascade');
             $table->timestamps();
         });
     }
