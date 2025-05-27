@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class SdgIndikatorResource extends Resource
 {
@@ -35,7 +36,12 @@ class SdgIndikatorResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('no_indikator')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->unique(
+                        SdgIndikator::class, // Nama class model
+                        'no_indikator',      // Nama kolom yang ingin di-unique-kan
+                        fn(?Model $record): ?Model => $record, // Abaikan record saat ini saat edit
+                    ),
                 Forms\Components\Textarea::make('nama_indikator')
                     ->required()
                     ->columnSpanFull()

@@ -14,6 +14,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Illuminate\Database\Eloquent\Model;
+
 class SdgTargetResource extends Resource
 {
     protected static ?string $model = SdgTarget::class;
@@ -40,7 +42,11 @@ class SdgTargetResource extends Resource
                 Forms\Components\TextInput::make('no_target')
                     ->required()
                     ->maxLength(255)
-                    ->unique(table: \App\Models\SdgTarget::class, column: 'no_target'),
+                    ->unique(
+                        SdgTarget::class, // Nama class model
+                        'no_target',      // Nama kolom yang ingin di-unique-kan
+                        fn(?Model $record): ?Model => $record, // Abaikan record saat ini saat edit
+                    ),
                 Forms\Components\Textarea::make('target')
                     ->required()
                     ->maxLength(255)
