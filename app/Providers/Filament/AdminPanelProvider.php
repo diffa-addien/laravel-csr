@@ -21,9 +21,7 @@ use Filament\Navigation\NavigationGroup;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\DataKegiatanChart;
 use App\Filament\Widgets\InfoSistem;
-
-use App\Filament\Pages\PrintTable; // Pastikan ini ada
-use Filament\Support\Assets\Css;
+use App\Filament\Pages\PrintTable;
 
 
 use App\Filament\Widgets\DataTesChart;
@@ -55,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->pages([
                 Pages\Dashboard::class,
-                PrintTable::class, // 👈 Tambahkan halaman PrintTable di sini
+                PrintTable::class,
 
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
@@ -87,10 +85,4 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop();
     }
 
-    public function setUp(Panel $panel): void
-    {
-        $panel->assets([
-            \Filament\Support\Assets\Css::make('custom-styles', asset('css/filament/filament/custom.css')),
-        ]);
-    }
 }

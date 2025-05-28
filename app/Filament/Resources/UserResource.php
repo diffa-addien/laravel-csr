@@ -32,6 +32,11 @@ class UserResource extends Resource
         return 'Pengguna';
     }
 
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user() ? auth()->user()->hasPermissionTo('view-users') : false;
+    // }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
