@@ -27,9 +27,14 @@ class PengmasRencanaProgramAnggaran extends Model
         'tujuan_utama',
         'tujuan_khusus',
         'justifikasi',
-        'keterangan'
+        'keterangan',
+        'tahun_fiskal',
     ];
-
+    public function dariTahunFiskal(): BelongsTo
+    {
+        return $this->belongsTo(TahunFiskal::class, 'tahun_fiskal');
+    }
+    
     public function regional(): BelongsTo
     {
         return $this->belongsTo(Regional::class, 'regional_id');

@@ -6,6 +6,7 @@ use App\Filament\Clusters\PengmasPerencanaan;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasRencanaProgramAnggaranResource\Pages;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasRencanaProgramAnggaranResource\RelationManagers;
 use App\Models\PengmasRencanaProgramAnggaran;
+use App\Models\TahunFiskal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -94,6 +95,34 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 Textarea::make('keterangan')
                     ->nullable()
                     ->columnSpanFull(),
+                Select::make('tahun_fiskal')
+                    ->label('Tahun Fiskal')
+                    ->options(
+                        TahunFiskal::pluck('tahun_fiskal', 'id')->toArray()
+                    )
+                    ->required()
+                    ->disabled() // Ini akan membuat field menjadi readonly
+                    ->default(function () {
+                        // Cari record TahunFiskal yang is_active = true
+                        $activeTahunFiskal = TahunFiskal::where('is_active', true)->first();
+
+                        // Jika ditemukan, gunakan ID-nya sebagai nilai default
+                        if ($activeTahunFiskal) {
+                            return $activeTahunFiskal->id;
+                        }
+
+                        // Jika tidak ada yang aktif, Anda bisa mengembalikan null atau ID default lainnya
+                        // Misalnya, jika Anda ingin default ke tahun fiskal saat ini jika tidak ada yang aktif:
+                        // $currentYear = date('Y');
+                        // $currentTahunFiskal = TahunFiskal::where('tahun_fiskal', $currentYear)->first();
+                        // return $currentTahunFiskal ? $currentTahunFiskal->id : null;
+            
+                        return null; // Mengembalikan null jika tidak ada tahun fiskal aktif
+                    })
+                    ->validationMessages([
+                        'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
+                    ]),
+                Forms\Components\Hidden::make('tahun_fiskal')
             ]);
     }
 
@@ -121,6 +150,10 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 TextColumn::make('keterangan')
                     ->limit(50)
                     ->searchable(),
+                TextColumn::make('dariTahunFiskal.tahun_fiskal')
+                    ->label('Tahun Fiskal')
+                    ->searchable()
+                    ->limit(50),
             ])
             ->filters([
                 //

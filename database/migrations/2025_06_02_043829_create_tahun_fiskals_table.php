@@ -4,18 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('kompumed_rencana_programs', function (Blueprint $table) {
+        Schema::create('tahun_fiskals', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->text('keterangan');
-            $table->foreignId('tahun_fiskal')->constrained('tahun_fiskals')->onDelete('cascade');
+            $table->string('tahun_fiskal')->unique(); // Misalnya: "2023/2024"
+            $table->date('tanggal_buka');
+            $table->date('tanggal_tutup');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kompumed_rencana_programs');
+        Schema::dropIfExists('tahun_fiskals');
     }
 };
