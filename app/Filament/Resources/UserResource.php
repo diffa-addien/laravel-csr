@@ -50,7 +50,7 @@ class UserResource extends Resource
                 ->required(fn($context) => $context === 'create'),
             Select::make('roles')
                 ->relationship('roles', 'name')
-                ->label('Roles')
+                ->label('Role')
                 ->preload(),
         ]);
     }
@@ -61,7 +61,7 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('email')->searchable(),
-                TextColumn::make('roles.name')->label('Roles')->badge()->separator(', '),
+                TextColumn::make('roles.name')->label('Role')->badge()->separator(', '),
             ])
             ->filters([
                 //

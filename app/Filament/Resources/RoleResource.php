@@ -35,13 +35,13 @@ class RoleResource extends Resource
         return $form->schema([
             TextInput::make('name')
                 ->required()
-                ->label('Role Name'),
+                ->label('Nama Role'),
 
             Select::make('permissions')
                 ->multiple()
                 ->relationship('permissions', 'name')
                 ->preload()
-                ->label('Permissions'),
+                ->label('Hak Akses'),
         ]);
     }
 
@@ -49,10 +49,11 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')
+                ->label('Nama Role')->sortable()->searchable(),
 
                 TextColumn::make('permissions.name')
-                    ->label('Permissions')
+                    ->label('Hak Akses')
                     ->badge()
                     ->separator(', '),
             ])
