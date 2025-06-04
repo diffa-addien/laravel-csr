@@ -24,6 +24,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
 
 class StkholderPelaksanaanPpkResource extends Resource
 {
@@ -40,6 +42,37 @@ class StkholderPelaksanaanPpkResource extends Resource
     {
         return $form
             ->schema([
+                FilamentSpatieMediaLibraryFileUpload::make('images')
+                    ->collection('images')
+                    ->multiple()
+                    ->image()
+                    ->maxFiles(5)
+                    ->maxSize(2048) // 2MB per file
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
+                    ->disk('uploads')
+                    ->directory('stkholder-images')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        null, // Free crop
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->downloadable()
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->label('Gambar')
+                    ->rules(['image', 'max:2048'])
+                    ->validationMessages([
+                        'image' => 'File harus berupa gambar (jpeg, png, atau gif).',
+                        'max' => 'Ukuran file tidak boleh melebihi 2MB.',
+                    ])
+                    ->previewable(true)
+                    ->imagePreviewHeight('150') // Tinggi preview 80px untuk tampilan compact
+                    ->panelLayout('grid') // Tata letak grid untuk preview lebih rapi
+                    ->extraAttributes(['style' => 'gap: 10px;']) // Jarak antar thumbnail
+                    ->columnSpanFull(),
                 Section::make('Kegiatan Details')
                     ->schema([
                         Select::make('kegiatan_id')
@@ -106,7 +139,7 @@ class StkholderPelaksanaanPpkResource extends Resource
                 Section::make('Pelaksanaan Details')
                     ->schema([
                         Select::make('coverage')
-                            ->label('Coverage')
+                            ->label('Lingkup Area')
                             ->options([
                                 'desa' => 'Desa',
                                 'kecamatan' => 'Kecamatan',
@@ -127,7 +160,8 @@ class StkholderPelaksanaanPpkResource extends Resource
                             ->nullable(),
                         DatePicker::make('tanggal_pelaksanaan')
                             ->label('Tanggal Pelaksanaan')
-                            ->nullable(),
+                            ->nullable()
+                            ->native(false),
                     ])
                     ->columns(2),
             ]);
@@ -137,6 +171,13 @@ class StkholderPelaksanaanPpkResource extends Resource
     {
         return $table
             ->columns([
+                FilamentSpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->label('Gambar')
+                    ->limit(3)
+                    ->circular()
+                    ->stacked()
+                    ->extraImgAttributes(['style' => 'max-height: 50px;']),
                 TextColumn::make('kegiatan.kegiatan')
                     ->label('Kegiatan')
                     ->sortable()
@@ -161,7 +202,7 @@ class StkholderPelaksanaanPpkResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('coverage')
-                    ->label('Coverage')
+                    ->label('Lingkup Area')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('biaya')
