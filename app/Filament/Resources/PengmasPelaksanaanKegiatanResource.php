@@ -15,11 +15,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
 
 class PengmasPelaksanaanKegiatanResource extends Resource
 {
     protected static ?string $model = PengmasPelaksanaanKegiatan::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
     protected static ?string $navigationGroup = 'Pengembangan Masyarakat';
     protected static ?string $navigationLabel = 'Pelaksanaan';
@@ -31,6 +32,37 @@ class PengmasPelaksanaanKegiatanResource extends Resource
     {
         return $form
             ->schema([
+                FilamentSpatieMediaLibraryFileUpload::make('images')
+                    ->collection('images')
+                    ->multiple()
+                    ->image()
+                    ->maxFiles(5)
+                    ->maxSize(2048) // 2MB per file
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
+                    ->disk('uploads')
+                    ->directory('pengmas-images')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        null, // Free crop
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->downloadable()
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->label('Gambar')
+                    ->rules(['image', 'max:2048'])
+                    ->validationMessages([
+                        'image' => 'File harus berupa gambar (jpeg, png, atau gif).',
+                        'max' => 'Ukuran file tidak boleh melebihi 2MB.',
+                    ])
+                    ->previewable(true)
+                    ->imagePreviewHeight('150') // Tinggi preview 80px untuk tampilan compact
+                    ->panelLayout('grid') // Tata letak grid untuk preview lebih rapi
+                    ->extraAttributes(['style' => 'gap: 10px;']) // Jarak antar thumbnail
+                    ->columnSpanFull(),
                 Select::make('program_id')
                     ->label('Program')
                     ->relationship('dariProgram', 'nama_program', fn ($query) => $query->with(['bidang'])->selectRaw('pengmas_rencana_program_anggarans.id, CONCAT(bidangs.nama_bidang, " - ", pengmas_rencana_program_anggarans.nama_program) as nama_program')->join('bidangs', 'pengmas_rencana_program_anggarans.bidang_id', '=', 'bidangs.id'))

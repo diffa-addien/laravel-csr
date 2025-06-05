@@ -17,6 +17,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
 
 class KompumedPelaksanaanKegiatanResource extends Resource
 {
@@ -34,6 +36,37 @@ class KompumedPelaksanaanKegiatanResource extends Resource
     {
         return $form
             ->schema([
+                FilamentSpatieMediaLibraryFileUpload::make('images')
+                    ->collection('images')
+                    ->multiple()
+                    ->image()
+                    ->maxFiles(5)
+                    ->maxSize(2048) // 2MB per file
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
+                    ->disk('uploads')
+                    ->directory('kompumed-images')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        null, // Free crop
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->downloadable()
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->label('Gambar')
+                    ->rules(['image', 'max:2048'])
+                    ->validationMessages([
+                        'image' => 'File harus berupa gambar (jpeg, png, atau gif).',
+                        'max' => 'Ukuran file tidak boleh melebihi 2MB.',
+                    ])
+                    ->previewable(true)
+                    ->imagePreviewHeight('150') // Tinggi preview 80px untuk tampilan compact
+                    ->panelLayout('grid') // Tata letak grid untuk preview lebih rapi
+                    ->extraAttributes(['style' => 'gap: 10px;']) // Jarak antar thumbnail
+                    ->columnSpanFull(),
                 Select::make('kegiatan_id')
                     ->label('Kegiatan')
                     ->options(function () {
@@ -95,6 +128,13 @@ class KompumedPelaksanaanKegiatanResource extends Resource
     {
         return $table
             ->columns([
+                FilamentSpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->label('Gambar')
+                    ->limit(3)
+                    ->circular()
+                    ->stacked()
+                    ->extraImgAttributes(['style' => 'max-height: 50px;']),
                 TextColumn::make('kegiatan.nama')
                     ->label('Kegiatan')
                     ->formatStateUsing(fn($record) => "{$record->kegiatan->nama} ({$record->kegiatan->regional->nama_regional} - {$record->kegiatan->program->nama})")
@@ -104,18 +144,18 @@ class KompumedPelaksanaanKegiatanResource extends Resource
                     ->limit(50)
                     ->searchable(),
                 TextColumn::make('frekuensi')
-                    ->formatStateUsing(fn ($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
+                    ->formatStateUsing(fn($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
                     ->sortable(),
                 TextColumn::make('biaya')
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('kuantitas')
-                    ->formatStateUsing(fn ($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
+                    ->formatStateUsing(fn($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
                     ->sortable(),
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
-                    ->getStateUsing(fn ($record) => $record->biaya * $record->kuantitas)
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->getStateUsing(fn($record) => $record->biaya * $record->kuantitas)
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('tanggal_pelaksanaan')
                     ->label('Tanggal Pelaksanaan')
