@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
+
 
 class UserResource extends Resource
 {
@@ -41,7 +43,14 @@ class UserResource extends Resource
     {
         return $form->schema([
             TextInput::make('name')->required(),
-            TextInput::make('email')->email()->required(),
+            TextInput::make('email')
+                ->email()
+                ->unique(
+                    User::class, // Nama class model
+                    'email',      // Nama kolom yang ingin di-unique-kan
+                    fn(?Model $record): ?Model => $record, // Abaikan record saat ini saat edit
+                )
+                ->required(),
             TextInput::make('password')
                 ->password()
                 ->label('Password')
