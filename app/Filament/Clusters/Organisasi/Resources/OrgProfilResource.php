@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
+
 class OrgProfilResource extends Resource
 {
     protected static ?string $model = OrgProfil::class;
@@ -36,10 +39,10 @@ class OrgProfilResource extends Resource
         return 'Profil Organisasi';
     }
 
-    protected function getFormActions(): array
+    public static function getCreateFormActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->disableCreateAnother(),
         ];
     }
 
@@ -47,42 +50,47 @@ class OrgProfilResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make('logo')
-                    ->image()
-                    ->directory('Organisasi')
+                FilamentSpatieMediaLibraryFileUpload::make('images')
+                    ->label('Logo')
+                    ->collection('images')
+                    ->directory('organisasi')
                     ->disk('uploads')
-                    ->maxSize(2048)
+                    ->maxSize(2048) // 2MB per file
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
                     ->nullable(),
                 TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('pimpinan')
+                TextInput::make('pimpinan')->label('Nama Pimpinan')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('lv1')
-                    ->label('Tingkat Manajer')
+                    ->label('Nama Jabatan (Tingkat Manajer)')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv2')
-                    ->label('Tingkat Supervisor')
+                    ->label('Nama Jabatan (Tingkat Supervisor)')
                     ->maxLength(255)
                     ->nullable(),
                 TextInput::make('lv3')
-                    ->label('Tingkat Operator')
+                    ->label('Nama Jabatan (Tingkat Operator)')
                     ->maxLength(255)
                     ->nullable(),
             ]);
 
         $form->disableCreateButton();
         $form->disableSuccessFormActions();
-        
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo')->disk('uploads'),
+                FilamentSpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->label('Logo')
+                    ->circular()
+                    ->extraImgAttributes(['style' => 'max-height: 50px;']),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Organisasi'),
                 Tables\Columns\TextColumn::make('pimpinan')
@@ -94,6 +102,8 @@ class OrgProfilResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                
+                Tables\Actions\DeleteAction::make(),
             ])
             ->paginated(false);;
     }
@@ -102,6 +112,7 @@ class OrgProfilResource extends Resource
     {
         return [
             'index' => Pages\ManageOrgProfils::route('/'),
+            'create' => Pages\CreateOrgProfil::route('/create'),
         ];
     }
 
