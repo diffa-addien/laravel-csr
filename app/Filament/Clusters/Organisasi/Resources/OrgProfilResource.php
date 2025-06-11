@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
-use Filament\Actions\CreateAction; // Impor CreateAction dari namespace yang benar
 
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
@@ -96,18 +95,6 @@ class OrgProfilResource extends Resource
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->paginated(false);;
-    }
-
-    public static function getActions(): array
-    {
-        return [
-            CreateAction::make()
-                ->form(fn (Form $form): Form => $form->schema(static::getFormSchema())) // Gunakan schema form yang sama
-                ->modalSubmitAction(false) // Menonaktifkan tombol 'Buat & buat lainnya'
-                ->using(function (array $data, Form $form): OrgProfil {
-                    return static::getModel()::create($data);
-                }),
-        ];
     }
 
     public static function getPages(): array
