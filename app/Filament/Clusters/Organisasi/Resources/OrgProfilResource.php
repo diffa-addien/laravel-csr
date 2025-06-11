@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Actions\CreateAction; // Impor CreateAction dari namespace yang benar
 
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
@@ -37,13 +38,6 @@ class OrgProfilResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return 'Profil Organisasi';
-    }
-
-    public static function getCreateFormActions(): array
-    {
-        return [
-            Actions\CreateAction::make()->disableCreateAnother(),
-        ];
     }
 
     public static function form(Form $form): Form
@@ -77,9 +71,6 @@ class OrgProfilResource extends Resource
                     ->maxLength(255)
                     ->nullable(),
             ]);
-
-        $form->disableCreateButton();
-        $form->disableSuccessFormActions();
     }
 
     public static function table(Table $table): Table
@@ -102,17 +93,28 @@ class OrgProfilResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->paginated(false);;
+    }
+
+    public static function getActions(): array
+    {
+        return [
+            CreateAction::make()
+                ->form(fn (Form $form): Form => $form->schema(static::getFormSchema())) // Gunakan schema form yang sama
+                ->modalSubmitAction(false) // Menonaktifkan tombol 'Buat & buat lainnya'
+                ->using(function (array $data, Form $form): OrgProfil {
+                    return static::getModel()::create($data);
+                }),
+        ];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageOrgProfils::route('/'),
-            'create' => Pages\CreateOrgProfil::route('/create'),
+            // 'create' => Pages\CreateOrgProfil::route('/create'),
         ];
     }
 
