@@ -21,8 +21,8 @@ class BidangResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     protected static ?string $navigationGroup = 'Data Induk';
-    protected static ?string $navigationLabel = 'Bidang';
-    protected static ?string $pluralModelLabel = 'Bidang';
+    protected static ?string $navigationLabel = 'Pilar';
+    protected static ?string $pluralModelLabel = 'Pilar';
     protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 3;
 
@@ -31,10 +31,12 @@ class BidangResource extends Resource
         return $form
             ->schema([
                 TextInput::make('kode_bidang')
+                    ->label('Kode Pilar')
                     ->required()
                     ->maxLength(255)
                     ->unique(Bidang::class, 'kode_bidang', ignoreRecord: true),
                 TextInput::make('nama_bidang')
+                    ->label('Nama Pilar')
                     ->required()
                     ->maxLength(255),
                 Textarea::make('keterangan')
@@ -48,9 +50,11 @@ class BidangResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('kode_bidang')
+                    ->label('Kode Pilar')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('nama_bidang')
+                    ->label('Nama Pilar')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('keterangan')
