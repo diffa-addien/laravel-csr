@@ -33,4 +33,11 @@ class OrgProfil extends Model implements HasMedia
         return $this->hasMany(OrgPenugasan::class, 'parent_id');
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')
+             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+             ->useDisk('uploads');
+    }
+
 }

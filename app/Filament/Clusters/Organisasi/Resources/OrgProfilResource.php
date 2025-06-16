@@ -44,8 +44,8 @@ class OrgProfilResource extends Resource
         return $form
             ->schema([
                 FilamentSpatieMediaLibraryFileUpload::make('images')
-                    ->label('Logo')
                     ->collection('images')
+                    ->label('Logo')
                     ->directory('organisasi')
                     ->disk('uploads')
                     ->maxSize(2048) // 2MB per file
