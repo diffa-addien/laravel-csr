@@ -49,7 +49,8 @@ class SdgTargetResource extends Resource
                     ),
                 Forms\Components\Textarea::make('target')
                     ->required()
-                    ->maxLength(255)
+                    ->maxLength(65535)
+                    ->rows(4)
                     ->columnSpanFull(),
             ]);
     }

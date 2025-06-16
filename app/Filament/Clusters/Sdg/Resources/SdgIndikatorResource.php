@@ -48,6 +48,7 @@ class SdgIndikatorResource extends Resource
                     ->maxLength(1000),
                 Forms\Components\Textarea::make('keterangan')
                     ->maxLength(65535)
+                    ->rows(4)
                     ->columnSpanFull(),
             ]);
     }
