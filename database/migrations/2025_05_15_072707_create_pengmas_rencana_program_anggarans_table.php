@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('regional_id')->constrained('regionals')->onDelete('cascade');
             $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('cascade');
             $table->string('nama_program');
-            $table->string('jenis_program');
+            $table->string('jenis_program')->nullable();
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('pengajuan_anggaran');
             $table->unsignedBigInteger('kesepakatan_anggaran')->nullable();
