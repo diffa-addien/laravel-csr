@@ -8,6 +8,7 @@ class BerandaController extends Controller
 {
     public function index()
     {
-        return view('beranda');
+        return redirect('/admin');
+        // return view('beranda');
     }
 }
