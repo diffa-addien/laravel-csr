@@ -46,11 +46,26 @@ class KecamatanResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('provinsi_id')
                     ->label('Provinsi')
-                    ->relationship('kabupaten.provinsi', 'nama_provinsi')
+                    ->options(function () {
+                        return \App\Models\Provinsi::pluck('nama_provinsi', 'id')->toArray();
+                    })
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->required(),
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('id_kabupaten', null);
+                    })
+                    ->afterStateHydrated(function (Forms\Components\Select $component, $state) use ($form) {
+                        // Ambil id_kabupaten saat form di-edit
+                        $kabupatenId = $form->getRecord()->id_kabupaten ?? null;
+
+                        if ($kabupatenId) {
+                            $provinsiId = Kabupaten::where('id', $kabupatenId)->value('id_provinsi');
+                            $component->state($provinsiId);
+                        }
+                    }),
                 Forms\Components\Select::make('id_kabupaten')
                     ->label('Kabupaten')
                     ->options(function (callable $get) {
