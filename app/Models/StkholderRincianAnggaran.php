@@ -30,4 +30,15 @@ class StkholderRincianAnggaran extends Model
     {
         return $this->belongsTo(Vendor::class, 'pelaksana_id');
     }
+
+    public function getPelaksanaNamesAttribute(): array
+    {
+        if (!$this->pelaksana_id) {
+            return [];
+        }
+
+        $ids = explode(',', $this->pelaksana_id);
+
+        return \App\Models\Vendor::whereIn('id', $ids)->pluck('nama')->toArray();
+    }
 }

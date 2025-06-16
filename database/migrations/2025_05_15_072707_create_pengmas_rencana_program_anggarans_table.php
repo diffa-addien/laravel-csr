@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('tujuan_utama');
             $table->text('tujuan_khusus');
             $table->text('justifikasi');
-            $table->foreignId('tahun_fiskal')->constrained('tahun_fiskals')->onDelete('cascade');
+            $table->foreignId('tahun_fiskal')->constrained('tahun_fiskals')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

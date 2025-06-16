@@ -67,6 +67,7 @@ class StkholderPerencanaanPpkResource extends Resource
                         'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
                     ]),
                 Forms\Components\Hidden::make('tahun_fiskal')
+                    ->required()
             ]);
     }
 

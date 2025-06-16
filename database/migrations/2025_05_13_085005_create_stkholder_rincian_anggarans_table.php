@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('stkholder_rincian_anggarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kegiatan_id')->constrained('stkholder_perencanaan_program_anggarans')->onDelete('cascade');
-            $table->foreignId('pelaksana_id')->constrained('vendors')->onDelete('cascade');
+            $table->foreignId('kegiatan_id')->constrained('stkholder_perencanaan_program_anggarans')->onDelete('restrict');
+            $table->string('pelaksana_id');
             $table->unsignedInteger('frekuensi');
             $table->string('frekuensi_unit');
             $table->unsignedBigInteger('biaya');

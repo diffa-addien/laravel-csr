@@ -42,7 +42,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->searchable()
                     ->preload(),
                 Select::make('bidang_id')
-                    ->label('Pilar')
+                    ->label('Bidang')
                     ->relationship('bidang', 'nama_bidang')
                     ->required()
                     ->searchable()
@@ -122,7 +122,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->validationMessages([
                         'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
                     ]),
-                Forms\Components\Hidden::make('tahun_fiskal')
+                Forms\Components\Hidden::make('tahun_fiskal')->required()
             ]);
     }
 
@@ -135,7 +135,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('bidang.nama_bidang')
-                    ->label('Pilar')
+                    ->label('Bidang')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('nama_program')

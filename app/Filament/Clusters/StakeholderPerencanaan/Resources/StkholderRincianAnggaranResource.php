@@ -44,10 +44,26 @@ class StkholderRincianAnggaranResource extends Resource
                     ->preload(),
                 Select::make('pelaksana_id')
                     ->label('Pelaksana')
-                    ->relationship('pelaksana', 'nama')
-                    ->required()
+                    ->multiple()
+                    ->options(function () {
+                        return \App\Models\Vendor::pluck('nama', 'id');
+                    })
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->required()
+                    // Saat data disimpan, ubah array jadi string
+                    ->dehydrateStateUsing(function ($state) {
+                        return is_array($state) ? implode(',', $state) : $state;
+                    })
+                    // Saat diedit, ubah string jadi array
+                    ->formatStateUsing(function ($state) {
+                        return is_string($state) ? explode(',', $state) : $state;
+                    })
+                    ->afterStateHydrated(function (Select $component, $state) {
+                        if (is_string($state)) {
+                            $component->state(explode(',', $state));
+                        }
+                    }),
                 TextInput::make('frekuensi')
                     ->required()
                     ->numeric()
@@ -86,6 +102,7 @@ class StkholderRincianAnggaranResource extends Resource
             ]);
     }
 
+
     public static function table(Table $table): Table
     {
         return $table
@@ -95,22 +112,22 @@ class StkholderRincianAnggaranResource extends Resource
                     ->formatStateUsing(fn($record) => "{$record->kegiatan->kegiatan} ({$record->kegiatan->regional->nama_regional} - {$record->kegiatan->program->nama})")
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('pelaksana.nama')
-                    ->sortable()
-                    ->searchable(),
+                TextColumn::make('pelaksana_names')
+                    ->label('Pelaksana')
+                    ->limit(50),
                 TextColumn::make('frekuensi')
-                    ->formatStateUsing(fn ($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
+                    ->formatStateUsing(fn($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
                     ->sortable(),
                 TextColumn::make('biaya')
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('kuantitas')
-                    ->formatStateUsing(fn ($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
+                    ->formatStateUsing(fn($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
                     ->sortable(),
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
-                    ->getStateUsing(fn ($record) => $record->biaya * $record->kuantitas)
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->getStateUsing(fn($record) => $record->biaya * $record->kuantitas)
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('keterangan')
                     ->limit(50)

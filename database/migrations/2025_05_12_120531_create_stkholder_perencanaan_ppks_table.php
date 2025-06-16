@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('keterangan');
-            $table->foreignId('tahun_fiskal')->constrained('tahun_fiskals')->onDelete('cascade');
+            $table->foreignId('tahun_fiskal')->constrained('tahun_fiskals')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }
