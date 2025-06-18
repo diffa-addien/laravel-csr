@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengmas_wilayah_kegiatans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_kegiatan')->nullable();
             $table->foreignId('id_desa')->constrained('desas')->onDelete('cascade');
             $table->foreignId('program_id')->constrained('pengmas_rencana_program_anggarans')->onDelete('cascade');
+            $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('restrict');
             $table->string('alamat')->nullable();
-            $table->unsignedInteger('jumlah_penerima');
+            $table->unsignedInteger('jumlah_penerima')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

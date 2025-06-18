@@ -13,6 +13,8 @@ class PengmasWilayahKegiatan extends Model
     protected $fillable = [
         'id_desa',
         'program_id',
+        'nama_kegiatan',
+        'bidang_id',
         'alamat',
         'jumlah_penerima',
         'keterangan',
@@ -29,6 +31,11 @@ class PengmasWilayahKegiatan extends Model
     public function dariProgram(): BelongsTo
     {
         return $this->belongsTo(PengmasRencanaProgramAnggaran::class, 'program_id');
+    }
+
+    public function dariBidang(): BelongsTo
+    {
+        return $this->belongsTo(Bidang::class, 'bidang_id', 'id');
     }
 
 }

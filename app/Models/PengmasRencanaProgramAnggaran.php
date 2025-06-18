@@ -14,7 +14,6 @@ class PengmasRencanaProgramAnggaran extends Model
 
     protected $fillable = [
         'regional_id',
-        'bidang_id',
         'nama_program',
         'jenis_program',
         'keterangan',
@@ -38,11 +37,6 @@ class PengmasRencanaProgramAnggaran extends Model
     public function regional(): BelongsTo
     {
         return $this->belongsTo(Regional::class, 'regional_id');
-    }
-
-    public function bidang(): BelongsTo
-    {
-        return $this->belongsTo(Bidang::class, 'bidang_id', 'id');
     }
 
     public function monevPengmas(): HasOne

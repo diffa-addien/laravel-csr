@@ -50,56 +50,116 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->schema([
                         Select::make('program_id')
                             ->label('Dari Program')
-                            ->required()
                             ->relationship('dariProgram', 'nama_program', fn($query) => $query->selectRaw('id, nama_program')->whereNotNull('nama_program'))
+                            ->required()
                             ->columnSpanFull(),
+                        TextInput::make('nama_kegiatan')
+                            ->label('Nama Kegiatan')
+                            ->required(),
+                        Select::make('bidang_id')
+                            ->label('Pilar')
+                            ->relationship('dariBidang', 'nama_bidang')
+                            ->required()
+                            ->preload(),
                         Select::make('id_provinsi')
                             ->label('Provinsi')
                             ->required()
                             ->options(fn() => Provinsi::whereNotNull('nama_provinsi')->pluck('nama_provinsi', 'id'))
                             ->reactive()
-                            ->afterStateUpdated(fn(callable $set) => $set('id_kabupaten', null)),
+                            ->afterStateUpdated(fn(callable $set) => $set('id_kabupaten', null))
+                            ->dehydrateStateUsing(fn($state) => $state) // Keep the state as is when saving
+                            ->afterStateHydrated(function (Select $component, $state, callable $set, $record) {
+                                // When hydrating the form (on edit), if id_desa exists,
+                                // try to find the corresponding province ID.
+                                if ($record && $record->id_desa) {
+                                    $desa = Desa::find($record->id_desa);
+                                    if ($desa && $desa->kecamatan && $desa->kecamatan->kabupaten && $desa->kecamatan->kabupaten->provinsi) {
+                                        $set('id_provinsi', $desa->kecamatan->kabupaten->provinsi->id);
+                                    }
+                                }
+                            }),
                         Select::make('id_kabupaten')
                             ->label('Kabupaten')
                             ->required()
                             ->options(function ($get) {
                                 $provinsiId = $get('id_provinsi');
-                                if (!$provinsiId) return [];
+                                if (!$provinsiId) {
+                                    return [];
+                                }
                                 return Kabupaten::where('id_provinsi', $provinsiId)->whereNotNull('nama_kab')->pluck('nama_kab', 'id');
                             })
                             ->reactive()
-                            ->afterStateUpdated(fn(callable $set) => $set('id_kecamatan', null)),
+                            ->afterStateUpdated(fn(callable $set) => $set('id_kecamatan', null))
+                            ->dehydrateStateUsing(fn($state) => $state) // Keep the state as is when saving
+                            ->afterStateHydrated(function (Select $component, $state, callable $set, $record) {
+                                // When hydrating the form (on edit), if id_desa exists,
+                                // try to find the corresponding kabupaten ID.
+                                if ($record && $record->id_desa) {
+                                    $desa = Desa::find($record->id_desa);
+                                    if ($desa && $desa->kecamatan && $desa->kecamatan->kabupaten) {
+                                        $set('id_kabupaten', $desa->kecamatan->kabupaten->id);
+                                    }
+                                }
+                            }),
+
                         Select::make('id_kecamatan')
                             ->label('Kecamatan')
                             ->required()
                             ->options(function ($get) {
                                 $kabupatenId = $get('id_kabupaten');
-                                if (!$kabupatenId) return [];
+                                if (!$kabupatenId) {
+                                    return [];
+                                }
                                 return Kecamatan::where('id_kabupaten', $kabupatenId)->whereNotNull('nama_kec')->pluck('nama_kec', 'id');
                             })
                             ->reactive()
-                            ->afterStateUpdated(fn(callable $set) => $set('id_desa', null)),
+                            ->afterStateUpdated(fn(callable $set) => $set('id_desa', null))
+                            ->dehydrateStateUsing(fn($state) => $state) // Keep the state as is when saving
+                            ->afterStateHydrated(function (Select $component, $state, callable $set, $record) {
+                                // When hydrating the form (on edit), if id_desa exists,
+                                // try to find the corresponding kecamatan ID.
+                                if ($record && $record->id_desa) {
+                                    $desa = Desa::find($record->id_desa);
+                                    if ($desa && $desa->kecamatan) {
+                                        $set('id_kecamatan', $desa->kecamatan->id);
+                                    }
+                                }
+                            }),
+
                         Select::make('id_desa')
                             ->label('Desa')
                             ->required()
-                            ->relationship('desa', 'nama_desa', fn($query, $get) => $query->where('id_kecamatan', $get('id_kecamatan'))->whereNotNull('nama_desa'))
-                            ->columnSpanFull(),
+                            ->options(function ($get) {
+                                $kecamatanId = $get('id_kecamatan');
+                                if (!$kecamatanId) {
+                                    return [];
+                                }
+                                return Desa::where('id_kecamatan', $kecamatanId)->whereNotNull('nama_desa')->pluck('nama_desa', 'id');
+                            })
+                            ->dehydrateStateUsing(fn($state) => $state) // Keep the state as is when saving
+                            ->afterStateHydrated(function (Select $component, $state, callable $set, $record) {
+                                // This is the field that holds the saved value,
+                                // so we don't need to explicitly set other fields here.
+                                // Filament will automatically set this field's value based on $record->id_desa.
+                            }),
                         TextInput::make('alamat')
                             ->label('Alamat')
                             ->nullable()
                             ->maxLength(255)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->hint('(Opsional)'),
                         TextInput::make('jumlah_penerima')
                             ->label('Jumlah Penerima Manfaat')
-                            ->required()
                             ->numeric()
                             ->minValue(1)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->hint('(Opsional)'),
                         Textarea::make('keterangan')
                             ->label('Keterangan')
                             ->rows(4)
                             ->nullable()
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->hint('(Opsional)'),
                     ])
                     ->columns(2),
             ]);
@@ -109,12 +169,20 @@ class PengmasWilayahKegiatanResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('desa.nama_desa')
-                    ->label('Desa')
+                TextColumn::make('nama_kegiatan')
+                    ->label('Kegiatan')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('dariProgram.nama_program')
                     ->label('Dari Program')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('dariBidang.nama_bidang')
+                    ->label('Pilar')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('desa.nama_desa')
+                    ->label('Desa')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('desa.kecamatan.nama_kec')
@@ -129,21 +197,8 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->label('Provinsi')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('alamat')
-                    ->label('Alamat')
-                    ->sortable()
-                    ->searchable()
-                    ->limit(50),
                 TextColumn::make('jumlah_penerima')
                     ->label('Jumlah Penerima')
-                    ->sortable(),
-                TextColumn::make('keterangan')
-                    ->label('Keterangan')
-                    ->limit(50)
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->dateTime()
                     ->sortable(),
             ])
             ->filters([// --- TAMBAHKAN FILTER DI SINI ---
@@ -163,7 +218,7 @@ class PengmasWilayahKegiatanResource extends Resource
                     // maka tidak perlu ->relationship() di sini. Filament akan otomatis
                     // menambahkan klausa WHERE program_id = 'nilai_terpilih' ke query.
                     ->placeholder('Semua Program'), // Teks untuk opsi "tidak ada filter"
-            
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -192,9 +247,9 @@ class PengmasWilayahKegiatanResource extends Resource
     }
 
     public static function getWidgets(): array
-        {
-            return [
-                PengmasWilayahKegiatanStats::class,
-            ];
-        }
+    {
+        return [
+            PengmasWilayahKegiatanStats::class,
+        ];
     }
+}

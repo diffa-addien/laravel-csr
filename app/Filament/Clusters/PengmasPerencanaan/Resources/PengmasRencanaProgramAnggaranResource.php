@@ -41,25 +41,17 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload(),
-                Select::make('bidang_id')
-                    ->label('Pilar')
-                    ->relationship('bidang', 'nama_bidang')
-                    ->required()
-                    ->searchable()
-                    ->preload(),
+                // Select::make('bidang_id')
+                //     ->label('Pilar')
+                //     ->relationship('bidang', 'nama_bidang')
+                //     ->required()
+                //     ->searchable()
+                //     ->preload(),
                 TextInput::make('nama_program')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull()
                     ->placeholder('Nama Program Baru'),
-                Select::make('jenis_program')
-                    ->options([
-                        'ppo' => 'PPO Cash Recovery',
-                        'cd' => 'CD Non Cosh REcovery',
-                    ])
-                    ->default('ppo')
-                    ->hidden()
-                    ->required(),
                 TextInput::make('pengajuan_anggaran')
                     ->required()
                     ->numeric()
@@ -134,16 +126,13 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->label('Regional')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('bidang.nama_bidang')
-                    ->label('Pilar')
-                    ->sortable()
-                    ->searchable(),
+                // TextColumn::make('bidang.nama_bidang')
+                //     ->label('Pilar')
+                //     ->sortable()
+                //     ->searchable(),
                 TextColumn::make('nama_program')
                     ->sortable()
                     ->searchable(),
-                // TextColumn::make('jenis_program')
-                //     ->sortable()
-                //     ->searchable(),
                 TextColumn::make('output')
                     ->formatStateUsing(fn($record) => "{$record->output} {$record->output_unit}")
                     ->sortable(),
