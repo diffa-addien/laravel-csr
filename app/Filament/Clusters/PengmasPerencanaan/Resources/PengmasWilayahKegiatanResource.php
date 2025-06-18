@@ -56,7 +56,8 @@ class PengmasWilayahKegiatanResource extends Resource
                             ->label('Anggaran Kegiatan')
                             ->prefix('Rp')
                             ->numeric() // Ensures only numbers can be entered
-                            ->required(),
+                            ->required()
+                            ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2),
                         TextInput::make('nama_kegiatan')
                             ->label('Nama Kegiatan')
                             ->required(),
