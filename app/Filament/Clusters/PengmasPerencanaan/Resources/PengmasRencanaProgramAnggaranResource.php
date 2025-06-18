@@ -42,7 +42,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->searchable()
                     ->preload(),
                 Select::make('bidang_id')
-                    ->label('Bidang')
+                    ->label('Pilar')
                     ->relationship('bidang', 'nama_bidang')
                     ->required()
                     ->searchable()
@@ -135,7 +135,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('bidang.nama_bidang')
-                    ->label('Bidang')
+                    ->label('Pilar')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('nama_program')

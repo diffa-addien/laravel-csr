@@ -47,7 +47,7 @@ class UserResource extends Resource
                 ->email()
                 ->unique(
                     User::class, // Nama class model
-                    'email',      // Nama kolom yang ingin di-unique-kan
+                    'email',     // Nama kolom yang ingin di-unique-kan
                     fn(?Model $record): ?Model => $record, // Abaikan record saat ini saat edit
                 )
                 ->required(),
