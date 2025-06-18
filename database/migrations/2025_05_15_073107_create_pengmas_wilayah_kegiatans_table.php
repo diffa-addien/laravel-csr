@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('restrict');
             $table->unsignedBigInteger('anggaran');
             $table->string('alamat')->nullable();
+            $table->date('rencana_mulai')->nullable();
+            $table->date('rencana_selesai')->nullable();
             $table->unsignedInteger('jumlah_penerima')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();

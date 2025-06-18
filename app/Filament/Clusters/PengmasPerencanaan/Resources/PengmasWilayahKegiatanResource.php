@@ -26,6 +26,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\DatePicker;
 
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasWilayahKegiatanResource\Widgets\PengmasWilayahKegiatanStats;
 
@@ -147,6 +148,11 @@ class PengmasWilayahKegiatanResource extends Resource
                                 // so we don't need to explicitly set other fields here.
                                 // Filament will automatically set this field's value based on $record->id_desa.
                             }),
+                        DatePicker::make('rencana_mulai')
+                            ->required(),
+                        DatePicker::make('rencana_selesai')
+                            ->required()
+                            ->afterOrEqual('rencana_mulai'),
                         TextInput::make('alamat')
                             ->label('Alamat')
                             ->nullable()
@@ -188,7 +194,7 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->searchable(),
                 TextColumn::make('anggaran')
                     ->label('Anggaran')
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('desa.nama_desa')
                     ->label('Desa')

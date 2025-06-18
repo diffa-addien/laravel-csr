@@ -56,11 +56,11 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->required()
                     ->numeric()
                     ->prefix('Rp')
-                    ->dehydrateStateUsing(fn($state) => str_replace(['Rp', '.', ' '], '', $state)),
+                    ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2),
                 TextInput::make('kesepakatan_anggaran')
                     ->numeric()
                     ->prefix('Rp')
-                    ->dehydrateStateUsing(fn($state) => $state ? str_replace(['Rp', '.', ' '], '', $state) : null)
+                    ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2)
                     ->nullable(),
                 DatePicker::make('rencana_mulai')
                     ->required(),

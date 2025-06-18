@@ -17,6 +17,8 @@ class PengmasWilayahKegiatan extends Model
         'bidang_id',
         'anggaran',
         'alamat',
+        'rencana_mulai',
+        'rencana_selesai',
         'jumlah_penerima',
         'keterangan',
     ];
