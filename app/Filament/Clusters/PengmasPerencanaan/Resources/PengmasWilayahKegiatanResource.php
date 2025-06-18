@@ -185,6 +185,10 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->label('Pilar')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('anggaran')
+                    ->label('Anggaran')
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->sortable(),
                 TextColumn::make('desa.nama_desa')
                     ->label('Desa')
                     ->sortable()
