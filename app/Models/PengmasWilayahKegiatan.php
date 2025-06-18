@@ -15,6 +15,7 @@ class PengmasWilayahKegiatan extends Model
         'program_id',
         'nama_kegiatan',
         'bidang_id',
+        'anggaran',
         'alamat',
         'jumlah_penerima',
         'keterangan',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_desa')->constrained('desas')->onDelete('cascade');
             $table->foreignId('program_id')->constrained('pengmas_rencana_program_anggarans')->onDelete('cascade');
             $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('restrict');
+            $table->unsignedBigInteger('anggaran');
             $table->string('alamat')->nullable();
             $table->unsignedInteger('jumlah_penerima')->nullable();
             $table->text('keterangan')->nullable();

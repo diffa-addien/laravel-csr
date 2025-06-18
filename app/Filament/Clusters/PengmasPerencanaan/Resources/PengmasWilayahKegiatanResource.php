@@ -17,7 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Support\RawJs; // This is the correct import for RawJs
 
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -51,8 +51,12 @@ class PengmasWilayahKegiatanResource extends Resource
                         Select::make('program_id')
                             ->label('Dari Program')
                             ->relationship('dariProgram', 'nama_program', fn($query) => $query->selectRaw('id, nama_program')->whereNotNull('nama_program'))
-                            ->required()
-                            ->columnSpanFull(),
+                            ->required(),
+                        TextInput::make('anggaran')
+                            ->label('Anggaran Kegiatan')
+                            ->prefix('Rp')
+                            ->numeric() // Ensures only numbers can be entered
+                            ->required(),
                         TextInput::make('nama_kegiatan')
                             ->label('Nama Kegiatan')
                             ->required(),
