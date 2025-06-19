@@ -16,3 +16,7 @@ use App\Http\Controllers\BerandaController;
 */
 
 Route::get('/', [BerandaController::class, 'index']);
+
+Route::get('/contoh-berita', function () {
+  return view('beranda');
+});
