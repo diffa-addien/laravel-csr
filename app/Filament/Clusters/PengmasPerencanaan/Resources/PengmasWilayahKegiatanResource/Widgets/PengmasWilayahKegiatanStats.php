@@ -15,23 +15,27 @@ class PengmasWilayahKegiatanStats extends BaseWidget
     {
         $query = PengmasWilayahKegiatan::query();
 
-        // Apply filters from Livewire state
-        if (isset($this->filters['program_id'])) {
+        // Terapkan filter dari state Livewire
+        if (!empty($this->filters['program_id'])) {
             $query->where('program_id', $this->filters['program_id']);
         }
 
-        // Add other filters if needed
-        // if (isset($this->filters['other_filter'])) {
-        //     $query->where('other_column', $this->filters['other_filter']);
-        // }
+        // ... filter lainnya ...
 
-        $totalData = $query->count();
-        $totalPenerimaManfaat = $query->sum('jumlah_penerima');
+        // --- Hanya SATU KALI query ke database menggunakan selectRaw ---
+        $stats = $query->selectRaw('COUNT(*) as total_data, SUM(jumlah_penerima) as total_penerima')
+            ->first();
+        // -----------------------------------------------------------
+
+        // Ambil nilai dan format dengan separator ribuan (titik)
+        // Menggunakan `?? 0` untuk menangani kasus jika tidak ada data (hasilnya NULL)
+        $totalDataFormatted = number_format($stats->total_data ?? 0, 0, ',', '.');
+        $totalPenerimaManfaatFormatted = number_format($stats->total_penerima ?? 0, 0, ',', '.');
 
         return [
-            Stat::make('Jumlah Data', $totalData)
+            Stat::make('Jumlah Data', $totalDataFormatted)
                 ->description('Total data wilayah kegiatan'),
-            Stat::make('Jumlah Penerima Manfaat', $totalPenerimaManfaat)
+            Stat::make('Jumlah Penerima Manfaat', $totalPenerimaManfaatFormatted)
                 ->description('Total penerima manfaat di semua wilayah')
         ];
     }
