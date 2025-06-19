@@ -22,8 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('kesepakatan_anggaran')->nullable();
             $table->date('rencana_mulai');
             $table->date('rencana_selesai');
-            $table->unsignedInteger('output');
-            $table->string('output_unit');
+            $table->string('output')->nullable();
+            $table->string('output_unit')->nullable();
             $table->text('tujuan_utama');
             $table->text('tujuan_khusus');
             $table->text('justifikasi');

@@ -69,8 +69,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->afterOrEqual('rencana_mulai'),
                 TextInput::make('output')
                     ->required()
-                    ->numeric()
-                    ->minValue(1),
+                    ->maxLength(255),
                 TextInput::make('output_unit')
                     ->label('Bentuk Output')
                     ->required()
