@@ -19,6 +19,12 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 
+use Filament\Tables\Filters\SelectFilter;
+
+
+use Illuminate\Database\QueryException; // <-- 1. TAMBAHKAN USE STATEMENT INI
+use Filament\Notifications\Notification;
+
 class PengmasRencanaProgramAnggaranResource extends Resource
 {
     protected static ?string $model = PengmasRencanaProgramAnggaran::class;
@@ -30,6 +36,8 @@ class PengmasRencanaProgramAnggaranResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $cluster = PengmasPerencanaan::class;
+    // Properti ini akan berfungsi sebagai penanda dalam satu request.
+    private static bool $notificationSent = false;
 
     public static function form(Form $form): Form
     {
@@ -117,8 +125,53 @@ class PengmasRencanaProgramAnggaranResource extends Resource
             ]);
     }
 
+    // public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    // {
+    //     // Panggil query asli dari parent class
+    //     $query = parent::getEloquentQuery();
+
+    //     // Ambil ID dari tahun fiskal yang aktif
+    //     $activeTahunFiskalId = \App\Models\TahunFiskal::where('is_active', true)->value('id');
+
+    //     // Jika tidak ada tahun fiskal yang aktif, jangan tampilkan data apa pun.
+    //     if (!$activeTahunFiskalId) {
+
+    //         // Kirim notifikasi error ke pengguna/developer
+    //         if (!self::$notificationSent) {
+    //             Notification::make()
+    //                 ->title('Tahun Fiskal 2022')
+    //                 // ->body('Kolom "tahun_fiskal_id" tidak ditemukan pada tabel. Mohon periksa file migrasi database.')
+    //                 // ->danger()
+    //                 // ->persistent()
+    //                 ->send();
+
+    //             // 3. SETELAH DIKIRIM, UBAH FLAG MENJADI TRUE
+    //             // Ini akan mencegah pengiriman notifikasi lagi pada panggilan method berikutnya.
+    //             self::$notificationSent = true;
+    //         }
+    //         return $query->whereRaw('1 = 0'); // Trik mengembalikan query kosong
+
+    //     }
+
+    //     // Terapkan filter permanen
+    //     return $query->where('tahun_fiskal_id', $activeTahunFiskalId);
+    // }
+
     public static function table(Table $table): Table
     {
+        if (!self::$notificationSent) {
+            $cek = TahunFiskal::where('is_active', true)->value('id');
+            if (!$cek) {
+                Notification::make()
+                    ->title('Tahun fiskal belum diaktifkan')
+                    ->body('Silahkan hubungi bagian admin untuk mengaktifkan tahun fiskal')
+                    ->danger()
+                    ->persistent()
+                    ->send();
+            }
+            self::$notificationSent = true;
+        }
+
         return $table
             ->columns([
                 TextColumn::make('regional.nama_regional')
@@ -144,7 +197,15 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->limit(50),
             ])
             ->filters([
-                //
+                // INI BAGIAN UTAMANYA
+                SelectFilter::make('tahun_fiskal_id')
+                    ->label('Tahun Fiskal')
+                    ->relationship('dariTahunFiskal', 'tahun_fiskal') // 'nama_tahun' adalah kolom yang ingin ditampilkan di dropdown
+                    ->searchable()
+                    ->preload()
+                    ->default(function () {
+                        return TahunFiskal::where('is_active', true)->value('id');
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

@@ -10,6 +10,7 @@ use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\TahunFiskal;
 use App\Models\PengmasRencanaProgramAnggaran;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,6 +29,14 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\DatePicker;
 
+use Illuminate\Database\Eloquent\Builder; // <-- Import Builder
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\View\View; // Import ini jika Anda mengembalikan View object
+use Illuminate\Support\HtmlString; // Tambahkan baris ini
+
+
+
+
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasWilayahKegiatanResource\Widgets\PengmasWilayahKegiatanStats;
 
 class PengmasWilayahKegiatanResource extends Resource
@@ -42,6 +51,8 @@ class PengmasWilayahKegiatanResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $cluster = PengmasPerencanaan::class;
+    private static bool $notificationSent = false;
+
 
     public static function form(Form $form): Form
     {
@@ -51,12 +62,32 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->schema([
                         Select::make('program_id')
                             ->label('Dari Program')
-                            ->relationship('dariProgram', 'nama_program', fn($query) => $query->selectRaw('id, nama_program')->whereNotNull('nama_program'))
-                            ->required(),
+                            ->relationship(
+                                name: 'dariProgram',
+                                titleAttribute: 'nama_program', // Biarkan ini sebagai default
+                                modifyQueryUsing: function (Builder $query) {
+                                    // Logika filter Anda tetap sama
+                                    $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+                                    if (!$activeTahunFiskalId) {
+                                        return $query->where('id', -1);
+                                    }
+                                    // Penting: Eager load relasi tahunFiskal agar tidak terjadi N+1 problem
+                                    return $query->where('tahun_fiskal', $activeTahunFiskalId)->with('dariTahunFiskal');
+                                }
+                            )
+                            // --- TAMBAHKAN METHOD INI ---
+                            ->getOptionLabelFromRecordUsing(function ($record) {
+                                // $record adalah objek model Program untuk setiap pilihan
+                                $tahun = $record->dariTahunFiskal?->tahun_fiskal ?? 'N/A';
+                                return "{$record->nama_program} ({$tahun})";
+                            })
+                            ->required()
+                            ->searchable()
+                            ->preload(),
                         TextInput::make('anggaran')
                             ->label('Anggaran Kegiatan')
                             ->prefix('Rp')
-                            ->numeric() // Ensures only numbers can be entered
+                            ->numeric()
                             ->required()
                             ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2),
                         TextInput::make('nama_kegiatan')
@@ -131,7 +162,6 @@ class PengmasWilayahKegiatanResource extends Resource
                                     }
                                 }
                             }),
-
                         Select::make('id_desa')
                             ->label('Desa')
                             ->required()
@@ -178,7 +208,50 @@ class PengmasWilayahKegiatanResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $activeTahunFiskalId = TahunFiskal::where('is_active', true)->first();
+        $teksFiskal = "";
+
+        if (!$activeTahunFiskalId) {
+            $teksFiskal = "Tahun Fiskal belum diaktifkan";
+        } else {
+            $teksFiskal = "Tahun fiskal " . $activeTahunFiskalId->tahun_fiskal;
+        }
+
         return $table
+            ->header(
+                fn() => new HtmlString('<div class="text-center px-4 bg-gray-50 dark:bg-gray-900">' . $teksFiskal . '</div>')
+            )
+            ->modifyQueryUsing(function (Builder $query) {
+                // 1. Dapatkan ID dari tahun fiskal yang aktif.
+                $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+
+                // 2. Jika tidak ada tahun fiskal yang aktif, jangan tampilkan data apa pun (best practice).
+                if (!$activeTahunFiskalId) {
+                    if (!self::$notificationSent) {
+                        $cek = TahunFiskal::where('is_active', true)->value('id');
+                        if (!$cek) {
+                            Notification::make()
+                                ->title('Tahun fiskal belum diaktifkan')
+                                ->body('Silahkan hubungi bagian admin untuk mengaktifkan tahun fiskal')
+                                ->danger()
+                                ->persistent()
+                                ->send();
+                        }
+                        self::$notificationSent = true;
+                    }
+                    // Menggunakan trik query kosong untuk tidak mengembalikan hasil.
+                    $query->whereRaw('1 = 0');
+                    return; // Hentikan eksekusi lebih lanjut dari fungsi ini.
+    
+                }
+
+                // 3. Terapkan filter whereHas.
+                //    Ini akan memfilter 'Kegiatan' yang memiliki relasi 'dariProgram',
+                //    di mana 'tahun_fiskal_id' pada program tersebut sama dengan ID tahun fiskal aktif kita.
+                $query->whereHas('dariProgram', function (Builder $programQuery) use ($activeTahunFiskalId) {
+                    $programQuery->where('tahun_fiskal', $activeTahunFiskalId);
+                });
+            })
             ->columns([
                 TextColumn::make('nama_kegiatan')
                     ->label('Kegiatan')
@@ -186,6 +259,10 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->searchable(),
                 TextColumn::make('dariProgram.nama_program')
                     ->label('Dari Program')
+                    ->formatStateUsing(function ($state, $record) {
+                        $tahun = $record->dariProgram?->dariTahunFiskal?->tahun_fiskal ?? '';
+                        return $tahun ? "{$state} ({$tahun})" : $state;
+                    })
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('dariBidang.nama_bidang')
@@ -216,23 +293,7 @@ class PengmasWilayahKegiatanResource extends Resource
                     ->label('Jumlah Penerima')
                     ->sortable(),
             ])
-            ->filters([// --- TAMBAHKAN FILTER DI SINI ---
-                SelectFilter::make('program_id') // Nama field di database PengmasWilayahKegiatan
-                    ->label('Program')
-                    ->options(
-                        // Ambil opsi dari model PengmasRencanaProgramAnggaran
-                        // Ini akan mengambil semua program yang memiliki nama_program tidak null
-                        // dan menggunakannya sebagai opsi filter.
-                        // Kunci array adalah 'id' program, dan nilainya adalah 'nama_program'.
-                        PengmasRencanaProgramAnggaran::whereNotNull('nama_program')
-                            ->pluck('nama_program', 'id')
-                            ->all() // Konversi ke array
-                    )
-                    // Jika Anda ingin filter ini diterapkan pada relasi, gunakan ->relationship()
-                    // Namun karena 'program_id' adalah kolom langsung di tabel 'pengmas_wilayah_kegiatans',
-                    // maka tidak perlu ->relationship() di sini. Filament akan otomatis
-                    // menambahkan klausa WHERE program_id = 'nilai_terpilih' ke query.
-                    ->placeholder('Semua Program'), // Teks untuk opsi "tidak ada filter"
+            ->filters([
 
             ])
             ->actions([
