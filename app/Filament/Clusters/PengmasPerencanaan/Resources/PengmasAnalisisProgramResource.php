@@ -40,7 +40,7 @@ class PengmasAnalisisProgramResource extends Resource
                     ->preload(),
                 Select::make('id_program')
                     ->label('Dari Program')
-                    ->relationship('dariProgram', 'nama_program', fn ($query) => $query->with(['bidang'])->selectRaw('pengmas_rencana_program_anggarans.id, CONCAT(bidangs.nama_bidang, " - ", pengmas_rencana_program_anggarans.nama_program) as nama_program')->join('bidangs', 'pengmas_rencana_program_anggarans.bidang_id', '=', 'bidangs.id'))
+                    ->relationship('dariProgram', 'nama_program')
                     ->required()
                     ->searchable()
                     ->preload(),
