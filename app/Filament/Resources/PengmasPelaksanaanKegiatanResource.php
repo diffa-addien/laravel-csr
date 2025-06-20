@@ -65,7 +65,7 @@ class PengmasPelaksanaanKegiatanResource extends Resource
                     ->columnSpanFull(),
                 Select::make('program_id')
                     ->label('Program')
-                    ->relationship('dariProgram', 'nama_program', fn ($query) => $query->with(['bidang'])->selectRaw('pengmas_rencana_program_anggarans.id, CONCAT(bidangs.nama_bidang, " - ", pengmas_rencana_program_anggarans.nama_program) as nama_program')->join('bidangs', 'pengmas_rencana_program_anggarans.bidang_id', '=', 'bidangs.id'))
+                    ->relationship('dariProgram', 'nama_program')
                     ->required()
                     ->searchable()
                     ->preload(),
@@ -89,7 +89,7 @@ class PengmasPelaksanaanKegiatanResource extends Resource
             ->columns([
                 TextColumn::make('dariProgram.nama_program')
                     ->label('Program')
-                    ->formatStateUsing(fn ($record) => "{$record->dariProgram->bidang->nama_bidang} - {$record->dariProgram->nama_program}")
+                    ->formatStateUsing(fn ($record) => "{$record->dariProgram->nama_program}")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('jumlah_penerima')
