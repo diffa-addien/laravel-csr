@@ -12,6 +12,11 @@ class DataKegiatanChart extends ChartWidget
     protected static ?string $pollingInterval = null;
     protected static ?int $sort = 2;
 
+    public static function canView(): bool
+    {
+        return false; // sembunyikan untuk semua user
+    }
+
     protected function getData(): array
     {
         $startDate = $this->filterFormData['start_date'] ?? Carbon::now()->startOfMonth()->toDateString();

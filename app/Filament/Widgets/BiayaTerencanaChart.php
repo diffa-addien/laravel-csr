@@ -2,59 +2,81 @@
 
 namespace App\Filament\Widgets;
 
-use Carbon\Carbon;
-use Filament\Widgets\ChartWidget;
-use App\Models\StkholderPerencanaanProgramAnggaran;
-use App\Models\KompumedKegiatanAnggaran;
 use App\Models\PengmasRencanaProgramAnggaran;
-use Illuminate\Support\Facades\DB; // Import DB facade
-
+use App\Models\TahunFiskal; // Pastikan model ini ada
+use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\DB;
 
 class BiayaTerencanaChart extends ChartWidget
 {
-    protected static ?string $heading = 'Rencana Anggaran Tahun 2025';
+
+    protected static ?string $heading = 'Anggaran Pengembangan Masyarakat';
 
     protected static ?int $sort = 4;
     protected static ?string $maxHeight = '400px';
 
+    protected string|int|array $columnSpan = 'full';
+
     protected function getData(): array
     {
-        $currentYear = Carbon::now()->year;
+        // 1. Ambil 4 tahun fiskal terakhir, diurutkan dari yang terlama ke terbaru.
+        $lastFourFiscalYears = TahunFiskal::query()
+            ->orderBy('nama_tahun_fiskal', 'desc')
+            ->limit(4)
+            ->get()
+            ->sortBy('nama_tahun_fiskal'); // Urutkan kembali agar chart menampilkan tahun secara kronologis (misal: 2022, 2023, 2024, 2025)
 
-        $stkholderBiaya = StkholderPerencanaanProgramAnggaran::whereYear('created_at', $currentYear)->sum('anggaran_pengajuan');
-        $kompumedBiaya = KompumedKegiatanAnggaran::whereYear('created_at', $currentYear)
-            ->sum(DB::raw('biaya * kuantitas'));
-        $pengmasBiaya = PengmasRencanaProgramAnggaran::whereYear('created_at', $currentYear)->sum('pengajuan_anggaran');
+        if ($lastFourFiscalYears->isEmpty()) {
+            return []; // Kembalikan data kosong jika tidak ada tahun fiskal
+        }
 
+        // 2. Ambil ID dari tahun-tahun tersebut untuk filtering query
+        $fiscalYearIds = $lastFourFiscalYears->pluck('id');
+
+        // 3. Query data anggaran, gabungkan dengan tahun fiskal, dan kelompokkan
+        $budgetData = PengmasRencanaProgramAnggaran::query()
+            ->join('tahun_fiskals', 'pengmas_rencana_program_anggarans.tahun_fiskal', '=', 'tahun_fiskals.id')
+            ->whereIn('tahun_fiskal', $fiscalYearIds)
+            ->select(
+                'tahun_fiskal',
+                'tahun_fiskals.nama_tahun_fiskal',
+                DB::raw('SUM(pengajuan_anggaran) as total_anggaran')
+            )
+            ->groupBy('tahun_fiskal', 'tahun_fiskals.nama_tahun_fiskal')
+            ->orderBy('tahun_fiskals.nama_tahun_fiskal', 'asc')
+            ->get()
+            ->keyBy('tahun_fiskal'); // Jadikan 'tahun_fiskal' sebagai key untuk pencarian mudah
+
+        // 4. Siapkan data untuk chart, pastikan setiap tahun ada nilainya (meskipun 0)
+        $labels = [];
+        $data = [];
+
+        foreach ($lastFourFiscalYears as $fiscalYear) {
+            // Ambil nama tahun sebagai label
+            $labels[] = $fiscalYear->nama_tahun_fiskal;
+
+            // Cek apakah ada data anggaran untuk tahun ini, jika tidak, anggap 0
+            $data[] = $budgetData->get($fiscalYear->id)->total_anggaran ?? 0;
+        }
+
+        // 5. Kembalikan struktur data yang sesuai untuk ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Pemangku Kepentingan',
-                    'data' => [$stkholderBiaya],
-                    'backgroundColor' => ['#17ad00'], // Warna hijau
-                    'borderColor' => ['#17ad00'],
-                ],
-                [
-                    'label' => 'Komunikasi, Publikasi, dan Media',
-                    'data' => [$kompumedBiaya],
-                    'backgroundColor' => ['#ff7f50'], // Warna oranye
-                    'borderColor' => ['#ff7f50'],
-                ],
-                [
-                    'label' => 'Pengembangan Masyarakat',
-                    'data' => [$pengmasBiaya],
-                    'backgroundColor' => ['#4682b4'], // Warna biru tua
-                    'borderColor' => ['#4682b4'],
+                    'label' => 'Total Anggaran (Rp)',
+                    'data' => $data,
+                    'backgroundColor' => '#4682b4', // Menggunakan warna biru yang sama
+                    'borderColor' => '#4682b4',
                 ],
             ],
-            'labels' => [
-                'Anggaran',
-            ],
+            'labels' => $labels,
         ];
     }
 
     protected function getType(): string
     {
+        // 'bar' cocok untuk perbandingan antar tahun.
+        // Anda juga bisa menggunakan 'line' untuk melihat tren.
         return 'bar';
     }
 }

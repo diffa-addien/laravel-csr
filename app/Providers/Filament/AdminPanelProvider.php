@@ -68,10 +68,10 @@ class AdminPanelProvider extends PanelProvider
                     // Widgets\FilamentInfoWidget::class,
 
                     // InfoSistem::class,
-                StatsOverview::class,
+                // StatsOverview::class,
 
-                DataTesChart::class,
-                DataKegiatanChart::class,
+                // DataTesChart::class,
+                // DataKegiatanChart::class,
 
             ])
             ->middleware([

@@ -10,9 +10,10 @@ class TahunFiskal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tahun_fiskal',
+        'nama_tahun_fiskal',
         'tanggal_buka',
         'tanggal_tutup',
+        'anggaran',
         'is_active',
     ];
 

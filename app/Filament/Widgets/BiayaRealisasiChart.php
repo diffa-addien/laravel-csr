@@ -15,6 +15,11 @@ class BiayaRealisasiChart extends ChartWidget
     protected static ?int $sort = 5;
     protected static ?string $maxHeight = '400px';
 
+    public static function canView(): bool
+    {
+        return false; // sembunyikan untuk semua user
+    }
+
     protected function getData(): array
     {
         $currentYear = Carbon::now()->year;

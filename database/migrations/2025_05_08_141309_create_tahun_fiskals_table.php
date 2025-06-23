@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('tahun_fiskals', function (Blueprint $table) {
             $table->id();
-            $table->string('tahun_fiskal')->unique(); // Misalnya: "2023/2024"
+            $table->string('nama_tahun_fiskal')->unique(); // Misalnya: "2023/2024"
             $table->date('tanggal_buka');
             $table->date('tanggal_tutup');
+            $table->unsignedBigInteger('anggaran')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

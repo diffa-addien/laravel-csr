@@ -79,7 +79,7 @@ class PengmasWilayahKegiatanResource extends Resource
                             // --- TAMBAHKAN METHOD INI ---
                             ->getOptionLabelFromRecordUsing(function ($record) {
                                 // $record adalah objek model Program untuk setiap pilihan
-                                $tahun = $record->dariTahunFiskal?->tahun_fiskal ?? 'N/A';
+                                $tahun = $record->dariTahunFiskal?->nama_tahun_fiskal ?? 'N/A';
                                 return "{$record->nama_program} ({$tahun})";
                             })
                             ->required()

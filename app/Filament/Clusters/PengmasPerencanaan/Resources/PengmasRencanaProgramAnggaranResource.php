@@ -91,7 +91,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 Select::make('tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->options(
-                        TahunFiskal::pluck('tahun_fiskal', 'id')->toArray()
+                        TahunFiskal::pluck('nama_tahun_fiskal', 'id')->toArray()
                     )
                     ->required()
                     ->disabled() // Ini akan membuat field menjadi readonly
@@ -118,38 +118,6 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 Forms\Components\Hidden::make('tahun_fiskal')->required()
             ]);
     }
-
-    // public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
-    // {
-    //     // Panggil query asli dari parent class
-    //     $query = parent::getEloquentQuery();
-
-    //     // Ambil ID dari tahun fiskal yang aktif
-    //     $activeTahunFiskalId = \App\Models\TahunFiskal::where('is_active', true)->value('id');
-
-    //     // Jika tidak ada tahun fiskal yang aktif, jangan tampilkan data apa pun.
-    //     if (!$activeTahunFiskalId) {
-
-    //         // Kirim notifikasi error ke pengguna/developer
-    //         if (!self::$notificationSent) {
-    //             Notification::make()
-    //                 ->title('Tahun Fiskal 2022')
-    //                 // ->body('Kolom "tahun_fiskal_id" tidak ditemukan pada tabel. Mohon periksa file migrasi database.')
-    //                 // ->danger()
-    //                 // ->persistent()
-    //                 ->send();
-
-    //             // 3. SETELAH DIKIRIM, UBAH FLAG MENJADI TRUE
-    //             // Ini akan mencegah pengiriman notifikasi lagi pada panggilan method berikutnya.
-    //             self::$notificationSent = true;
-    //         }
-    //         return $query->whereRaw('1 = 0'); // Trik mengembalikan query kosong
-
-    //     }
-
-    //     // Terapkan filter permanen
-    //     return $query->where('tahun_fiskal_id', $activeTahunFiskalId);
-    // }
 
     public static function table(Table $table): Table
     {
@@ -185,16 +153,16 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 TextColumn::make('keterangan')
                     ->limit(50)
                     ->searchable(),
-                TextColumn::make('dariTahunFiskal.tahun_fiskal')
+                TextColumn::make('dariTahunFiskal.nama_tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->searchable()
                     ->limit(50),
             ])
             ->filters([
                 // INI BAGIAN UTAMANYA
-                SelectFilter::make('tahun_fiskal_id')
+                SelectFilter::make('tahun_fiskal')
                     ->label('Tahun Fiskal')
-                    ->relationship('dariTahunFiskal', 'tahun_fiskal') // 'nama_tahun' adalah kolom yang ingin ditampilkan di dropdown
+                    ->relationship('dariTahunFiskal', 'nama_tahun_fiskal') // 'nama_tahun' adalah kolom yang ingin ditampilkan di dropdown
                     ->searchable()
                     ->preload()
                     ->default(function () {

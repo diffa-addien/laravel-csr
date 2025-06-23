@@ -11,6 +11,10 @@ class DataTesChart extends ChartWidget
 
     protected static ?string $pollingInterval = null;
     protected static ?int $sort = 3;
+    public static function canView(): bool
+    {
+        return false; // sembunyikan untuk semua user
+    }
 
     protected function getData(): array
     {

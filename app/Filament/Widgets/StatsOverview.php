@@ -11,6 +11,11 @@ class StatsOverview extends BaseWidget
     protected static ?string $pollingInterval = null;
     protected static ?int $sort = 1;
 
+    public static function canView(): bool
+    {
+        return false; // sembunyikan untuk semua user
+    }
+
     protected function getStats(): array
     {
         $startDate = $this->filterFormData['start_date'] ?? Carbon::now()->startOfMonth()->toDateString();

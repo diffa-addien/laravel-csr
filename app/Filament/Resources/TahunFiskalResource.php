@@ -35,12 +35,12 @@ class TahunFiskalResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('tahun_fiskal')
+                TextInput::make('nama_tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->required()
                     ->unique(
                         TahunFiskal::class, // Nama class model
-                        'tahun_fiskal',      // Nama kolom yang ingin di-unique-kan
+                        'nama_tahun_fiskal',      // Nama kolom yang ingin di-unique-kan
                         fn(?Model $record): ?Model => $record, // Abaikan record saat ini saat edit
                     ),
                 Toggle::make('is_active')
@@ -66,6 +66,11 @@ class TahunFiskalResource extends Resource
                 DatePicker::make('tanggal_tutup')
                     ->label('Tanggal Tutup')
                     ->required(),
+                TextInput::make('anggaran')
+                    ->numeric()
+                    ->prefix('Rp')
+                    ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2)
+                    ->nullable(),
 
             ]);
     }
@@ -74,15 +79,28 @@ class TahunFiskalResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('tahun_fiskal')
+                TextColumn::make('nama_tahun_fiskal')
                     ->label('Tahun Fiskal')
+                    ->sortable()
                     ->weight(FontWeight::Bold),
-                TextColumn::make('tanggal_buka')
-                    ->label('Tanggal Buka')
-                    ->date(),
-                TextColumn::make('tanggal_tutup')
-                    ->label('Tanggal Tutup')
-                    ->date(),
+                TextColumn::make('periode')
+                    ->label('Periode')
+                    ->getStateUsing(function ($record) {
+                        // Pastikan tanggal dalam instance Carbon dan bukan null
+                        $tanggalBuka = $record->tanggal_buka
+                            ? \Carbon\Carbon::parse($record->tanggal_buka)->translatedFormat('d F Y')
+                            : '-';
+
+                        $tanggalTutup = $record->tanggal_tutup
+                            ? \Carbon\Carbon::parse($record->tanggal_tutup)->translatedFormat('d F Y')
+                            : '-';
+
+                        return "$tanggalBuka - $tanggalTutup";
+                    }),
+                TextColumn::make('anggaran')
+                    ->label('Anggaran')
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->sortable(),
                 BooleanColumn::make('is_active')
                     ->label('Aktif'),
             ])

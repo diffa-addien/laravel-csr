@@ -42,7 +42,7 @@ class StkholderPerencanaanPpkResource extends Resource
                 Forms\Components\Select::make('tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->options(
-                        TahunFiskal::pluck('tahun_fiskal', 'id')->toArray()
+                        TahunFiskal::pluck('nama_tahun_fiskal', 'id')->toArray()
                     )
                     ->required()
                     ->disabled() // Ini akan membuat field menjadi readonly
@@ -81,7 +81,7 @@ class StkholderPerencanaanPpkResource extends Resource
                 Tables\Columns\TextColumn::make('keterangan')
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('dariTahunFiskal.tahun_fiskal')
+                Tables\Columns\TextColumn::make('dariTahunFiskal.nama_tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->searchable()
                     ->limit(50),
