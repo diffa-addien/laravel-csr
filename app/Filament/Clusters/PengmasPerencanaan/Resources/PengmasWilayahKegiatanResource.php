@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Builder; // <-- Import Builder
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View; // Import ini jika Anda mengembalikan View object
 use Illuminate\Support\HtmlString; // Tambahkan baris ini
+use Livewire\Component;
 
 
 
@@ -82,7 +83,7 @@ class PengmasWilayahKegiatanResource extends Resource
                                 return "{$record->nama_program} ({$tahun})";
                             })
                             ->required()
-                            ->searchable()
+                            // ->searchable()
                             ->preload(),
                         TextInput::make('anggaran')
                             ->label('Anggaran Kegiatan')
@@ -92,6 +93,7 @@ class PengmasWilayahKegiatanResource extends Resource
                             ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2),
                         TextInput::make('nama_kegiatan')
                             ->label('Nama Kegiatan')
+                            ->maxLength(500)
                             ->required(),
                         Select::make('bidang_id')
                             ->label('Pilar')
@@ -186,7 +188,7 @@ class PengmasWilayahKegiatanResource extends Resource
                         TextInput::make('alamat')
                             ->label('Alamat')
                             ->nullable()
-                            ->maxLength(255)
+                            ->maxLength(512)
                             ->columnSpanFull()
                             ->hint('(Opsional)'),
                         TextInput::make('jumlah_penerima')
@@ -255,6 +257,7 @@ class PengmasWilayahKegiatanResource extends Resource
             ->columns([
                 TextColumn::make('nama_kegiatan')
                     ->label('Kegiatan')
+                    ->limit(35)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('dariProgram.nama_program')
@@ -328,4 +331,10 @@ class PengmasWilayahKegiatanResource extends Resource
             PengmasWilayahKegiatanStats::class,
         ];
     }
+
+    protected function afterCreate(): void
+    {
+        $this->emit('refreshWidget');
+    }
+
 }
