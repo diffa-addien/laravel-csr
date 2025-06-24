@@ -216,7 +216,7 @@ class PengmasWilayahKegiatanResource extends Resource
         if (!$activeTahunFiskalId) {
             $teksFiskal = "Tahun Fiskal belum diaktifkan";
         } else {
-            $teksFiskal = "Tahun fiskal " . $activeTahunFiskalId->tahun_fiskal;
+            $teksFiskal = "Tahun fiskal " . $activeTahunFiskalId->nama_tahun_fiskal;
         }
 
         return $table
@@ -263,7 +263,7 @@ class PengmasWilayahKegiatanResource extends Resource
                 TextColumn::make('dariProgram.nama_program')
                     ->label('Dari Program')
                     ->formatStateUsing(function ($state, $record) {
-                        $tahun = $record->dariProgram?->dariTahunFiskal?->tahun_fiskal ?? '';
+                        $tahun = $record->dariProgram?->dariTahunFiskal?->nama_tahun_fiskal ?? '';
                         return $tahun ? "{$state} ({$tahun})" : $state;
                     })
                     ->sortable()

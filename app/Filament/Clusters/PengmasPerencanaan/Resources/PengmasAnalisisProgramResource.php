@@ -6,6 +6,7 @@ use App\Filament\Clusters\PengmasPerencanaan;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasAnalisisProgramResource\Pages;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasAnalisisProgramResource\RelationManagers;
 use App\Models\PengmasAnalisisProgram;
+use App\Models\TahunFiskal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,6 +16,9 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder; // <-- Import Builder
+use Illuminate\Support\HtmlString; // Tambahkan baris ini
+use Filament\Notifications\Notification;
 
 class PengmasAnalisisProgramResource extends Resource
 {
@@ -27,6 +31,8 @@ class PengmasAnalisisProgramResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $cluster = PengmasPerencanaan::class;
+    private static bool $notificationSent = false;
+
 
     public static function form(Form $form): Form
     {
@@ -40,9 +46,27 @@ class PengmasAnalisisProgramResource extends Resource
                     ->preload(),
                 Select::make('id_program')
                     ->label('Dari Program')
-                    ->relationship('dariProgram', 'nama_program')
+                    ->relationship(
+                        name: 'dariProgram',
+                        titleAttribute: 'nama_program', // Biarkan ini sebagai default
+                        modifyQueryUsing: function (Builder $query) {
+                            // Logika filter Anda tetap sama
+                            $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+                            if (!$activeTahunFiskalId) {
+                                return $query->where('id', -1);
+                            }
+                            // Penting: Eager load relasi tahunFiskal agar tidak terjadi N+1 problem
+                            return $query->where('tahun_fiskal', $activeTahunFiskalId)->with('dariTahunFiskal');
+                        }
+                    )
+                    // --- TAMBAHKAN METHOD INI ---
+                    ->getOptionLabelFromRecordUsing(function ($record) {
+                        // $record adalah objek model Program untuk setiap pilihan
+                        $tahun = $record->dariTahunFiskal?->nama_tahun_fiskal ?? 'N/A';
+                        return "{$record->nama_program} ({$tahun})";
+                    })
                     ->required()
-                    ->searchable()
+                    // ->searchable()
                     ->preload(),
                 Textarea::make('target_hasil')
                     ->required()
@@ -62,15 +86,61 @@ class PengmasAnalisisProgramResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $activeTahunFiskalId = TahunFiskal::where('is_active', true)->first();
+        $teksFiskal = "";
+
+        if (!$activeTahunFiskalId) {
+            $teksFiskal = "Tahun Fiskal belum diaktifkan";
+        } else {
+            $teksFiskal = "Tahun fiskal " . $activeTahunFiskalId->nama_tahun_fiskal;
+        }
+
         return $table
+            ->header(
+                fn() => new HtmlString('<div class="text-center px-4 bg-gray-50 dark:bg-gray-900">' . $teksFiskal . '</div>')
+            )
+            ->modifyQueryUsing(function (Builder $query) {
+                // 1. Dapatkan ID dari tahun fiskal yang aktif.
+                $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+
+                // 2. Jika tidak ada tahun fiskal yang aktif, jangan tampilkan data apa pun (best practice).
+                if (!$activeTahunFiskalId) {
+                    if (!self::$notificationSent) {
+                        $cek = TahunFiskal::where('is_active', true)->value('id');
+                        if (!$cek) {
+                            Notification::make()
+                                ->title('Tahun fiskal belum diaktifkan')
+                                ->body('Silahkan hubungi bagian admin untuk mengaktifkan tahun fiskal')
+                                ->danger()
+                                ->persistent()
+                                ->send();
+                        }
+                        self::$notificationSent = true;
+                    }
+                    // Menggunakan trik query kosong untuk tidak mengembalikan hasil.
+                    $query->whereRaw('1 = 0');
+                    return; // Hentikan eksekusi lebih lanjut dari fungsi ini.
+    
+                }
+
+                // 3. Terapkan filter whereHas.
+                //    Ini akan memfilter 'Kegiatan' yang memiliki relasi 'dariProgram',
+                //    di mana 'tahun_fiskal_id' pada program tersebut sama dengan ID tahun fiskal aktif kita.
+                $query->whereHas('dariProgram', function (Builder $programQuery) use ($activeTahunFiskalId) {
+                    $programQuery->where('tahun_fiskal', $activeTahunFiskalId);
+                });
+            })
             ->columns([
                 TextColumn::make('dariStrategi.nama')
                     ->label('Strategi')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('dariProgram.nama_program')
-                    ->label('Program')
-                    ->formatStateUsing(fn ($record) => "{$record->dariProgram->bidang->nama_bidang} - {$record->dariProgram->nama_program}")
+                    ->label('Dari Program')
+                    ->formatStateUsing(function ($state, $record) {
+                        $tahun = $record->dariProgram?->dariTahunFiskal?->nama_tahun_fiskal ?? '';
+                        return $tahun ? "{$state} ({$tahun})" : $state;
+                    })
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('target_hasil')
@@ -110,8 +180,8 @@ class PengmasAnalisisProgramResource extends Resource
     {
         return [
             'index' => Pages\ListPengmasAnalisisPrograms::route('/'),
-        //     'create' => Pages\CreatePengmasAnalisisProgram::route('/create'),
-        //     'edit' => Pages\EditPengmasAnalisisProgram::route('/{record}/edit'),
+            //     'create' => Pages\CreatePengmasAnalisisProgram::route('/create'),
+            //     'edit' => Pages\EditPengmasAnalisisProgram::route('/{record}/edit'),
         ];
     }
 }

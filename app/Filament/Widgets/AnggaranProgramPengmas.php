@@ -65,8 +65,8 @@ class AnggaranProgramPengmas extends ChartWidget
                 [
                     'label' => 'Total Anggaran (Rp)',
                     'data' => $data,
-                    'backgroundColor' => '#4682b4', // Menggunakan warna biru yang sama
-                    'borderColor' => '#4682b4',
+                    'backgroundColor' => 'rgba(0, 96, 141, 1)', // Menggunakan warna biru yang sama
+                    'borderColor' => 'rgba(0, 96, 141, 1)',
                 ],
             ],
             'labels' => $labels,

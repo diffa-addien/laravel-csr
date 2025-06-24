@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Data Stakeholder</title>
+    <title>Laporan Anggaran Pengembangan Masyarakat</title>
     <style>
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid black;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
+
         th {
             background-color: #f2f2f2;
         }
+        h1, h2, h3 {
+            font-size: 20px;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Laporan Perencanaan Program Anggaran Pemangku Kepentingan</h1>
+    <h1>Laporan</h1>
+    <h2>Pengembangan Masyarakat</h2>
+    <h2 style="margin-bottom: 20px!important">PT Pantai Indah Kapuk 2, Tbk</h2>
     <table>
         <thead>
             <tr>
-                <th>Regional</th>
-                <th>Program</th>
-                <th>Kegiatan</th>
-                <th>Pengajuan Anggaran</th>
-                <th>Kesepakatan Anggaran</th>
-                <th>Keterangan</th>
+                <th>No.</th>
+                <th>Tahun</th>
+                <th>Biaya</th>
                 {{-- <th>Dibuat Pada</th> --}}
             </tr>
         </thead>
         <tbody>
+            @php
+                $no = 1;
+                $total = 0;
+            @endphp
             @foreach($records as $record)
                 <tr>
-                    <td>{{ $record['regional']['nama_regional'] ?? '-' }}</td>
-                    <td>{{ $record['program']['nama'] ?? '-' }}</td>
-                    <td>{{ $record['kegiatan'] }}</td>
-                    <td>{{ 'Rp.' .number_format($record['anggaran_pengajuan'], 0, ',', '.') }}</td> {{-- Pastikan fungsi ini tersedia --}}
-                    <td>{{ 'Rp.' .number_format($record['anggaran_kesepakatan'], 0, ',', '.') }}</td> {{-- Pastikan fungsi ini tersedia --}}
-                    <td>{{ $record['keterangan'] }}</td>
+                    <td>{{ $no++ }}</td>
+                    <td>Pengembangan Masyarakat Tahun {{ $record['nama_tahun_fiskal'] ?? '-' }}</td>
+                    <td>{{ 'Rp ' . number_format($record['total_anggaran'], 0, ',', '.') }}</td> {{-- Pastikan fungsi ini
+                    tersedia --}}
                     {{-- <td>{{ \Carbon\Carbon::parse($record['created_at'])->format('Y-m-d H:i:s') }}</td> --}}
                 </tr>
+                @php
+                    $total += $record['total_anggaran'];
+                @endphp
             @endforeach
+            
         </tbody>
+        <tfoot>
+            <td colspan="2">Total</td>
+            <td>{{ 'Rp ' . number_format($total, 0, ',', '.') }}</td>
+        </tfoot>
     </table>
 </body>
+
 </html>

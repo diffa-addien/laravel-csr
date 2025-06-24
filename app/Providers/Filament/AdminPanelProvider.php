@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\LaporanAnggaran;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -21,7 +22,6 @@ use Filament\Navigation\NavigationGroup;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\DataKegiatanChart;
 use App\Filament\Widgets\InfoSistem;
-use App\Filament\Pages\PrintTable;
 
 
 use App\Filament\Widgets\DataTesChart;
@@ -59,7 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->pages([
                 Pages\Dashboard::class,
-                PrintTable::class,
+                LaporanAnggaran::class,
 
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
