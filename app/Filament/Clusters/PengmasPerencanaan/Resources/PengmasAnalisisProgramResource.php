@@ -75,7 +75,7 @@ class PengmasAnalisisProgramResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('asumsi_or_risiko')
-                    ->label('Asumsi atau Resiko')
+                    ->label('Asumsi / Resiko')
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('pendukung_hasil')
@@ -150,6 +150,7 @@ class PengmasAnalisisProgramResource extends Resource
                     ->limit(50)
                     ->searchable(),
                 TextColumn::make('asumsi_or_risiko')
+                    ->label('Asumsi / Resiko')
                     ->limit(50)
                     ->searchable(),
                 TextColumn::make('pendukung_hasil')
