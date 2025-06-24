@@ -7,15 +7,15 @@ use App\Models\TahunFiskal; // Pastikan model ini ada
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 
-class BiayaTerencanaChart extends ChartWidget
+class AnggaranProgramPengmas extends ChartWidget
 {
 
-    protected static ?string $heading = 'Anggaran Pengembangan Masyarakat';
+    protected static ?string $heading = 'Anggaran Program Pengembangan Masyarakat';
 
-    protected static ?int $sort = 4;
+    protected static ?int $sort = 3;
     protected static ?string $maxHeight = '400px';
 
-    protected string|int|array $columnSpan = 'full';
+    protected string|int|array $columnSpan = 1;
 
     protected function getData(): array
     {

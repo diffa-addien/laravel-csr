@@ -10,11 +10,11 @@ class DataKegiatanChart extends ChartWidget
     protected static ?string $heading = 'Program Komunikasi dan Publikasi per Bulan';
 
     protected static ?string $pollingInterval = null;
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 4;
 
     public static function canView(): bool
     {
-        return false; // sembunyikan untuk semua user
+        return true; // sembunyikan untuk semua user
     }
 
     protected function getData(): array

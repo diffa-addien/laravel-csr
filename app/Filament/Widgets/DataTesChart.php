@@ -10,10 +10,10 @@ class DataTesChart extends ChartWidget
     protected static ?string $heading = 'Program Pengembangan Masyarakat per Bulan';
 
     protected static ?string $pollingInterval = null;
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 5;
     public static function canView(): bool
     {
-        return false; // sembunyikan untuk semua user
+        return true; // sembunyikan untuk semua user
     }
 
     protected function getData(): array
