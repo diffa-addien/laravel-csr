@@ -15,7 +15,7 @@ use Livewire\Component; // atau class dasar komponen Filament Anda
 class LaporanAnggaran extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-printer';
-
+    protected static bool $shouldRegisterNavigation = true;
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $navigationLabel = 'Laporan Anggaran';
     protected static ?string $pluralModelLabel = 'Laporan';

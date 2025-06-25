@@ -17,12 +17,14 @@ class AnggaranProgramPengmas extends ChartWidget
 
     protected string|int|array $columnSpan = 1;
 
+    public array $records = [];
+
     protected function getData(): array
     {
         // 1. Ambil 4 tahun fiskal terakhir, diurutkan dari yang terlama ke terbaru.
         $lastFourFiscalYears = TahunFiskal::query()
             ->orderBy('nama_tahun_fiskal', 'desc')
-            ->limit(4)
+            ->limit(5)
             ->get()
             ->sortBy('nama_tahun_fiskal'); // Urutkan kembali agar chart menampilkan tahun secara kronologis (misal: 2022, 2023, 2024, 2025)
 

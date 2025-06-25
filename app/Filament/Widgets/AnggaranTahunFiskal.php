@@ -22,7 +22,7 @@ class AnggaranTahunFiskal extends ChartWidget
         // 1. Dapatkan daftar 4 tahun terakhir (misal: [2022, 2023, 2024, 2025])
         $currentYear = Carbon::now()->year;
         $years = [];
-        for ($i = 3; $i >= 0; $i--) {
+        for ($i = 4; $i >= 0; $i--) {
             $years[] = $currentYear - $i;
         }
 
