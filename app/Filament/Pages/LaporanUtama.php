@@ -35,7 +35,7 @@ class LaporanUtama extends Page
   {
     $lastFourFiscalYears = TahunFiskal::query()
       ->orderBy('nama_tahun_fiskal', 'desc')
-      ->limit(4)
+      ->limit(5)
       ->get()
       // Urutkan kembali agar data yang ditampilkan kronologis (misal: 2022, 2023, 2024, 2025)
       ->sortBy('nama_tahun_fiskal');
