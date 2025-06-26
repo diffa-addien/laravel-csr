@@ -7,12 +7,12 @@ use Illuminate\Support\ServiceProvider;
 use Filament\Facades\Filament;
 use Illuminate\Support\HtmlString;
 
-
 use Illuminate\Support\Facades\Request;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\Js;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Filament::serving(function () {
+            FilamentAsset::register([
+                Js::make('filament-custom-script', public_path('js/filament-custom.js')),
+            ]);
+        });
+
         Filament::registerRenderHook(
             'panels::auth.login.form.before',
             fn(): HtmlString => new HtmlString('

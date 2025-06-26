@@ -15,11 +15,10 @@ class LaporanUtama extends Page
   // Icon dari Heroicons (https://heroicons.com/)
   protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
-      protected static bool $shouldRegisterNavigation = false;
-
+  protected static bool $shouldRegisterNavigation = true;
 
   // Judul halaman yang akan muncul di menu navigasi
-  protected static ?string $navigationLabel = 'Laporan Utama';
+  protected static ?string $navigationLabel = 'Laporan';
 
   // Grup navigasi (opsional, untuk mengelompokkan menu)
   protected static ?string $navigationGroup = 'Laporan';
@@ -27,6 +26,8 @@ class LaporanUtama extends Page
   // Judul yang akan tampil di header halaman
   protected static ?string $title = 'Pusat Laporan';
 
+
+  protected static ?int $navigationSort = 10;
   // Tentukan file view yang akan digunakan
   protected static string $view = 'filament.pages.laporan-utama';
 

@@ -77,6 +77,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Textarea::make('tujuan_utama')
+                    ->label('Tujuan Umum')
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('tujuan_khusus')

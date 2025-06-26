@@ -1,10 +1,8 @@
 <x-filament-panels::page>
     {{-- Ini adalah container utama dari halaman --}}
 
-    {{-- Kita buat grid di sini. 
-         - grid-cols-1: 1 kolom di layar kecil
-         - md:grid-cols-2: 2 kolom di layar medium dan lebih besar
-         - gap-6: Jarak antar elemen grid --}}
+    {{-- Kita buat grid di sini --}}
+    <div class="my-0 pt-2 text-xl font-bold border-t">Modul Pengembangan Masyarakat</div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {{-- KARTU 1: Laporan Anggaran Fiskal --}}
@@ -12,17 +10,17 @@
             <div>
                 {{-- Judul Kartu --}}
                 <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Laporan Anggaran Fiskal
+                    Laporan Anggaran 5 Tahun Fiskal
                 </h2>
                 <p class="mt-1 text-gray-500 dark:text-gray-400">
-                    Lihat rekapitulasi dan rincian total anggaran per tahun fiskal.
+                    Lihat total anggaran yang dipakai untuk program (Pengembangan Masyarakat) dari 5 tahun fiskal terakhir.
                 </p>
             </div>
 
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
                 <a href="#" wire:click="printTable" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Pilih Laporan
+                    <x-heroicon-o-printer class="w-4 h-4" /> Cetak PDF
                 </a>
             </div>
         </div>
@@ -33,17 +31,17 @@
             <div>
                 {{-- Judul Kartu --}}
                 <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Laporan Anggaran Program
+                    Laporan Anggaran Program per Tahun
                 </h2>
                 <p class="mt-1 text-gray-500 dark:text-gray-400">
-                    Analisis penggunaan anggaran berdasarkan masing-masing program.
+                    Lihat rekapitulasi dan rincian total anggaran program berdasarkan masing-masing program per tahun fiskal.
                 </p>
             </div>
             
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
-                <a href="#" wire:click="exportPdf"  class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Pilih Laporan
+                <a href="{{ url('admin/pengmas/cetak-laporan') }}" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <x-heroicon-o-magnifying-glass class="w-4 h-4" /> Pilih Laporan
                 </a>
             </div>
         </div>
