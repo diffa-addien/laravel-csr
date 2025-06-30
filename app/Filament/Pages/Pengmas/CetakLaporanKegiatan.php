@@ -26,7 +26,7 @@ class CetakLaporanKegiatan extends Page implements HasForms, HasTable
     use InteractsWithTable;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected static bool $shouldRegisterNavigation = true; // Ubah ke true jika ingin muncul di menu
+    protected static bool $shouldRegisterNavigation = false; // Ubah ke true jika ingin muncul di menu
 
     protected static ?string $navigationLabel = 'Cetak Laporan Kegiatan';
     protected static ?string $navigationGroup = 'Pengmas';
