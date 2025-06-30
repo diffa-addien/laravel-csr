@@ -41,4 +41,10 @@ class PengmasWilayahKegiatan extends Model
         return $this->belongsTo(Bidang::class, 'bidang_id', 'id');
     }
 
+    // In App\Models\PengmasWilayahKegiatan.php
+    public function pelaksanaan(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\PengmasPelaksanaanKegiatan::class, 'kegiatan_id');
+    }
+
 }

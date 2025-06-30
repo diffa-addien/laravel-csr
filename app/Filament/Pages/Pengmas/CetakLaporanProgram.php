@@ -19,7 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\HtmlString; // Tambahkan baris ini
 
 
-class CetakLaporan extends Page implements HasForms, HasTable
+class CetakLaporanProgram extends Page implements HasForms, HasTable
 {
     use InteractsWithForms;
     use InteractsWithTable;
@@ -29,7 +29,7 @@ class CetakLaporan extends Page implements HasForms, HasTable
 
     protected static ?string $navigationLabel = 'Cetak Laporan Program';
     protected static ?string $navigationGroup = 'Pengmas';
-    protected static ?string $slug = 'pengmas/cetak-laporan';
+    protected static ?string $slug = 'pengmas/cetak-laporan-program';
     protected static ?string $title = 'Cetak Laporan Program Pengembangan Masyarakat';
     protected static string $view = 'filament.pages.pengmas.cetak-laporan';
 
@@ -146,7 +146,7 @@ class CetakLaporan extends Page implements HasForms, HasTable
                 fn() => new HtmlString('<div class="text-center px-4 bg-gray-50 dark:bg-gray-900">Sekilas Isi Laporan</div>')
             )
             ->columns([
-                TextColumn::make('nama_program')->label('Nama Program')->searchable(),
+                TextColumn::make('nama_program')->label('Nama Program')->limit(45)->searchable(),
                 TextColumn::make('kesepakatan_anggaran')->label('Anggaran Disepakati')->money('IDR'),
                 TextColumn::make('rencana_mulai')->label('Tgl Mulai')->date('d M Y'),
                 TextColumn::make('dariTahunFiskal.nama_tahun_fiskal')->label('Tahun Fiskal'),

@@ -31,16 +31,36 @@
             <div>
                 {{-- Judul Kartu --}}
                 <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Laporan Anggaran Program per Tahun
+                    Laporan Anggaran Program
                 </h2>
                 <p class="mt-1 text-gray-500 dark:text-gray-400">
-                    Lihat rekapitulasi dan rincian total anggaran program berdasarkan masing-masing program per tahun fiskal.
+                    Lihat rekapitulasi dan rincian total anggaran program per tahun fiskal.
                 </p>
             </div>
             
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
-                <a href="{{ url('admin/pengmas/cetak-laporan') }}" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                <a href="{{ url('admin/pengmas/cetak-laporan-program') }}" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <x-heroicon-o-magnifying-glass class="w-4 h-4" /> Pilih Laporan
+                </a>
+            </div>
+        </div>
+
+        {{-- KARTU 2: Laporan Anggaran Program --}}
+        <div class="p-6 bg-white rounded-xl shadow-lg space-y-4 dark:bg-gray-800">
+            <div>
+                {{-- Judul Kartu --}}
+                <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Laporan Anggaran Kegiatan
+                </h2>
+                <p class="mt-1 text-gray-500 dark:text-gray-400">
+                    Lihat rekapitulasi dan rincian kegiatan berdasarkan masing-masing program per tahun fiskal.
+                </p>
+            </div>
+            
+            {{-- Tombol/Link Aksi --}}
+            <div class="mt-4">
+                <a href="{{ url('admin/pengmas/cetak-laporan-kegiatan') }}" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     <x-heroicon-o-magnifying-glass class="w-4 h-4" /> Pilih Laporan
                 </a>
             </div>
