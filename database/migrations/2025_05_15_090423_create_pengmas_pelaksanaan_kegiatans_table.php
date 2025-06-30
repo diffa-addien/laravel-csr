@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengmas_pelaksanaan_kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('program_id')->constrained('pengmas_rencana_program_anggarans')->onDelete('cascade');
+            $table->foreignId('kegiatan_id')->constrained('pengmas_rencana_program_anggarans')->onDelete('restrict');
             $table->unsignedInteger('jumlah_penerima');
             $table->unsignedBigInteger('anggaran_pelaksanaan');
             $table->date('tanggal_pelaksanaan');

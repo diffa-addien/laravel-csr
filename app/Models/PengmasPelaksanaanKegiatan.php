@@ -13,15 +13,15 @@ class PengmasPelaksanaanKegiatan extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
      protected $fillable = [
-        'program_id',
+        'kegiatan_id',
         'jumlah_penerima',
         'anggaran_pelaksanaan',
         'tanggal_pelaksanaan'
     ];
 
-    public function dariProgram(): BelongsTo
+    public function kegiatan(): BelongsTo // RELASI BARU
     {
-        return $this->belongsTo(PengmasRencanaProgramAnggaran::class, 'program_id', 'id');
+        return $this->belongsTo(PengmasWilayahKegiatan::class, 'kegiatan_id', 'id');
     }
 
     public function registerMediaCollections(): void
