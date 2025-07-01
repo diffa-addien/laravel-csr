@@ -21,6 +21,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "3.2.3",
         "maennchen/zipstream-php": "^2.0",
+        "marcogermani87/filament-captcha": "^1.5",
         "openspout/openspout": "^4.23",
         "spatie/image": "^2.2.2",
         "spatie/laravel-medialibrary": "^10.15",

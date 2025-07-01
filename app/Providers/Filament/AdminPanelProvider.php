@@ -22,6 +22,7 @@ use Filament\Navigation\NavigationGroup;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\DataKegiatanChart;
 use App\Filament\Widgets\InfoSistem;
+use App\Filament\Pages\Auth\Loginan as CustomLogin; 
 
 
 use App\Filament\Widgets\DataTesChart;
@@ -30,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        // dd('ADMIN PANEL PROVIDER DIJALANKAN!'); 
         return $panel
             ->default()
             
@@ -38,12 +40,13 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('4rem')
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->plugin(
+                \MarcoGermani87\FilamentCaptcha\FilamentCaptcha::make()
+            )
+            ->login(CustomLogin::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
-            
-            
 
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -88,7 +91,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->sidebarCollapsibleOnDesktop();
+            ->sidebarCollapsibleOnDesktop()
+            ;
     }
 
 }
