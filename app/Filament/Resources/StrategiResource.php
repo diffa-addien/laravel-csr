@@ -13,6 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Forms\Components\RichEditor;
+
+
 class StrategiResource extends Resource
 {
     protected static ?string $model = Strategi::class;
@@ -39,9 +42,12 @@ class StrategiResource extends Resource
                 Forms\Components\TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('keterangan')
+                RichEditor::make('keterangan')
                     ->nullable()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ]),
             ]);
     }
 
@@ -54,6 +60,7 @@ class StrategiResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keterangan')
                     ->searchable()
+                    ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

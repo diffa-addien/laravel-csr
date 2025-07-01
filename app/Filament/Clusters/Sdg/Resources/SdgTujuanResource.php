@@ -14,6 +14,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
+
+
 class SdgTujuanResource extends Resource
 {
     protected static ?string $model = SdgTujuan::class;
@@ -30,11 +34,22 @@ class SdgTujuanResource extends Resource
     {
         return $form
             ->schema([
+                FilamentSpatieMediaLibraryFileUpload::make('images')
+                    ->collection('images')
+                    ->label('Gambar')
+                    ->directory('SGG_gambar')
+                    ->disk('uploads')
+                    ->maxSize(2048) // 2MB per file
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif']),
                 Forms\Components\TextInput::make('tujuan')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('keterangan')
-                    ->rows(4),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('keterangan')
+                    ->columnSpanFull()
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ]),
             ]);
     }
 
@@ -42,10 +57,16 @@ class SdgTujuanResource extends Resource
     {
         return $table
             ->columns([
+                FilamentSpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->label('Logo')
+                    ->circular()
+                    ->extraImgAttributes(['style' => 'max-height: 50px;']),
                 Tables\Columns\TextColumn::make('tujuan')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('keterangan')
+                    ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d M Y')
@@ -61,7 +82,7 @@ class SdgTujuanResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

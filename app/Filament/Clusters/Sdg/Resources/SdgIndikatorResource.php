@@ -46,10 +46,12 @@ class SdgIndikatorResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(1000),
-                Forms\Components\Textarea::make('keterangan')
+                Forms\Components\RichEditor::make('keterangan')
                     ->maxLength(65535)
-                    ->rows(4)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ]),
             ]);
     }
 
@@ -64,6 +66,7 @@ class SdgIndikatorResource extends Resource
                 Tables\Columns\TextColumn::make('nama_indikator')
                     ->limit(30),
                 Tables\Columns\TextColumn::make('keterangan')
+                    ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50),
             ])
             ->filters([

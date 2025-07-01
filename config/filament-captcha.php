@@ -6,7 +6,9 @@ return [
     // 'length' => 7,
 
     // optional, default is 'abcdefghijklmnpqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    // 'charset' => 'abcdefghijklmnpqrstuvwxyz',
+    'charset' => '123456789',
+    'fontLines' => 0,
+    'behindLines' => 2,
 
     'width' => 180,
 

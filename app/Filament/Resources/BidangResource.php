@@ -39,7 +39,10 @@ class BidangResource extends Resource
                     ->label('Nama Pilar')
                     ->required()
                     ->maxLength(255),
-                Textarea::make('keterangan')
+                Forms\Components\RichEditor::make('keterangan')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ])
                     ->nullable()
                     ->columnSpanFull(),
             ]);
@@ -58,6 +61,7 @@ class BidangResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('keterangan')
+                    ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50)
                     ->searchable(),
             ])

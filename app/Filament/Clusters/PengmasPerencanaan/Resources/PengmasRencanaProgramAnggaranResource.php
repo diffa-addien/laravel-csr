@@ -86,7 +86,10 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 Textarea::make('justifikasi')
                     ->required()
                     ->columnSpanFull(),
-                Textarea::make('keterangan')
+                Forms\Components\RichEditor::make('keterangan')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ])
                     ->nullable()
                     ->columnSpanFull(),
                 Select::make('tahun_fiskal')
@@ -151,9 +154,6 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                 TextColumn::make('output')
                     ->formatStateUsing(fn($record) => "{$record->output} {$record->output_unit}")
                     ->sortable(),
-                TextColumn::make('keterangan')
-                    ->limit(50)
-                    ->searchable(),
                 TextColumn::make('dariTahunFiskal.nama_tahun_fiskal')
                     ->label('Tahun Fiskal')
                     ->searchable()

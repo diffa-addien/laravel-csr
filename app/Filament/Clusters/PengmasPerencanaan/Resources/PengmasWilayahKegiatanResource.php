@@ -197,9 +197,12 @@ class PengmasWilayahKegiatanResource extends Resource
                             ->minValue(1)
                             ->columnSpanFull()
                             ->hint('(Opsional)'),
-                        Textarea::make('keterangan')
+                        Forms\Components\RichEditor::make('keterangan')
+                            ->disableToolbarButtons([
+                                'attachFiles',
+                            ])
                             ->label('Keterangan')
-                            ->rows(4)
+                            // ->rows(4) //ini tidak bisa di richeditor
                             ->nullable()
                             ->columnSpanFull()
                             ->hint('(Opsional)'),
