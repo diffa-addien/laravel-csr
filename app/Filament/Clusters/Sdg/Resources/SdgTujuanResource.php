@@ -59,7 +59,7 @@ class SdgTujuanResource extends Resource
             ->columns([
                 FilamentSpatieMediaLibraryImageColumn::make('images')
                     ->collection('images')
-                    ->label('Logo')
+                    ->label('Gambar')
                     ->circular()
                     ->extraImgAttributes(['style' => 'max-height: 50px;']),
                 Tables\Columns\TextColumn::make('tujuan')
