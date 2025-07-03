@@ -16,10 +16,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Filament\Traits\HasResourcePermissions;
 
 class UserResource extends Resource
 {
+    // use HasResourcePermissions;
+    // protected static ?string $permissionPrefix = 'users';
     protected static ?string $model = User::class;
     protected static ?string $recordTitleAttribute = 'name';
 

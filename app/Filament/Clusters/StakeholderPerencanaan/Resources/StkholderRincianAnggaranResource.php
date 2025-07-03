@@ -18,10 +18,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
-
+use App\Filament\Traits\HasResourcePermissions;
 
 class StkholderRincianAnggaranResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'stakeholder';
     protected static ?string $model = StkholderRincianAnggaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calculator';

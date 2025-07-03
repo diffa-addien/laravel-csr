@@ -21,12 +21,15 @@ use Filament\Tables\Columns\TextColumn;
 
 use Filament\Tables\Filters\SelectFilter;
 
-
 use Illuminate\Database\QueryException; // <-- 1. TAMBAHKAN USE STATEMENT INI
 use Filament\Notifications\Notification;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class PengmasRencanaProgramAnggaranResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'pengembangan_masyarakat';
     protected static ?string $model = PengmasRencanaProgramAnggaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';

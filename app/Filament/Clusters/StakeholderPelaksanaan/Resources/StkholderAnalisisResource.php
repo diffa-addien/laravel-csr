@@ -22,9 +22,12 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Placeholder;
+use App\Filament\Traits\HasResourcePermissions;
 
 class StkholderAnalisisResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'stakeholder';
     protected static ?string $model = StkholderAnalisis::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

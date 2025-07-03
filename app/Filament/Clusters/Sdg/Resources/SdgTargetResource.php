@@ -16,8 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class SdgTargetResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = SdgTarget::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cursor-arrow-rays';

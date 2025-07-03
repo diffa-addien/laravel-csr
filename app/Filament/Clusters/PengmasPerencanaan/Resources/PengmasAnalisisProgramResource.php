@@ -2,6 +2,8 @@
 
 namespace App\Filament\Clusters\PengmasPerencanaan\Resources;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 use App\Filament\Clusters\PengmasPerencanaan;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasAnalisisProgramResource\Pages;
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasAnalisisProgramResource\RelationManagers;
@@ -22,6 +24,8 @@ use Filament\Notifications\Notification;
 
 class PengmasAnalisisProgramResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'pengembangan_masyarakat';
     protected static ?string $model = PengmasAnalisisProgram::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-magnifying-glass-circle';

@@ -20,9 +20,12 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Traits\HasResourcePermissions;
 
 class KompumedKegiatanResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'komunikasi_media';
     protected static ?string $model = KompumedKegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';

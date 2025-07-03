@@ -26,9 +26,12 @@ use Filament\Forms\Set; // <-- Import Set
 use Illuminate\Database\Eloquent\Builder; // <-- Import Builder
 use Filament\Notifications\Notification;
 use Illuminate\Support\HtmlString; // Tambahkan baris ini
+use App\Filament\Traits\HasResourcePermissions;
 
 class PengmasPelaksanaanKegiatanResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'pengembangan_masyarakat';
     protected static ?string $model = PengmasPelaksanaanKegiatan::class;
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
     protected static ?string $navigationGroup = 'Pengembangan Masyarakat';

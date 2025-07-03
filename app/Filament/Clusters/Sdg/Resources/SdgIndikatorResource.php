@@ -15,8 +15,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class SdgIndikatorResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = SdgIndikator::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-viewfinder-circle';

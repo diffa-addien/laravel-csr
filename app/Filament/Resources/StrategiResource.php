@@ -15,9 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 use Filament\Forms\Components\RichEditor;
 
+use App\Filament\Traits\HasResourcePermissions;
 
 class StrategiResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = Strategi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';

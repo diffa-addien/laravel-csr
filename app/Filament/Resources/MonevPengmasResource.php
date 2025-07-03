@@ -15,9 +15,12 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Traits\HasResourcePermissions;
 
 class MonevPengmasResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'monev';
     protected static ?string $model = PengmasRencanaProgramAnggaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';

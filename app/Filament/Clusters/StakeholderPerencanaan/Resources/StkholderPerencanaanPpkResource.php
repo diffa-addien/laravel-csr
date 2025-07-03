@@ -14,9 +14,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use App\Filament\Traits\HasResourcePermissions;
 class StkholderPerencanaanPpkResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'stakeholder';
     protected static ?string $model = StkholderPerencanaanPpk::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-bars-arrow-up';

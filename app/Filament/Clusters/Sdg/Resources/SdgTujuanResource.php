@@ -17,9 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
 
+use App\Filament\Traits\HasResourcePermissions;
 
 class SdgTujuanResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = SdgTujuan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

@@ -26,9 +26,12 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
+use App\Filament\Traits\HasResourcePermissions;
 
 class StkholderPelaksanaanPpkResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'stakeholder';
     protected static ?string $model = StkholderPelaksanaanPpk::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

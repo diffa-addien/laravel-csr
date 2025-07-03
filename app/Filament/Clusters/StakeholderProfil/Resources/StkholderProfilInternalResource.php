@@ -18,8 +18,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class StkholderProfilInternalResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'stakeholder';
     protected static ?string $model = StkholderProfilInternal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';

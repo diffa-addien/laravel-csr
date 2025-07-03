@@ -35,8 +35,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             
-            ->brandName('PT. PIK 2')
-            ->brandLogo(url('assets/pik2-logo.png'))
+            ->brandName('CSR 1.1')
+            // ->brandLogo(url('assets/pik2-logo.png'))
             ->brandLogoHeight('4rem')
             ->id('admin')
             ->path('admin')

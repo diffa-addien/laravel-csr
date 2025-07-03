@@ -17,9 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Traits\HasResourcePermissions;
 
 class MonevKompumedResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'monev';
     protected static ?string $model = KompumedKegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';

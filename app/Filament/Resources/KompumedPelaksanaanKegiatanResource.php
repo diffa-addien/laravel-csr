@@ -19,9 +19,12 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
+use App\Filament\Traits\HasResourcePermissions;
 
 class KompumedPelaksanaanKegiatanResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'komunikasi_media';
     protected static ?string $model = KompumedPelaksanaanKegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';

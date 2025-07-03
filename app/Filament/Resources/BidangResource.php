@@ -15,8 +15,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class BidangResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = Bidang::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';

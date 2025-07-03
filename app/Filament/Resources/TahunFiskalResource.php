@@ -20,8 +20,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule; // Pastikan ini diimpor
 use Filament\Forms\Get; // Tambahkan ini jika Anda ingin menggunakan Get/Set
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class TahunFiskalResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = TahunFiskal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';

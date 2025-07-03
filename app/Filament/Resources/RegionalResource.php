@@ -10,8 +10,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
+use App\Filament\Traits\HasResourcePermissions;
+
 class RegionalResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = Regional::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';

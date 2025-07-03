@@ -14,8 +14,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Filament\Traits\HasResourcePermissions;
 class KabupatenResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = Kabupaten::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal-circle';

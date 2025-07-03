@@ -35,13 +35,14 @@ use Illuminate\Contracts\View\View; // Import ini jika Anda mengembalikan View o
 use Illuminate\Support\HtmlString; // Tambahkan baris ini
 use Livewire\Component;
 
-
-
-
 use App\Filament\Clusters\PengmasPerencanaan\Resources\PengmasWilayahKegiatanResource\Widgets\PengmasWilayahKegiatanStats;
+
+use App\Filament\Traits\HasResourcePermissions;
 
 class PengmasWilayahKegiatanResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'pengembangan_masyarakat';
     protected static ?string $model = PengmasWilayahKegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

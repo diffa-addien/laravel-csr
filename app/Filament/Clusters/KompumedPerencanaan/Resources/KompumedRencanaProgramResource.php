@@ -15,9 +15,12 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Traits\HasResourcePermissions;
 
 class KompumedRencanaProgramResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'komunikasi_media';
     protected static ?string $model = KompumedRencanaProgram::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';

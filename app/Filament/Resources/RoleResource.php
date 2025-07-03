@@ -16,9 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Traits\HasResourcePermissions;
 
 class RoleResource extends Resource
 {
+    // use HasResourcePermissions;
+    // protected static ?string $permissionPrefix = 'users';
     protected static ?string $model = Role::class;
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
