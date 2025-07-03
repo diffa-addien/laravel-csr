@@ -19,9 +19,15 @@ use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMedia
 
 use App\Filament\Traits\HasResourcePermissions;
 
+// use Filament\Pages\SubNavigationPosition; //Class pengubah posisi sub nav
+
 class SdgTujuanResource extends Resource
 {
     use HasResourcePermissions;
+    
+    // Ubah cluster nav ke Start/Top/End
+    // protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
     protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = SdgTujuan::class;
 

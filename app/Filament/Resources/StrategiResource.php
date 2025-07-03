@@ -31,7 +31,7 @@ class StrategiResource extends Resource
     public static int $navigationGroupSort = 8;
 
     protected static ?string $navigationLabel = 'Strategi Program';
-    protected static ?int $navigationSort = 9;
+    protected static ?int $navigationSort = 5;
 
     public static function getPluralModelLabel(): string
     {

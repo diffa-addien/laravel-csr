@@ -30,7 +30,7 @@ class VendorResource extends Resource
     protected static ?string $pluralModelLabel = 'Data Vendor';
     protected static ?string $modelLabel = 'Data';
     public static int $navigationGroupSort = 8;
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {
