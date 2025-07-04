@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\StrategiResource\Pages;
 use App\Filament\Resources\StrategiResource\RelationManagers;
 use App\Models\Strategi;
+use App\Models\TahunFiskal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 
 use App\Filament\Traits\HasResourcePermissions;
 
@@ -51,6 +53,34 @@ class StrategiResource extends Resource
                     ->disableToolbarButtons([
                         'attachFiles',
                     ]),
+                Select::make('tahun_fiskal')
+                    ->label('Tahun Fiskal')
+                    ->options(
+                        TahunFiskal::pluck('nama_tahun_fiskal', 'id')->toArray()
+                    )
+                    ->required()
+                    ->disabled() // Ini akan membuat field menjadi readonly
+                    ->default(function () {
+                        // Cari record TahunFiskal yang is_active = true
+                        $activeTahunFiskal = TahunFiskal::where('is_active', true)->first();
+
+                        // Jika ditemukan, gunakan ID-nya sebagai nilai default
+                        if ($activeTahunFiskal) {
+                            return $activeTahunFiskal->id;
+                        }
+
+                        // Jika tidak ada yang aktif, Anda bisa mengembalikan null atau ID default lainnya
+                        // Misalnya, jika Anda ingin default ke tahun fiskal saat ini jika tidak ada yang aktif:
+                        // $currentYear = date('Y');
+                        // $currentTahunFiskal = TahunFiskal::where('tahun_fiskal', $currentYear)->first();
+                        // return $currentTahunFiskal ? $currentTahunFiskal->id : null;
+            
+                        return null; // Mengembalikan null jika tidak ada tahun fiskal aktif
+                    })
+                    ->validationMessages([
+                        'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
+                    ]),
+                Forms\Components\Hidden::make('tahun_fiskal')->required()
             ]);
     }
 
@@ -65,9 +95,11 @@ class StrategiResource extends Resource
                     ->searchable()
                     ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('dariTahunFiskal.nama_tahun_fiskal')
+                    ->label('Tahun Fiskal')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(50),
             ])
             ->filters([
                 //
@@ -80,7 +112,8 @@ class StrategiResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('tahun_fiskal', 'desc');;
     }
 
     public static function getRelations(): array

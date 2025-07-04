@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sdg_indikators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('target_id')->constrained('sdg_targets')->onDelete('cascade');
+            $table->foreignId('target_id')->constrained('sdg_targets')->onDelete('restrict');
             $table->string('no_indikator')->unique();
             $table->string('nama_indikator');
             $table->text('keterangan');

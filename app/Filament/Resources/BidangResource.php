@@ -34,6 +34,13 @@ class BidangResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('sdgTujuans')
+                    ->multiple() // Mengizinkan pilihan ganda
+                    ->relationship(name: 'sdgTujuans', titleAttribute: 'tujuan') // (nama relasi, kolom yang ditampilkan)
+                    ->searchable()
+                    ->preload() // Langsung load pilihan saat form dibuka
+                    ->label('SDGs Terkait')
+                    ->columnSpanFull(),
                 TextInput::make('kode_bidang')
                     ->label('Kode Pilar')
                     ->required()

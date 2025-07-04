@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Bidang extends Model
 {
@@ -15,4 +16,11 @@ class Bidang extends Model
         'keterangan',
     ];
 
+    /**
+     * Relasi Many-to-Many ke SdgTujuan.
+     */
+    public function sdgTujuans(): BelongsToMany
+    {
+        return $this->belongsToMany(SdgTujuan::class, 'bidang_sdg_tujuan');
+    }
 }

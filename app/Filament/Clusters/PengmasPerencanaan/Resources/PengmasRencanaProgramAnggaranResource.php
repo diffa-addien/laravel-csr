@@ -122,7 +122,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ->validationMessages([
                         'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
                     ]),
-                Forms\Components\Hidden::make('tahun_fiskal')->required()
+                Forms\Components\Hidden::make('tahun_fiskal')->required() 
             ]);
     }
 
