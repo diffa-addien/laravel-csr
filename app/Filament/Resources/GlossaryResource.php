@@ -2,38 +2,39 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KuadranResource\Pages;
-use App\Models\Kuadran;
+use App\Filament\Resources\GlossaryResource\Pages;
+use App\Models\Glossary;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+
 use App\Filament\Traits\HasResourcePermissions;
 
-class KuadranResource extends Resource
+
+class GlossaryResource extends Resource
 {
     use HasResourcePermissions;
     protected static ?string $permissionPrefix = 'data_induk';
-    protected static ?string $model = Kuadran::class;
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2'; // Icon yang relevan
+    protected static ?string $model = Glossary::class;
 
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
     protected static ?string $navigationGroup = 'Data Induk';
     // protected static ?string $navigationParentItem = 'Wilayah';
-    protected static ?string $navigationLabel = 'Kuadran Pemangku Kepentingan';
-    protected static ?string $pluralModelLabel = 'Data Kuadran';
+    protected static ?string $navigationLabel = 'Glossary';
+    protected static ?string $pluralModelLabel = 'Data Glossary';
     protected static ?string $modelLabel = 'Data';
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 99; // Memastikan urutan terakhir
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama_kuadran')
+                Forms\Components\TextInput::make('nama_glossary')
                     ->required()
-                    ->maxLength(255)
-                    ->label('Nama Kuadran'), // Label yang lebih ramah pengguna
-                Forms\Components\RichEditor::make('deskripsi')
+                    ->maxLength(255),
+                Forms\Components\RichEditor::make('keterangan')
                     ->nullable()
                     ->columnSpanFull()
                     ->disableToolbarButtons([
@@ -46,21 +47,19 @@ class KuadranResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama_kuadran')
-                    ->searchable() // Agar bisa dicari
-                    ->sortable()
-                    ->label('Nama Kuadran'),
-                Tables\Columns\TextColumn::make('deskripsi')
+                Tables\Columns\TextColumn::make('nama_glossary')
+                ->label('Nama')
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('keterangan')
+                    ->limit(50)
                     ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
-                    ->tooltip("Klik untuk melihat deskripsi lengkap") // Petunjuk tambahan
-                    ->limit(50),
-
+                    ->tooltip("Klik untuk melihat keterangan lengkap")
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true), // Sembunyikan secara default
-
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -83,9 +82,9 @@ class KuadranResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListKuadrans::route('/'),
-            // 'create' => Pages\CreateKuadran::route('/create'),
-            // 'edit' => Pages\EditKuadran::route('/{record}/edit'),
+            'index' => Pages\ListGlossaries::route('/'),
+            // 'create' => Pages\CreateGlossary::route('/create'),
+            // 'edit' => Pages\EditGlossary::route('/{record}/edit'),
         ];
     }
 }

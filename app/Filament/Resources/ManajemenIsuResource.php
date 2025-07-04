@@ -9,11 +9,13 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Filament\Traits\HasResourcePermissions;
 
 class ManajemenIsuResource extends Resource
 {
+    use HasResourcePermissions;
+    protected static ?string $permissionPrefix = 'data_induk';
     protected static ?string $model = ManajemenIsu::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right'; // Icon yang sesuai
 
     protected static ?string $navigationLabel = 'Manajemen Isu CSR'; // Label navigasi yang jelas
