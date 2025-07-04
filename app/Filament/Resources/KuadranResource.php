@@ -18,7 +18,7 @@ class KuadranResource extends Resource
 
     protected static ?string $navigationGroup = 'Data Induk';
     // protected static ?string $navigationParentItem = 'Wilayah';
-    protected static ?string $navigationLabel = 'Kuadran';
+    protected static ?string $navigationLabel = 'Kuadran Pemangku Kepentingan';
     protected static ?string $pluralModelLabel = 'Data Kuadran';
     protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 7;

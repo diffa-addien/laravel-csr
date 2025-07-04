@@ -16,8 +16,8 @@ class ManajemenIsuResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right'; // Icon yang sesuai
 
-    protected static ?string $navigationLabel = 'Manajemen Isu'; // Label navigasi yang jelas
-    protected static ?string $pluralModelLabel = 'Manajemen Isu'; // Label jamak
+    protected static ?string $navigationLabel = 'Manajemen Isu CSR'; // Label navigasi yang jelas
+    protected static ?string $pluralModelLabel = 'Manajemen Isu CSR'; // Label jamak
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 9;
