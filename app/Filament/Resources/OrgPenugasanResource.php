@@ -45,9 +45,9 @@ class OrgPenugasanResource extends Resource
     {
         $profil = OrgProfil::first();
         $jabatanOptions = [
-            1 => $profil->lv1 ?? $profil->lv1,
-            2 => $profil->lv2 ?? $profil->lv2,
-            3 => $profil->lv3 ?? $profil->lv3,
+            1 => $profil->lv1 ?? 'Jabatan 1',
+            2 => $profil->lv2 ?? 'Jabatan 2',
+            3 => $profil->lv3 ?? 'Jabatan 3',
         ];
 
         return $form
