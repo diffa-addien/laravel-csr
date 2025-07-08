@@ -18,7 +18,7 @@
 
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
-                <a href="#" wire:click="printTable"
+                <a href="#" wire:click="printLaporanStakeholder"
                     class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     <x-heroicon-o-printer class="w-4 h-4" /> Cetak PDF
                 </a>
@@ -43,7 +43,7 @@
 
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
-                <a href="#" wire:click="printTable"
+                <a href="#" wire:click="printLaporanKompumed"
                     class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     <x-heroicon-o-printer class="w-4 h-4" /> Cetak PDF
                 </a>
@@ -52,7 +52,7 @@
 
     </div>
 
-    {{-- Kita buat grid di sini --}}
+    {{-- MODUL PENGMAS ================== --}}
     <div class="my-0 pt-2 text-xl font-bold border-t border-gray-600">Modul Pengembangan Masyarakat</div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -71,7 +71,7 @@
 
             {{-- Tombol/Link Aksi --}}
             <div class="mt-4">
-                <a href="#" wire:click="printTable"
+                <a href="#" wire:click="printLaporanPengmas"
                     class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     <x-heroicon-o-printer class="w-4 h-4" /> Cetak PDF
                 </a>
@@ -79,7 +79,7 @@
         </div>
 
 
-        {{-- KARTU 2: Laporan Anggaran Program --}}
+        {{-- KARTU: Laporan Anggaran Program --}}
         <div class="p-6 bg-white rounded-xl shadow-lg space-y-4 dark:bg-gray-800">
             <div>
                 {{-- Judul Kartu --}}
@@ -100,7 +100,7 @@
             </div>
         </div>
 
-        {{-- KARTU 2: Laporan Anggaran Program --}}
+        {{-- KARTU: Laporan Anggaran Program --}}
         <div class="p-6 bg-white rounded-xl shadow-lg space-y-4 dark:bg-gray-800">
             <div>
                 {{-- Judul Kartu --}}
