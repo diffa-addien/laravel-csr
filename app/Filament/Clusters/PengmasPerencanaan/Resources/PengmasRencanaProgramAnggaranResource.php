@@ -20,7 +20,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 
 use Filament\Tables\Filters\SelectFilter;
-
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException; // <-- 1. TAMBAHKAN USE STATEMENT INI
 use Filament\Notifications\Notification;
 
@@ -46,12 +46,64 @@ class PengmasRencanaProgramAnggaranResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('tahun_fiskal')
+                    ->label('Tahun Fiskal')
+                    ->options(
+                        TahunFiskal::pluck('nama_tahun_fiskal', 'id')->toArray()
+                    )
+                    ->required()
+                    ->disabled() // Ini akan membuat field menjadi readonly
+                    ->default(function () {
+                        // Cari record TahunFiskal yang is_active = true
+                        $activeTahunFiskal = TahunFiskal::where('is_active', true)->first();
+
+                        // Jika ditemukan, gunakan ID-nya sebagai nilai default
+                        if ($activeTahunFiskal) {
+                            return $activeTahunFiskal->id;
+                        }
+
+                        // Jika tidak ada yang aktif, Anda bisa mengembalikan null atau ID default lainnya
+                        // Misalnya, jika Anda ingin default ke tahun fiskal saat ini jika tidak ada yang aktif:
+                        // $currentYear = date('Y');
+                        // $currentTahunFiskal = TahunFiskal::where('tahun_fiskal', $currentYear)->first();
+                        // return $currentTahunFiskal ? $currentTahunFiskal->id : null;
+            
+                        return null; // Mengembalikan null jika tidak ada tahun fiskal aktif
+                    })
+                    ->validationMessages([
+                        'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
+                    ]),
+                Forms\Components\Hidden::make('tahun_fiskal')->required() ,
                 Select::make('regional_id')
                     ->label('Regional')
                     ->relationship('regional', 'nama_regional')
                     ->required()
                     // ->searchable()
                     ->preload(),
+                    // PENAMBAHAN: Field untuk memilih Strategi
+                Select::make('strategis')
+                    ->label('Pilih Strategi Terkait')
+                    ->relationship(
+                        name: 'strategis',
+                        titleAttribute: 'nama',
+                        modifyQueryUsing: function (Builder $query) {
+                            $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+                            if (!$activeTahunFiskalId) {
+                                $tableName = $query->getModel()->getTable();
+                                return $query->where("{$tableName}.id", -1);
+                            }
+                            return $query->where('tahun_fiskal', $activeTahunFiskalId)->with('dariTahunFiskal');
+                        }
+                    )
+                    ->getOptionLabelFromRecordUsing(function ($record) {
+                        $tahun = $record->dariTahunFiskal ? $record->dariTahunFiskal->nama_tahun_fiskal : 'N/A';
+                        return "{$record->nama} ({$tahun})";
+                    })
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
+                    ->columnSpanFull(),
+
                 TextInput::make('nama_program')
                     ->required()
                     ->maxLength(255)
@@ -95,34 +147,7 @@ class PengmasRencanaProgramAnggaranResource extends Resource
                     ])
                     ->nullable()
                     ->columnSpanFull(),
-                Select::make('tahun_fiskal')
-                    ->label('Tahun Fiskal')
-                    ->options(
-                        TahunFiskal::pluck('nama_tahun_fiskal', 'id')->toArray()
-                    )
-                    ->required()
-                    ->disabled() // Ini akan membuat field menjadi readonly
-                    ->default(function () {
-                        // Cari record TahunFiskal yang is_active = true
-                        $activeTahunFiskal = TahunFiskal::where('is_active', true)->first();
-
-                        // Jika ditemukan, gunakan ID-nya sebagai nilai default
-                        if ($activeTahunFiskal) {
-                            return $activeTahunFiskal->id;
-                        }
-
-                        // Jika tidak ada yang aktif, Anda bisa mengembalikan null atau ID default lainnya
-                        // Misalnya, jika Anda ingin default ke tahun fiskal saat ini jika tidak ada yang aktif:
-                        // $currentYear = date('Y');
-                        // $currentTahunFiskal = TahunFiskal::where('tahun_fiskal', $currentYear)->first();
-                        // return $currentTahunFiskal ? $currentTahunFiskal->id : null;
-            
-                        return null; // Mengembalikan null jika tidak ada tahun fiskal aktif
-                    })
-                    ->validationMessages([
-                        'required' => 'Tahun Fiskal belum diaktifkan oleh admin'
-                    ]),
-                Forms\Components\Hidden::make('tahun_fiskal')->required() 
+                
             ]);
     }
 

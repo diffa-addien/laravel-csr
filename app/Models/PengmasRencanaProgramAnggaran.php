@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany; // 1. IMPORT INI
 
 class PengmasRencanaProgramAnggaran extends Model
 {
@@ -29,6 +30,7 @@ class PengmasRencanaProgramAnggaran extends Model
         'keterangan',
         'tahun_fiskal',
     ];
+
     public function dariTahunFiskal(): BelongsTo
     {
         return $this->belongsTo(TahunFiskal::class, 'tahun_fiskal');
@@ -49,4 +51,9 @@ class PengmasRencanaProgramAnggaran extends Model
         return $this->hasMany(PengmasWilayahKegiatan::class, 'program_id');
     }
 
+    // 2. TAMBAHKAN FUNGSI RELASI INI
+    public function strategis(): BelongsToMany
+    {
+        return $this->belongsToMany(Strategi::class, 'pengmas_rencana_program_strategi');
+    }
 }
