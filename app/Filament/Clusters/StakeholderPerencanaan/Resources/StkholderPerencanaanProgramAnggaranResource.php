@@ -28,8 +28,8 @@ class StkholderPerencanaanProgramAnggaranResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationLabel = 'Rencana Program dan Anggaran';
-    protected static ?string $pluralModelLabel = 'Rencana Program dan Anggaran';
+    protected static ?string $navigationLabel = 'Rencana Kegiatan dan Anggaran';
+    protected static ?string $pluralModelLabel = 'Rencana Kegiatan dan Anggaran';
     protected static ?string $modelLabel = 'Data';
 
     protected static ?string $cluster = StakeholderPerencanaan::class;

@@ -6,7 +6,7 @@ use Filament\Clusters\Cluster;
 
 class ManajemenRisiko extends Cluster
 {
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle';
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationLabel = 'Manajemen Risiko';
     public static ?int $navigationSort = 9;

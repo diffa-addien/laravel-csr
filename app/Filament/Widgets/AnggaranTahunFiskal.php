@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class AnggaranTahunFiskal extends ChartWidget
 {
     // Judul yang akan tampil di atas chart
-    protected static ?string $heading = 'Anggaran CSR (PT Pantai Indah Kapuk Dua)';
+    protected static ?string $heading = 'Anggaran CSR (PT Tomo Teknologi Sinergi)';
 
     // Atur tinggi chart jika diperlukan
     protected static ?string $maxHeight = '300px';
