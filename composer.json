@@ -26,6 +26,7 @@
         "spatie/image": "^2.2.2",
         "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.17",
+        "spatie/laravel-sluggable": "^3.7",
         "symfony/console": "^6.2",
         "symfony/css-selector": "^6.2",
         "symfony/event-dispatcher": "^6.2",
