@@ -15,7 +15,14 @@ use App\Http\Controllers\BerandaController;
 |
 */
 
-Route::get('/', [BerandaController::class, 'index']);
+// Route untuk Halaman Beranda
+Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+
+// Route untuk Halaman Semua Berita (dengan pagination)
+Route::get('/berita', [BerandaController::class, 'semuaBerita'])->name('berita.index');
+
+// Route untuk Halaman Detail Berita (berdasarkan slug)
+Route::get('/berita/{slug}', [BerandaController::class, 'showBerita'])->name('berita.show');
 
 Route::get('/contoh-berita', function () {
   return view('beranda');

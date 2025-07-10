@@ -99,7 +99,7 @@ class BeritaResource extends Resource
                                             ->modalHeading('Buat Kategori')
                                             ->modalButton('Buat');
                                     }),
-
+                                    
                                 Forms\Components\Select::make('tags')
                                     ->relationship('tags', 'nama')
                                     ->multiple()

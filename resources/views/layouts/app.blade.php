@@ -2,105 +2,114 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title')</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title')</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <!-- Logo -->
-        <div class="flex-shrink-0">
+<body class="bg-gray-50 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg fixed w-full z-50" data-aos="fade-down" data-aos-duration="200" data-aos-easing="ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="{{ url('/') }}" class="flex items-center">
+                        <!-- <img class="h-12 w-auto" src="{{ url('assets/pik2-logo.png') }}" alt="PIK2 Logo"> -->
+                        <h1 class="font-bold text-2xl">CSR 1.1</h1>
+                    </a>
+                </div>
 
-          <a href="#" class="text-2xl font-bold text-indigo-600">
-            <img class="max-h-14" src="{{ url('assets/pik2-logo.png') }}">
-          </a>
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center gap-8">
+                    <span class="text-gray-600 text-sm font-medium" data-aos="fade-left" data-aos-delay="200">
+                        <span id="clockDisplay"></span> - <span id="dateDisplay"></span>
+                    </span>
+                    <a href="{{ url('admin') }}"
+                       class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-2 px-6 rounded-full hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
+                       data-aos="fade-left" data-aos-delay="400">
+                        Login
+                    </a>
+                </div>
+
+                <!-- Menu Mobile (Hamburger Icon) -->
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-gray-600 hover:text-orange-600 focus:outline-none" aria-label="Toggle menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Menu Desktop -->
-        <div class="hidden md:flex gap-6">
-          <span class="py-2 px-3 text-gray-700">
-            <span id="clockDisplay"></span> - <span id="dateDisplay"></span>
-          </span>
-          <a href="{{ url('admin') }}" class="bg-orange-500 py-2 px-4 rounded text-orange-100 font-bold hover:text-orange-900">Login</a>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+            <div class="px-4 pt-2 pb-4 space-y-2" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                <span class="block text-gray-600 text-sm font-medium">
+                    <span id="clockDisplayMobile"></span> - <span id="dateDisplayMobile"></span>
+                </span>
+                <a href="{{ url('admin') }}"
+                   class="block text-gray-700 hover:text-orange-600 font-semibold py-2">Login</a>
+            </div>
         </div>
+    </nav>
 
-        <!-- Menu Mobile (Hamburger Icon) -->
-        <div class="md:hidden">
-          <button id="menu-btn" class="text-gray-700 hover:text-indigo-600 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
+    <!-- Main Content -->
+    <main class="min-h-screen pt-16">
+        @yield('content')
+    </main>
 
-    <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden">
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="{{ url('admin') }}" class="block text-gray-700 hover:text-indigo-600">Login</a>
-      </div>
-    </div>
-  </nav>
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-white text-center py-6">
+        <p class="text-sm">© {{ date('Y') }} PT Tomo Teknologi. All rights reserved.</p>
+    </footer>
 
-  <main class="min-h-[99vh]">
-    <div class="">
-      @yield('content')
-    </div>
-  </main>
+    <!-- JavaScript for Toggle Mobile Menu -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-  <footer class="bg-gray-950 text-white text-center py-4">
-    &copy; {{ date('Y') }} PT Pantai Indah Kapuk 2, Tbk (PANI).
-  </footer>
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
-  <!-- JavaScript untuk Toggle Mobile Menu -->
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    <!-- JavaScript for Clock and Date -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clockDisplay').textContent = timeString;
+            document.getElementById('clockDisplayMobile').textContent = timeString;
 
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('id-ID', optionsDate);
+            document.getElementById('dateDisplay').textContent = dateString;
+            document.getElementById('dateDisplayMobile').textContent = dateString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 
-  <script>
-    function updateClock() {
-      const now = new Date(); // Dapatkan objek Date saat ini
-
-      // --- Untuk Waktu ---
-      const hours = String(now.getHours()).padStart(2, '0'); // Dapatkan jam, format 2 digit
-      const minutes = String(now.getMinutes()).padStart(2, '0'); // Dapatkan menit, format 2 digit
-      const seconds = String(now.getSeconds()).padStart(2, '0'); // Dapatkan detik, format 2 digit
-
-      const timeString = `${hours}:${minutes}:${seconds}`;
-      document.getElementById('clockDisplay').textContent = timeString;
-
-      // --- Untuk Tanggal ---
-      const optionsDate = {
-        weekday: 'long', // Nama hari (contoh: "Jumat")
-        year: 'numeric', // Tahun (contoh: "2025")
-        month: 'long',   // Nama bulan (contoh: "Juni")
-        day: 'numeric'   // Tanggal (contoh: "13")
-      };
-      // `toLocaleDateString()` adalah cara yang bagus untuk format tanggal sesuai lokal pengguna
-      const dateString = now.toLocaleDateString('id-ID', optionsDate); // Menggunakan 'id-ID' untuk format Indonesia
-      document.getElementById('dateDisplay').textContent = dateString;
-    }
-
-    // Panggil fungsi `updateClock` setiap 1000 milidetik (1 detik)
-    setInterval(updateClock, 1000);
-
-    // Panggil juga sekali saat halaman pertama kali dimuat agar langsung tampil
-    updateClock();
-  </script>
-
+    <!-- AOS JS CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+        });
+    </script>
 </body>
 
 </html>
