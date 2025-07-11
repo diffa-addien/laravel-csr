@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RisTingkatKemungkinan extends Model
+class RisTingkatKemungkinan extends BaseModel
 {
     use HasFactory;
 

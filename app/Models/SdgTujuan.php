@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class SdgTujuan extends Model implements HasMedia
+class SdgTujuan extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 

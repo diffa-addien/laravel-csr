@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany; // 1. IMPORT INI
 
-class PengmasRencanaProgramAnggaran extends Model
+class PengmasRencanaProgramAnggaran extends BaseModel
 {
     use HasFactory;
 

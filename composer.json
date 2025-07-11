@@ -23,6 +23,7 @@
         "maennchen/zipstream-php": "^2.0",
         "marcogermani87/filament-captcha": "^1.5",
         "openspout/openspout": "^4.23",
+        "owen-it/laravel-auditing": "^13.7",
         "spatie/image": "^2.2.2",
         "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.17",

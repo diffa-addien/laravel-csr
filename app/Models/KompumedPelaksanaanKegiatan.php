@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 
-class KompumedPelaksanaanKegiatan extends Model implements HasMedia
+class KompumedPelaksanaanKegiatan extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 

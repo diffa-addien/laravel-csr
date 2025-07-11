@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Kategori extends Model
+class Kategori extends BaseModel
 {
     use HasFactory, HasSlug; // ✅ Tambahkan HasSlug
 

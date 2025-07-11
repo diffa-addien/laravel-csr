@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class StkholderPelaksanaanPpk extends Model implements HasMedia
+class StkholderPelaksanaanPpk extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 

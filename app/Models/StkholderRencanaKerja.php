@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class StkholderRencanaKerja extends Model
+class StkholderRencanaKerja extends BaseModel
 {
     use HasFactory;
 

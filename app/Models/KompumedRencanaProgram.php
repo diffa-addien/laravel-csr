@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Import ini
 
-class KompumedRencanaProgram extends Model
+class KompumedRencanaProgram extends BaseModel
 {
     use HasFactory;
 

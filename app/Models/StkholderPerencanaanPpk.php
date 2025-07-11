@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Import this
 
-class StkholderPerencanaanPpk extends Model
+class StkholderPerencanaanPpk extends BaseModel
 {
     use HasFactory;
 

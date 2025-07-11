@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class PengmasPelaksanaanKegiatan extends Model implements HasMedia
+class PengmasPelaksanaanKegiatan extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 

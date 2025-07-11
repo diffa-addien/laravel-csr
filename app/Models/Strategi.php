@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Import this
 
-class Strategi extends Model
+class Strategi extends BaseModel
 {
     use HasFactory;
 

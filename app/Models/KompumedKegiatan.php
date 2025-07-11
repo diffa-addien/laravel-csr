@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class KompumedKegiatan extends Model
+class KompumedKegiatan extends BaseModel
 {
     use HasFactory;
 

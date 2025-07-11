@@ -10,7 +10,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 
-class Berita extends Model implements HasMedia
+class Berita extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasSlug;
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; 
 
-class MonevPengmas extends Model
+class MonevPengmas extends BaseModel
 {
     use HasFactory;
 

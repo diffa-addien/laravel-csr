@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
-class StkholderPerencanaanProgramAnggaran extends Model
+class StkholderPerencanaanProgramAnggaran extends BaseModel
 {
     use HasFactory;
 

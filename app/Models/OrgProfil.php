@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class OrgProfil extends Model implements HasMedia
+class OrgProfil extends BaseModel implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
