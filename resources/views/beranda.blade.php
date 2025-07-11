@@ -10,7 +10,7 @@
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <!-- Hero Text -->
                 <div class="md:w-1/2 py-8 mb-8 md:mb-0" data-aos="fade-right" data-aos-duration="1000" data-aos-easing="ease-in-out">
-                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">Sistem Informasi CSR PT Tomo Teknologi</h1>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">Sistem Informasi CSR</h1>
                     <p class="mt-6 text-xl text-gray-200 max-w-lg">
                         Pantau rencana dan pelaksanaan kegiatan perusahaan secara real-time
                     </p>
@@ -30,13 +30,16 @@
                     <img class="w-full px-8 drop-shadow-2xl" src="{{ url('assets/splash-art.png') }}" alt="Hero Image">
                 </div>
             </div>
+            <div class="text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-in-out">
+                Developed by PT Tomo Teknologi Sinergi
+            </div>
         </div>
     </section>
 
     <!-- News Portal Section -->
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
         <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
-            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Portal Berita</h1>
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Portal Berita (Contoh)</h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">Berita terbaru terkait CSR PT Pantai Indah Kapuk 2, Tbk</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
