@@ -16,7 +16,7 @@
                     </p>
                     <!-- Call-to-Action Buttons -->
                     <div class="mt-8 flex space-x-4">
-                        <a href="https://www.youtube.com/@CSRPIK2" target="_blank" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-8 rounded-full hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105" data-aos="zoom-in" data-aos-delay="200">
+                        <a href="https://www.youtube.com/" target="_blank" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-8 rounded-full hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105" data-aos="zoom-in" data-aos-delay="200">
                             Lihat Kanal YouTube
                         </a>
                         <a href="{{ route('berita.index') }}"
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-in-out">
-                Developed by PT Tomo Teknologi Sinergi
+                Developed by {{ config('app.corp') }}
             </div>
         </div>
     </section>
@@ -40,7 +40,7 @@
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
         <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
             <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Portal Berita (Contoh)</h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Berita terbaru terkait CSR PT Pantai Indah Kapuk 2, Tbk</p>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Berita terbaru terkait CSR {{ config('app.corp') }}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             @forelse ($beritas as $berita)

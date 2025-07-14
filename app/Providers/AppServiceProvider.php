@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             fn(): HtmlString => new HtmlString('
                 <div class="flex justify-center items-center space-x-4">
                     <span class=" gap-1">
-                        CSR PT Tomo Teknologi
+                        CSR '.config('app.corp').'
                     </span>
                 </div>
             ')
@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
             fn(): HtmlString => new HtmlString('
                 <div class="flex items-center hidden md:block space-x-4">
                     <span class="px-3 py-2 rounded-lg flex items-center gap-1">
-                        CSR PT Tomo Teknologi
+                        CSR '.config('app.corp').'
                     </span>
                 </div>
             ')

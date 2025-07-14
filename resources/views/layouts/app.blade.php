@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>@yield('title') - {{ config('app.corp') }}</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS CSS CDN -->
@@ -67,7 +67,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-950 text-white text-center py-6">
-        <p class="text-sm">© {{ date('Y') }} PT Tomo Teknologi. All rights reserved.</p>
+        <p class="text-sm">© {{ date('Y').' '.config('app.corp') }}. All rights reserved.</p>
     </footer>
 
     <!-- JavaScript for Toggle Mobile Menu -->
