@@ -40,7 +40,7 @@
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
         <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
             <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Portal Berita (Contoh)</h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Berita terbaru terkait CSR {{ config('app.corp') }}</p>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Berita terbaru terkait CSR</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             @forelse ($beritas as $berita)

@@ -7,13 +7,16 @@ use App\Filament\Clusters\KompumedPerencanaan\Resources\KompumedKegiatanAnggaran
 use App\Filament\Clusters\KompumedPerencanaan\Resources\KompumedKegiatanAnggaranResource\RelationManagers;
 use App\Models\KompumedKegiatanAnggaran;
 use App\Models\KompumedKegiatan;
+use App\Models\TahunFiskal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\HtmlString;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,6 +37,7 @@ class KompumedKegiatanAnggaranResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $cluster = KompumedPerencanaan::class;
+    private static bool $notificationSent = false;
 
     public static function form(Form $form): Form
     {
@@ -105,18 +109,18 @@ class KompumedKegiatanAnggaranResource extends Resource
                     ->limit(50)
                     ->searchable(),
                 TextColumn::make('frekuensi')
-                    ->formatStateUsing(fn ($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
+                    ->formatStateUsing(fn($record) => "{$record->frekuensi} " . ucfirst($record->frekuensi_unit))
                     ->sortable(),
                 TextColumn::make('biaya')
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
                 TextColumn::make('kuantitas')
-                    ->formatStateUsing(fn ($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
+                    ->formatStateUsing(fn($record) => "{$record->kuantitas} " . ucfirst($record->kuantitas_unit))
                     ->sortable(),
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
-                    ->getStateUsing(fn ($record) => $record->biaya * $record->kuantitas)
-                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->getStateUsing(fn($record) => $record->biaya * $record->kuantitas)
+                    ->formatStateUsing(fn($state) => 'Rp ' . number_format($state, 0, ',', '.'))
                     ->sortable(),
             ])
             ->filters([
