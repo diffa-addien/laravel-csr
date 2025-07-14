@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'CSR PT PANI, Tbk')
+@section('title', 'CSR')
 
 @section('content')
     <!-- Hero Section -->
@@ -49,7 +49,7 @@
                    data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ $loop->iteration * 150 }}"
                    data-aos-anchor-placement="top-bottom">
                     <img src="{{ $berita->getFirstMediaUrl('images') ?: url('assets/banner.png') }}" alt="{{ $berita->judul }}"
-                         class="w-full h-56 object-cover rounded-t-xl">
+                         class="w-full object-cover rounded-t-xl">
                     <div class="p-6">
                         <h2 class="text-2xl font-semibold text-gray-800 mb-3 line-clamp-2">{{ $berita->judul }}</h2>
                         <p class="text-gray-500 text-sm mb-3">Oleh: <span class="font-medium">{{ $berita->penulis }}</span></p>

@@ -13,7 +13,7 @@ class DataTesChart extends ChartWidget
     protected static ?int $sort = 5;
     public static function canView(): bool
     {
-        return true; // sembunyikan untuk semua user
+        return false; // sembunyikan untuk semua user
     }
 
     protected function getData(): array

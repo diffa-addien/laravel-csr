@@ -46,7 +46,7 @@ class AnggaranTahunFiskal extends ChartWidget
                     'data' => $data,
                     // Anda bisa sesuaikan warna agar mirip dengan contoh gambar
                     'backgroundColor' => 'rgba(0, 124, 12, 0.88)',
-                    'borderColor' => 'rgba(0, 124, 12, 0.88)',
+                    'borderColor' => 'rgba(0, 124, 12, 0)',
                 ],
             ],
             'labels' => $years, // Label untuk sumbu-X

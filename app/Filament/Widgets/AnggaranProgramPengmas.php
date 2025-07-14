@@ -19,6 +19,10 @@ class AnggaranProgramPengmas extends ChartWidget
 
     public array $records = [];
 
+    public static function canView(): bool
+    {
+        return false;
+    }
     protected function getData(): array
     {
         // 1. Ambil 4 tahun fiskal terakhir, diurutkan dari yang terlama ke terbaru.
