@@ -115,7 +115,7 @@ class KompumedKegiatanResource extends Resource
         if (!$activeTahunFiskalId) {
             $teksFiskal = "Tahun Fiskal belum diaktifkan";
         } else {
-            $teksFiskal = "Tahun fiskal " . $activeTahunFiskalId->nama_tahun_fiskal;
+            $teksFiskal = "Tahun Fiskal " . $activeTahunFiskalId->nama_tahun_fiskal;
         }
         return $table
             ->header(

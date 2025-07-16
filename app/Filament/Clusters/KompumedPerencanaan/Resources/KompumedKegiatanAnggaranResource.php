@@ -43,20 +43,38 @@ class KompumedKegiatanAnggaranResource extends Resource
     {
         return $form
             ->schema([
+                // --- AWAL BAGIAN YANG DIUBAH ---
                 Select::make('kegiatan_id')
                     ->label('Dari Kegiatan')
-                    ->options(function () {
-                        return KompumedKegiatan::query()
-                            ->with(['regional', 'program'])
-                            ->selectRaw('kompumed_kegiatans.id, CONCAT(kompumed_kegiatans.nama, " (", regionals.nama_regional, " - ", kompumed_rencana_programs.nama, ")") as kegiatan')
-                            ->join('regionals', 'kompumed_kegiatans.regional_id', '=', 'regionals.id')
-                            ->join('kompumed_rencana_programs', 'kompumed_kegiatans.program_id', '=', 'kompumed_rencana_programs.id')
-                            ->orderBy('kompumed_kegiatans.nama') // Atur pengurutan berdasarkan kolom yang sesuai
-                            ->pluck('kegiatan', 'id');
+                    ->relationship(
+                        name: 'kegiatan',
+                        titleAttribute: 'nama', // Atribut untuk pencarian
+                        modifyQueryUsing: function (Builder $query) {
+                            $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+
+                            if (!$activeTahunFiskalId) {
+                                return $query->where('id', -1); // Kembalikan query kosong
+                            }
+
+                            // Filter KompumedKegiatan yang programnya termasuk dalam tahun fiskal aktif
+                            return $query
+                                ->whereHas('program', function (Builder $subQuery) use ($activeTahunFiskalId) {
+                                $subQuery->where('tahun_fiskal', $activeTahunFiskalId);
+                            })
+                                ->with(['regional', 'program']); // Eager load untuk efisiensi
+                        }
+                    )
+                    ->getOptionLabelFromRecordUsing(function ($record) {
+                        // $record adalah instance dari model KompumedKegiatan
+                        $regionalName = $record->regional?->nama_regional ?? 'N/A';
+                        $programName = $record->program?->nama ?? 'N/A';
+
+                        return "{$record->nama} ({$regionalName} - {$programName})";
                     })
                     ->required()
                     ->searchable()
                     ->preload(),
+                // --- AKHIR BAGIAN YANG DIUBAH ---
                 Textarea::make('deskripsi')
                     ->nullable()
                     ->columnSpanFull(),
@@ -97,7 +115,38 @@ class KompumedKegiatanAnggaranResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // Siapkan teks untuk header tabel
+        $activeTahunFiskal = TahunFiskal::where('is_active', true)->first();
+        $teksFiskal = $activeTahunFiskal ? 'Tahun Fiskal ' . $activeTahunFiskal->nama_tahun_fiskal : 'Tahun Fiskal Belum Diaktifkan';
+
         return $table
+            // --- AWAL BAGIAN YANG DIUBAH ---
+            ->header(
+                fn() => new HtmlString('<div class="text-center px-4 py-2 bg-gray-50 dark:bg-gray-800 text-sm font-medium">' . $teksFiskal . '</div>')
+            )
+            ->modifyQueryUsing(function (Builder $query) {
+                $activeTahunFiskalId = TahunFiskal::where('is_active', true)->value('id');
+
+                if (!$activeTahunFiskalId) {
+                    if (!self::$notificationSent) {
+                        Notification::make()
+                            ->title('Tahun fiskal belum diaktifkan')
+                            ->body('Silahkan hubungi bagian admin untuk mengaktifkan tahun fiskal.')
+                            ->danger()
+                            ->persistent()
+                            ->send();
+                        self::$notificationSent = true;
+                    }
+                    return $query->whereRaw('1 = 0');
+                }
+
+                // Filter Anggaran berdasarkan tahun fiskal aktif melalui relasi:
+                // KompumedKegiatanAnggaran -> kegiatan -> program -> tahun_fiskal
+                return $query->whereHas('kegiatan.program', function (Builder $programQuery) use ($activeTahunFiskalId) {
+                    $programQuery->where('tahun_fiskal', $activeTahunFiskalId);
+                });
+            })
+            // --- AKHIR BAGIAN YANG DIUBAH ---
             ->columns([
                 TextColumn::make('kegiatan.nama')
                     ->label('Kegiatan')
