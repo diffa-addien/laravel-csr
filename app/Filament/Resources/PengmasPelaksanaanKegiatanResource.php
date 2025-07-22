@@ -127,7 +127,7 @@ class PengmasPelaksanaanKegiatanResource extends Resource
                         }
                     })
                     ->required()
-                    ->searchable()
+                    // ->searchable()
                     ->preload()
                     ->live(),
                 TextInput::make('jumlah_penerima')
