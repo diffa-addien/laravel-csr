@@ -14,7 +14,7 @@ class DataKegiatanChart extends ChartWidget
 
     public static function canView(): bool
     {
-        return false; // sembunyikan untuk semua user
+        return true; // sembunyikan untuk semua user
     }
 
     protected function getData(): array
