@@ -65,6 +65,7 @@ class GlossaryResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('nama_glossary', 'asc')
             ->filters([
                 //
             ])
