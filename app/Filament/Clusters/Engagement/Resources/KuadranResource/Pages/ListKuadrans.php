@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\KuadranResource\Pages;
+namespace App\Filament\Clusters\Engagement\Resources\KuadranResource\Pages;
 
-use App\Filament\Resources\KuadranResource;
+use App\Filament\Clusters\Engagement\Resources\KuadranResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

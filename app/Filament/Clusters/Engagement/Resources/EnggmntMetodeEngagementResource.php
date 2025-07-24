@@ -23,8 +23,8 @@ class EnggmntMetodeEngagementResource extends Resource
     protected static ?string $cluster = Engagement::class;
 
     // Opsional: untuk nama yang lebih rapi di sidebar
-    protected static ?string $modelLabel = 'Metode Engagement';
-    protected static ?string $pluralModelLabel = 'Metode Engagement';
+    protected static ?string $modelLabel = 'Engagement';
+    protected static ?string $pluralModelLabel = 'Engagement';
 
 
     public static function form(Form $form): Form
@@ -34,8 +34,12 @@ class EnggmntMetodeEngagementResource extends Resource
                 Forms\Components\TextInput::make('nama_metode')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('deskripsi')
-                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('deskripsi')
+                    ->nullable()
+                    ->columnSpanFull()
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ]),
             ]);
     }
 

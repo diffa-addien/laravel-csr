@@ -61,6 +61,12 @@ class StkholderProfilInternalResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
+                Select::make('kategori_stakeholder_id')
+                    ->relationship(name: 'kategoriStakeholder', titleAttribute: 'nama_kategori')
+                    ->searchable()
+                    ->preload()
+                    ->label('Kategori Stakeholder')
+                    ->required(),
                 Tables\Columns\TextColumn::make('keterangan')
                     ->searchable()
                     ->limit(50),

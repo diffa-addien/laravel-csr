@@ -32,7 +32,7 @@ class StkholderProfilExternalResource extends Resource
     protected static ?string $modelLabel = 'Data';
 
     protected static ?int $navigationSort = 2;
-    
+
 
     protected static ?string $cluster = StakeholderProfil::class;
 
@@ -46,6 +46,12 @@ class StkholderProfilExternalResource extends Resource
                 Forms\Components\TextInput::make('jabatan')
                     ->required()
                     ->maxLength(255),
+                Select::make('kategori_stakeholder_id')
+                    ->relationship(name: 'kategoriStakeholder', titleAttribute: 'nama_kategori')
+                    ->searchable()
+                    ->preload()
+                    ->label('Kategori Stakeholder')
+                    ->required(),
                 Forms\Components\Textarea::make('alamat')
                     ->required()
                     ->columnSpanFull(),

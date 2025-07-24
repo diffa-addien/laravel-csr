@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Engagement\Resources;
 
-use App\Filament\Resources\KuadranResource\Pages;
+use App\Filament\Clusters\Engagement;
+use App\Filament\Clusters\Engagement\Resources\KuadranResource\Pages;
 use App\Models\Kuadran;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,12 +19,13 @@ class KuadranResource extends Resource
     protected static ?string $model = Kuadran::class;
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2'; // Icon yang relevan
 
-    protected static ?string $navigationGroup = 'Data Induk';
+    // protected static ?string $navigationGroup = 'Data Induk';
     // protected static ?string $navigationParentItem = 'Wilayah';
     protected static ?string $navigationLabel = 'Kuadran Pemangku Kepentingan';
     protected static ?string $pluralModelLabel = 'Data Kuadran';
     protected static ?string $modelLabel = 'Data';
-    protected static ?int $navigationSort = 7;
+    protected static ?string $cluster = Engagement::class;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
