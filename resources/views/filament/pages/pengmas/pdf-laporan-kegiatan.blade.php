@@ -107,7 +107,7 @@
                 @forelse ($records as $index => $record)
                     {{-- Baris untuk data utama --}}
                     <tr class="main-data-row">
-                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td class="text-center" style="border-top: 1px solid #ccc;">{{ $index + 1 }}</td>
                         <td>{{ $record->nama_kegiatan ?? '-' }}</td>
                         <td>{{ $record->dariBidang->nama_bidang ?? '-' }}</td>
                         <td>{{ $record->desa->nama_desa ?? '-' }}</td>
@@ -119,7 +119,7 @@
                     {{-- Baris KHUSUS untuk Keterangan --}}
                     <tr>
                         {{-- Sel kosong untuk kolom 'No' --}}
-                        <td style="border-top: none"></td> 
+                        <td></td> 
                         {{-- Sel keterangan yang digabung --}}
                         <td colspan="7" class="keterangan-cell">
                             <span class="font-bold">Keterangan:</span> {{ $record->keterangan ?? '-' }}
