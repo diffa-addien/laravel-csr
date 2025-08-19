@@ -30,31 +30,44 @@
         }
         table { 
             width: 100%; 
-            border-collapse: collapse; /* Kunci untuk border grid yang rapi */
-            margin-bottom: 20px;
+            border-collapse: collapse;
+            /* Tambahkan ini untuk membantu renderer PDF menangani page break */
+            page-break-inside: auto; 
+        }
+        tr {
+            /* Mencegah baris terpotong di tengah */
+            page-break-inside: avoid; 
+            page-break-after: auto;
         }
         /* Style untuk SEMUA cell (header dan data) */
         table th, table td { 
-            border: 1px solid #ccc; /* Border abu-abu muda yang konsisten di semua sisi */
+            border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
             vertical-align: top;
-            word-wrap: break-word; /* Memastikan teks panjang tidak merusak layout */
+            word-wrap: break-word;
         }
-        /* Style khusus untuk header tabel */
         table th { 
             background-color: #f2f2f2;
             font-weight: bold; 
             text-align: center;
             vertical-align: middle;
         }
-        /* Style untuk baris keterangan agar tetap menonjol */
+        /* Style baru untuk sel keterangan */
         .keterangan-cell {
-            background-color: #f9f9f9; /* Latar sedikit berbeda untuk memisahkan secara visual */
+            padding: 8px;
+            /* border-top: none; Menghilangkan border atas agar menyatu dengan baris data */
+            text-align: justify; /* Membuat teks rata kiri-kanan */
+        }
+        /* Style untuk baris data utama agar border bawahnya menyatu dengan keterangan */
+        .main-data-row td {
+            border-bottom: none; /* Menghilangkan border bawah dari sel data utama */
         }
         .text-center { text-align: center; }
         .text-right { text-align: right; }
         .uppercase { text-transform: uppercase; }
+        .no-border { border: none; }
+        .font-bold { font-weight: bold; }
     </style>
 </head>
 <body>
@@ -76,7 +89,6 @@
 
         <table>
             <thead>
-                {{-- Menggunakan struktur header asli yang lebih robust dengan rowspan & colspan --}}
                 <tr>
                     <th rowspan="2" style="width: 4%;">No</th>
                     <th rowspan="2" style="width: 20%;">Nama Kegiatan</th>
@@ -93,8 +105,9 @@
             </thead>
             <tbody>
                 @forelse ($records as $index => $record)
-                    <tr>
-                        <td class="text-center" rowspan="2">{{ $index + 1 }}</td>
+                    {{-- Baris untuk data utama --}}
+                    <tr class="main-data-row">
+                        <td class="text-center">{{ $index + 1 }}</td>
                         <td>{{ $record->nama_kegiatan ?? '-' }}</td>
                         <td>{{ $record->dariBidang->nama_bidang ?? '-' }}</td>
                         <td>{{ $record->desa->nama_desa ?? '-' }}</td>
@@ -103,9 +116,13 @@
                         <td class="text-center">{{ $record->rencana_selesai ? \Carbon\Carbon::parse($record->rencana_selesai)->format('d/m/y') : '-' }}</td>
                         <td class="text-center">{{ $record->jumlah_penerima ?? '0' }}</td>
                     </tr>
+                    {{-- Baris KHUSUS untuk Keterangan --}}
                     <tr>
-                        <td colspan="7" class="">
-                            <b>Keterangan:</b> {{ $record->keterangan ?? '-' }}
+                        {{-- Sel kosong untuk kolom 'No' --}}
+                        <td style="border-top: none"></td> 
+                        {{-- Sel keterangan yang digabung --}}
+                        <td colspan="7" class="keterangan-cell">
+                            <span class="font-bold">Keterangan:</span> {{ $record->keterangan ?? '-' }}
                         </td>
                     </tr>
                 @empty
