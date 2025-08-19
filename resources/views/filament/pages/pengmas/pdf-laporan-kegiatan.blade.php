@@ -119,7 +119,7 @@
                     {{-- Baris KHUSUS untuk Keterangan --}}
                     <tr>
                         {{-- Sel kosong untuk kolom 'No' --}}
-                        <td style="border-top: none"></td> 
+                        <td></td> 
                         {{-- Sel keterangan yang digabung --}}
                         <td colspan="7" class="keterangan-cell">
                             <span class="font-bold">Keterangan:</span> {{ $record->keterangan ?? '-' }}
