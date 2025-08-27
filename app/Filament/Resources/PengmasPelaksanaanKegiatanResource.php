@@ -107,20 +107,17 @@ class PengmasPelaksanaanKegiatanResource extends Resource
                     ->live()
                     ->afterStateUpdated(fn(Set $set) => $set('kegiatan_id', null))
                     ->dehydrated(false),
-                // STEP 2: Select Kegiatan (Filtered by Program)
                 Select::make('kegiatan_id')
                     ->label('Pilih Kegiatan')
                     ->options(function (Get $get) {
-                        $programId = $get('program_selector'); // Get the selected program_id
+                        $programId = $get('program_selector');
                         if ($programId) {
                             return PengmasWilayahKegiatan::query()
                                 ->where('program_id', $programId)
                                 ->pluck('nama_kegiatan', 'id');
                         }
-                        // Return empty if no program is selected
                         return collect();
                     })
-                    // Hook ini mengisi 'program_selector' saat form edit dimuat
                     ->afterStateHydrated(function (Set $set, $state) {
                         if ($state) {
                             $kegiatan = PengmasWilayahKegiatan::find($state);
@@ -132,17 +129,55 @@ class PengmasPelaksanaanKegiatanResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload()
-                    ->live(),
+                    ->live()
+                    ->afterStateUpdated(function (Set $set, $state) {
+                        if ($state) {
+                            $kegiatan = PengmasWilayahKegiatan::find($state);
+                            if ($kegiatan) {
+                                $set('tanggal_pelaksanaan', $kegiatan->rencana_mulai);
+                            }
+                        } else {
+                            $set('tanggal_pelaksanaan', null);
+                        }
+                    }),
+
                 TextInput::make('jumlah_penerima')
                     ->required()
                     ->numeric()
-                    ->minValue(1),
+                    ->minValue(1)->helperText(function (Get $get) {
+                        $kegiatanId = $get('kegiatan_id');
+                        if (!$kegiatanId) {
+                            return null;
+                        }
+
+                        $kegiatan = PengmasWilayahKegiatan::find($kegiatanId);
+                        if (!$kegiatan) {
+                            return null;
+                        }
+
+                        return 'Penerima yang direncanakan: ' . ($kegiatan->jumlah_penerima ?? '0');
+                    }),
                 TextInput::make('anggaran_pelaksanaan')
                     ->required()
                     ->prefix('Rp')
                     ->numeric()
                     ->required()
-                    ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2),
+                    ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2)->helperText(function (Get $get) {
+                        $kegiatanId = $get('kegiatan_id');
+                        if (!$kegiatanId) {
+                            // Beri petunjuk umum jika belum ada kegiatan yang dipilih
+                            return 'Masukkan angka saja tanpa titik atau koma.';
+                        }
+
+                        $kegiatan = PengmasWilayahKegiatan::find($kegiatanId);
+                        if (!$kegiatan) {
+                            return null;
+                        }
+
+                        $formattedAnggaran = 'Rp ' . number_format($kegiatan->anggaran, 0, ',', '.');
+
+                        return 'Anggaran yang direncanakan: ' . $formattedAnggaran;
+                    }),
                 DatePicker::make('tanggal_pelaksanaan')
                     ->required(),
             ]);
