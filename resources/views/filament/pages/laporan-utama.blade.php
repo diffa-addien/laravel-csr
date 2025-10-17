@@ -1,7 +1,7 @@
 <x-filament-panels::page>
     {{-- Ini adalah container utama dari halaman --}}
 
-    {{-- Kita buat grid di sini --}}
+    <!-- {{-- Kita buat grid di sini --}}
     <div class="my-0 pt-2 text-xl font-bold border-t border-gray-600">Modul Pemangku Kepentingan</div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="p-6 bg-white rounded-xl shadow-lg space-y-4 dark:bg-gray-800">
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
     {{-- MODUL PENGMAS ================== --}}
     <div class="my-0 pt-2 text-xl font-bold border-t border-gray-600">Modul Pengembangan Masyarakat</div>

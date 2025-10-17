@@ -24,6 +24,7 @@ class LaporanUtama extends Page
 
   // Grup navigasi (opsional, untuk mengelompokkan menu)
   protected static ?string $navigationGroup = 'Laporan';
+  
 
   // Judul yang akan tampil di header halaman
   protected static ?string $title = 'Pusat Laporan';

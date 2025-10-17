@@ -30,9 +30,9 @@ class Loginan extends BaseLoginPage
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getRememberFormComponent(),
-                CaptchaField::make('captcha') // Tambahkan field captcha di sini
-                    ->label('Buktikan Anda bukan robot')
-                    ->required(),
+                // CaptchaField::make('captcha') // Tambahkan field captcha di sini
+                //     ->label('Buktikan Anda bukan robot')
+                //     ->required(),
             ])
             ->statePath('data');
     }
