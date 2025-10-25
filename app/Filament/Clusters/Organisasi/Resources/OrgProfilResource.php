@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Forms\Components\RichEditor; // <-- IMPORT INI
+use Filament\Forms\Components\Textarea;
 
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload as FilamentSpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn as FilamentSpatieMediaLibraryImageColumn;
@@ -54,6 +56,15 @@ class OrgProfilResource extends Resource
                 TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
+                RichEditor::make('visi')
+                    ->label('Visi')
+                    ->nullable()
+                    ->columnSpanFull(), // Agar lebarnya penuh
+
+                RichEditor::make('misi')
+                    ->label('Misi')
+                    ->nullable()
+                    ->columnSpanFull(), // Agar lebarnya penuh
                 TextInput::make('pimpinan')->label('Nama Pimpinan')
                     ->required()
                     ->maxLength(255),

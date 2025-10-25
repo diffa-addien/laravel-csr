@@ -21,8 +21,9 @@ class CetakLaporanKegiatanPerPilar extends Page implements HasForms
     use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-check';
-    protected static ?string $navigationLabel = 'Laporan Pelaksanaan';
-    protected static ?string $navigationGroup = 'Laporan';
+    protected static bool $shouldRegisterNavigation = false;
+    // protected static ?string $navigationLabel = 'Laporan Pelaksanaan';
+    // protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $slug = 'pengmas/cetak-laporan-program-pilar';
     protected static ?string $title = 'Laporan Pelaksanaan Kegiatan';
     protected static string $view = 'filament.pages.pengmas.kegiatan-filter-tahun-pilar';

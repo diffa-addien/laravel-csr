@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TagsColumn; 
 
 use App\Filament\Traits\HasResourcePermissions;
 
@@ -26,7 +27,7 @@ class BidangResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     protected static ?string $navigationGroup = 'Data Induk';
     protected static ?string $navigationLabel = 'Pilar';
-    protected static ?string $pluralModelLabel = 'Pilar';
+    protected static ?string $pluralModelLabel = 'Pilar CSR';
     protected static ?string $modelLabel = 'Data';
     protected static ?int $navigationSort = 3;
 
@@ -74,6 +75,9 @@ class BidangResource extends Resource
                 TextColumn::make('keterangan')
                     ->formatStateUsing(fn(?string $state): string => strip_tags($state ?? ''))
                     ->limit(50)
+                    ->searchable(),
+                    TagsColumn::make('sdgTujuans.tujuan') // 'sdgTujuans' = nama relasi, 'tujuan' = kolom yang ingin ditampilkan
+                    ->label('SDGs Terkait')
                     ->searchable(),
             ])
             ->filters([

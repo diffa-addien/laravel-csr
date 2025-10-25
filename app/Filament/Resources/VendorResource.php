@@ -69,9 +69,6 @@ class VendorResource extends Resource
                 Tables\Columns\TextColumn::make('alamat')
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
             ])
             ->filters([
                 //

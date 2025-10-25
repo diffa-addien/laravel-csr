@@ -21,6 +21,8 @@ class OrgProfil extends BaseModel implements HasMedia
         'lv1',
         'lv2',
         'lv3',
+        'visi',  // <-- TAMBAHKAN INI
+        'misi',
     ];
 
     public function parent(): BelongsTo

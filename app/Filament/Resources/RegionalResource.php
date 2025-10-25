@@ -22,8 +22,8 @@ class RegionalResource extends Resource
 
     protected static ?string $navigationGroup = 'Data Induk';
     // protected static ?string $navigationParentItem = 'Wilayah';
-    protected static ?string $navigationLabel = 'Regional';
-    protected static ?string $pluralModelLabel = 'Data Regional';
+    protected static ?string $navigationLabel = 'Zona';
+    protected static ?string $pluralModelLabel = 'Data Zona';
     protected static ?string $modelLabel = 'Data';
 
     public static function form(Form $form): Form
@@ -31,17 +31,18 @@ class RegionalResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama_regional')
-                    ->label('Nama Regional')
+                    ->label('Nama Zona')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('pimpinan')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('visi')
-                    ->nullable(),
-                Forms\Components\Textarea::make('misi')
-                    ->nullable(),
+                // Forms\Components\Textarea::make('visi')
+                //     ->nullable(),
+                // Forms\Components\Textarea::make('misi')
+                //     ->nullable(),
                 Forms\Components\Textarea::make('tujuan')
+                    ->label('Deskripsi')
                     ->nullable()
                     ->columnSpanFull(),
                 
@@ -53,7 +54,7 @@ class RegionalResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama_regional')
-                    ->label('Nama Regional')
+                    ->label('Nama Zona')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('pimpinan')

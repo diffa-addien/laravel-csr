@@ -21,7 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\QueryException; // <-- 1. TAMBAHKAN USE STATEMENT INI
+use Illuminate\Database\QueryException;
 use Filament\Notifications\Notification;
 
 use App\Filament\Traits\HasResourcePermissions;
